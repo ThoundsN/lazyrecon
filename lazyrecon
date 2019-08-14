@@ -182,18 +182,17 @@ cat $rootPath/$domain/$foldername/urllist.txt | aquatone -chrome-path $chromiumP
 }
 
 altdns(){
-  touch $rootPath/$domain/$foldername/altdns_temp
-  altdns -i $rootPath/$domain/$foldername/$domain.txt -o $rootPath/$domain/$foldername/altdns_temp -w  /root/Wordlist/altdnsword.txt"
 
-  echo "Starting resolving permution of subdomain with massdns "
-  massdns -r /root/Wordlist/resolver.txt -t A -o S  $rootPath/$domain/$foldername/altdns_temp --outfile  $rootPath/$domain/$foldername/massdns_temp
+touch $rootPath/$domain/$foldername/altdns_temp
+altdns -i $rootPath/$domain/$foldername/$domain.txt -o $rootPath/$domain/$foldername/altdns_temp -w  /root/Wordlist/altdnsword.txt
 
-  cat $rootPath/$domain/$foldername/massdns_temp >> $rootPath/$domain/$foldername/temp.txt
-  awk '{print $1}' $rootPath/$domain/$foldername/massdns_temp >> $rootPath/$domain/$foldername/$domain.txt
+echo "Starting resolving permution of subdomain with massdns "
+massdns -r /root/Wordlist/resolver.txt -t A -o S  $rootPath/$domain/$foldername/altdns_temp --outfile  $rootPath/$domain/$foldername/massdns_temp
 
+cat $rootPath/$domain/$foldername/massdns_temp >> $rootPath/$domain/$foldername/temp.txt
+awk '{print $1}' $rootPath/$domain/$foldername/massdns_temp >> $rootPath/$domain/$foldername/$domain.txt
 
 }
-
 
 
 searchcrtsh(){
@@ -256,8 +255,8 @@ report(){
   subdomain=$(echo $subd | sed 's/\http\:\/\///g' |  sed 's/\https\:\/\///g')
   echo "${yellow}	[+] Generating report for $subdomain"
 
- cat $rootPath/$domain/$foldername/aqua_out/aquatone_session.json | jq --arg v "$subd" -r '.pages[$v].headers[] | keys[] as $k | "\($k), \(.[$k])"' | grep -v "decreasesSecurity\|increasesSecurity" >> $rootPath/$domain/$foldername/aqua_out/parsedjson/$subdomain.headers
- 
+ cat $rootPath/$domain/$foldername/aqua_out/aquatone_session.json | jq --arg v "$subd" -r '.pages[$v].headers[] | keys[] as $k | "\($k), \(.[$k])"' | grep -v "decreasesSecurity\|increasesSecurity"  >> $rootPath/$domain/$foldername/aqua_out/parsedjson/$subdomain.headers
+
   # dirsearchfile=$(ls ~/tools/dirsearch/reports/$subdomain/ | grep -v old)
 
   touch $rootPath/$domain/$foldername/reports/$subdomain.html
