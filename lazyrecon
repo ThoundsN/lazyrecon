@@ -23,7 +23,6 @@ rootPath=/root/OneDrive/output/lazyrecon
 # Happy Hunting
 ########################################
 
-$rootPath/$domain/$foldername/urllist.txt
 
 
 
