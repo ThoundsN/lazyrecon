@@ -198,9 +198,9 @@ awk '{print $1}' $rootPath/$domain/$foldername/massdns_temp >> $rootPath/$domain
 searchcrtsh(){
 
  /root/recon_tools/massdns/scripts/ct.py $domain 2>/dev/null > $rootPath/$domain/$foldername/tmp.txt
- [ -s $rootPath/$domain/$foldername/tmp.txt ] && cat $rootPath/$domain/$foldername/tmp.txt | massdns -r /root/Wordlist/resolvers.txt -t A -q -o S -w  $rootPath/$domain/$foldername/crtsh.txt
+ [ -s $rootPath/$domain/$foldername/tmp.txt ] && cat $rootPath/$domain/$foldername/tmp.txt | massdns -r /root/Wordlist/resolver.txt -t A -q -o S -w  $rootPath/$domain/$foldername/crtsh.txt
 
- cat $rootPath/$domain/$foldername/$domain.txt | massdns -r /root/Wordlist/resolvers.txt -t A -q -o S -w  $rootPath/$domain/$foldername/domaintemp.txt
+ cat $rootPath/$domain/$foldername/$domain.txt | massdns -r /root/Wordlist/resolver.txt -t A -q -o S -w  $rootPath/$domain/$foldername/domaintemp.txt
 
 awk '{print $1}'  $rootPath/$domain/$foldername/domaintemp.txt >> $rootPath/$domain/$foldername/$domain.txt
 awk '{print $1}'  $rootPath/$domain/$foldername/crtsh.txt >> $rootPath/$domain/$foldername/$domain.txt
@@ -210,7 +210,7 @@ awk '{print $1}'  $rootPath/$domain/$foldername/crtsh.txt >> $rootPath/$domain/$
 }
 
 mass(){
-/root/recon_tools/massdns/scripts/subbrute.py $massdnsWordlist $domain | massdns -r /root/Wordlist/resolvers.txt -t A -q -o S | grep -v 142.54.173.92 > $rootPath/$domain/$foldername/mass.txt
+/root/recon_tools/massdns/scripts/subbrute.py $massdnsWordlist $domain | massdns -r /root/Wordlist/resolver.txt -t A -q -o S | grep -v 142.54.173.92 > $rootPath/$domain/$foldername/mass.txt
 
 awk '{print $1}' $rootPath/$domain/$foldername/mass.txt >> $rootPath/$domain/$foldername/$domain.txt
 
