@@ -256,7 +256,8 @@ report(){
   subdomain=$(echo $subd | sed 's/\http\:\/\///g' |  sed 's/\https\:\/\///g')
   echo "${yellow}	[+] Generating report for $subdomain"
 
-   cat $rootPath/$domain/$foldername/aqua_out/aquatone_session.json | jq --arg v "$subd" -r '.pages[$v].headers[] | keys[] as $k | "\($k), \(.[$k])"' | grep -v "decreasesSecurity\|increasesSecurity" >> $rootPath/$domain/$foldername/aqua_out/parsedjson/$subdomain.headers
+ cat $rootPath/$domain/$foldername/aqua_out/aquatone_session.json | jq --arg v "$subd" -r '.pages[$v].headers[] | keys[] as $k | "\($k), \(.[$k])"' | grep -v "decreasesSecurity\|increasesSecurity" >> $rootPath/$domain/$foldername/aqua_out/parsedjson/$subdomain.headers
+ 
   # dirsearchfile=$(ls ~/tools/dirsearch/reports/$subdomain/ | grep -v old)
 
   touch $rootPath/$domain/$foldername/reports/$subdomain.html
