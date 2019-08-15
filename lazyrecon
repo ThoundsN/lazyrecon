@@ -103,7 +103,7 @@ cleanup(){
 
 hostalive(){
 echo "Probing for live hosts..."
-cat $rootPath/$domain/$foldername/alldomains.txt | awk '!seen[$0++]' | httprobe -c 50 -t 3000 >> $rootPath/$domain/$foldername/responsive.txt
+cat $rootPath/$domain/$foldername/alldomains.txt | awk '!seen[$0]++' | httprobe -c 50 -t 3000 >> $rootPath/$domain/$foldername/responsive.txt
 cat $rootPath/$domain/$foldername/responsive.txt | sed 's/\http\:\/\///g' |  sed 's/\https\:\/\///g' | sort -u | while read line; do
 probeurl=$(cat $rootPath/$domain/$foldername/responsive.txt | sort -u | grep -m 1 $line)
 echo "$probeurl" >> $rootPath/$domain/$foldername/urllist.txt
@@ -182,6 +182,13 @@ cat $rootPath/$domain/$foldername/urllist.txt | aquatone -chrome-path $chromiumP
 }
 
 altdns(){
+rm_dup_file $rootPath/$domain/$foldername/$domain.txt
+
+linecount=$(wc -l $rootPath/$domain/$foldername/$domain.txt | awk '{print $1}')
+if [[ linecount >= 500 ]]; then
+  echo "Too many Possible subdomain seems to contain lots of false positive, skipping altdns which may cause Address Boundary Error"
+  return
+fi
 
 touch $rootPath/$domain/$foldername/altdns_temp
 altdns -i $rootPath/$domain/$foldername/$domain.txt -o $rootPath/$domain/$foldername/altdns_temp -w  /root/Wordlist/altdnsword.txt
