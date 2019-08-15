@@ -185,7 +185,7 @@ altdns(){
 rm_dup_file $rootPath/$domain/$foldername/$domain.txt
 
 linecount=$(wc -l $rootPath/$domain/$foldername/$domain.txt | awk '{print $1}')
-if [[ linecount >= 500 ]]; then
+if [[ $linecount >= 500 ]]; then
   echo "Too many Possible subdomain seems to contain lots of false positive, skipping altdns which may cause Address Boundary Error"
   return
 fi
