@@ -13,12 +13,14 @@ megThreads=600
 megWordlist=/root/Wordlist/endpoint/meg.txt
 massdnsWordlist=/root/Wordlist/subdomain/726w_subdomain.txt
 
+
 meg_randomfile="$rootpath/meg/randompath.txt"
 
 
 
 chromiumPath=/snap/bin/chromium
 rootPath=/root/OneDrive/output/lazyrecon
+
 ########################################
 # Happy Hunting
 ########################################
@@ -72,6 +74,7 @@ discovery(){
 	waybackrecon $domain
 	# dirsearcher
   meg
+  portscanning
 
 
 }
@@ -196,11 +199,50 @@ altdns -i $rootPath/$domain/$foldername/$domain.txt -o $rootPath/$domain/$folder
 echo "Starting resolving permution of subdomain with massdns "
 massdns -r /root/Wordlist/resolver.txt -t A -o S  $rootPath/$domain/$foldername/altdns_temp --outfile  $rootPath/$domain/$foldername/massdns_temp
 
-cat $rootPath/$domain/$foldername/massdns_temp >> $rootPath/$domain/$foldername/temp.txt
+cat $rootPath/$domain/$foldername/massdns_temp >> $rootPath/$domain/$foldername/massdns_temp.txt
 awk '{print $1}' $rootPath/$domain/$foldername/massdns_temp >> $rootPath/$domain/$foldername/$domain.txt
+rm_dup_file  $rootPath/$domain/$foldername/$domain.txt
 
+
+echo "clear temporary massdns file $rootPath/$domain/$foldername/massdns_temp "
+rm $rootPath/$domain/$foldername/massdns_temp
 }
 
+nmap_one(){
+
+  nmap -sV -T3 -p$2   -g 61000 --version-intensity 8 $1  -oX >> $nmap_outfile
+}
+
+
+
+portscanning(){
+  touch $rootPath/$domain/$foldername/domain_ip_tmp.txt
+  while read line; do
+     ip=$(dig +short $line @8.8.8.8)
+     if [[ -z $ip ]]; then
+       continue
+     fi
+     echo "$line     $ip" >>$rootPath/$domain/$foldername/domain_ip_tmp.txt
+  done <  $rootPath/$domain/$foldername/urllist.txt
+
+  cat $rootPath/$domain/$foldername/domain_ip_tmp.txt | awk '!seen[$1]++' > $rootPath/$domain/$foldername/domain_ip.txt
+
+  rm $rootPath/$domain/$foldername/domain_ip_tmp.txt
+
+  touch $rootPath/$domain/$foldername/masscan.out
+
+  awk '{print $2}' $rootPath/$domain/$foldername/domain_ip.txt > $rootPath/$domain/$foldername/only_ip.txt
+
+ masscan  -p1-65535 $rootPath/$domain/$foldername/only_ip.txt --source-port 61000 --rate 50000 -ol  $rootPath/$domain/$foldername/masscan.out
+
+awk 'print {$4,$3}' $rootPath/$domain/$foldername/masscan.out | sed '/^[[:space:]]*$/d' > $rootPath/$domain/$foldername/open_ip_port.txt
+
+parallel -j10 --colsep ' ' nmap_one {1} {2}  :::: $rootPath/$domain/$foldername/open_ip_port.txt
+
+xsltproc $nmap_outfile -o $rootPath/$domain/$foldername/nmap.html
+
+
+}
 
 searchcrtsh(){
 
@@ -212,8 +254,8 @@ searchcrtsh(){
 awk '{print $1}'  $rootPath/$domain/$foldername/domaintemp.txt >> $rootPath/$domain/$foldername/$domain.txt
 awk '{print $1}'  $rootPath/$domain/$foldername/crtsh.txt >> $rootPath/$domain/$foldername/$domain.txt
 
- cat $rootPath/$domain/$foldername/domaintemp.txt >> $rootPath/$domain/$foldername/temp.txt
- cat $rootPath/$domain/$foldername/crtsh.txt >> $rootPath/$domain/$foldername/temp.txt
+ cat $rootPath/$domain/$foldername/domaintemp.txt >> $rootPath/$domain/$foldername/massdns_temp.txt
+ cat $rootPath/$domain/$foldername/crtsh.txt >> $rootPath/$domain/$foldername/massdns_temp.txt
 }
 
 mass(){
@@ -221,7 +263,7 @@ mass(){
 
 awk '{print $1}' $rootPath/$domain/$foldername/mass.txt >> $rootPath/$domain/$foldername/$domain.txt
 
-cat $rootPath/$domain/$foldername/mass.txt >> $rootPath/$domain/$foldername/temp.txt
+cat $rootPath/$domain/$foldername/mass.txt >> $rootPath/$domain/$foldername/massdns_temp.txt
 }
 
 nsrecords(){
@@ -230,8 +272,8 @@ nsrecords(){
                 echo "Looking into CNAME Records..."
 
 
-                cat $rootPath/$domain/$foldername/temp.txt | awk '{print $3}' | sort -u | while read line; do
-                wildcard=$(cat $rootPath/$domain/$foldername/temp.txt | grep -m 1 $line)
+                cat $rootPath/$domain/$foldername/massdns_temp.txt | awk '{print $3}' |  awk '!seen[$0]++' | while read line; do
+                wildcard=$(cat $rootPath/$domain/$foldername/massdns_temp.txt | grep -m 1 $line)
                 echo "$wildcard" >> $rootPath/$domain/$foldername/cleantemp.txt
                 done
 
@@ -379,12 +421,12 @@ done
 
 
 echo "</pre>" >> $rootPath/$domain/$foldername/reports/$subdomain.html
-echo "<h2>NMAP Results</h2>
-<pre>
-$(nmap -sV -T3 -Pn -p0-65535 $subdomain  |  grep -E 'open|filtered|closed')
-</pre>
-</div></article></div>
-</div></div></body></html>" >> $rootPath/$domain/$foldername/reports/$subdomain.html
+# echo "<h2>NMAP Results</h2>
+# <pre>
+# $(nmap -sV -T3 -Pn -p0-65535 $subdomain  |  grep -E 'open|filtered|closed')
+# </pre>
+# </div></article></div>
+# </div></div></body></html>" >> $rootPath/$domain/$foldername/reports/$subdomain.html
 
 
 }
@@ -480,12 +522,12 @@ echo "<h2>Host Info</h2>
 $(host $domain)
 </pre>" >> $rootPath/$domain/$foldername/master_report.html
 
-echo "<h2>NMAP Results</h2>
-<pre>
-$(nmap -sV -T3 -Pn -p0-65535 $domain |  grep -E 'open|filtered|closed')
-</pre>
-</div></article></div>
-</div></div></body></html>" >> $rootPath/$domain/$foldername/master_report.html
+# echo "<h2>NMAP Results</h2>
+# <pre>
+# $(nmap -sV -T3 -Pn -p0-65535 $domain |  grep -E 'open|filtered|closed')
+# </pre>
+# </div></article></div>
+# </div></div></body></html>" >> $rootPath/$domain/$foldername/master_report.html
 
 
 }
@@ -513,9 +555,7 @@ cleantemp(){
 
   echo "clear temporary altdns file $rootPath/$domain/$foldername/altdns_temp"
   rm $rootPath/$domain/$foldername/altdns_temp
-  echo "clear temporary massdns file $rootPath/$domain/$foldername/massdns_temp "
-  rm $rootPath/$domain/$foldername/massdns_temp
-    rm $rootPath/$domain/$foldername/temp.txt
+    # rm $rootPath/$domain/$foldername/massdns_temp.txt
 	rm $rootPath/$domain/$foldername/tmp.txt
     rm $rootPath/$domain/$foldername/domaintemp.txt
     rm $rootPath/$domain/$foldername/cleantemp.txt
@@ -551,14 +591,15 @@ fi
   touch $rootPath/$domain/$foldername/cnames.txt
   touch $rootPath/$domain/$foldername/pos.txt
   touch $rootPath/$domain/$foldername/alldomains.txt
-  touch $rootPath/$domain/$foldername/temp.txt
+  touch $rootPath/$domain/$foldername/massdns_temp.txt
   touch $rootPath/$domain/$foldername/tmp.txt
   touch $rootPath/$domain/$foldername/domaintemp.txt
   touch $rootPath/$domain/$foldername/ipaddress.txt
   touch $rootPath/$domain/$foldername/cleantemp.txt
   touch $rootPath/$domain/$foldername/master_report.html
+  touch $nmap_outfile
 
-  # cleantemp
+
   recon $domain
   master_report $domain
   echo "${green}Scan for $domain finished successfully${reset}"
@@ -572,5 +613,10 @@ fi
 todate=$(date +'%Y-%m-%d-%H-%M')
 path=$(pwd)
 foldername=recon-$todate
+
+nmap_outfile=$rootPath/$domain/$foldername/nmapout.xml
+export -f nmap_one
+export nmap_outfile
+
 source ~/.bash_profile
 main $domain
