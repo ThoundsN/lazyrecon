@@ -7,7 +7,7 @@
 #
 #
 ########################################
-auquatoneThreads=1
+auquatoneThreads=6
 # subdomainThreads=10
 megThreads=600
 megWordlist=/root/Wordlist/endpoint/meg.txt
