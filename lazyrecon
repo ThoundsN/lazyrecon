@@ -68,14 +68,11 @@ fi
 
 discovery(){
 	hostalive $domain
-	# cleandirsearch $domain
 	aqua $domain
 	cleanup $domain
 	waybackrecon $domain
-	# dirsearcher
-  meger
   portscanning
-
+  meger
 
 }
 waybackrecon () {
