@@ -7,7 +7,7 @@
 #
 #
 ########################################
-auquatoneThreads=6
+auquatoneThreads=3
 # subdomainThreads=10
 megThreads=600
 megWordlist=/root/Wordlist/endpoint/meg.txt
@@ -111,7 +111,7 @@ cat $rootPath/$domain/$foldername/responsive.txt | sed 's/\http\:\/\///g' |  sed
 probeurl=$(cat $rootPath/$domain/$foldername/responsive.txt | sort -u | grep -m 1 $line)
 echo "$probeurl" >> $rootPath/$domain/$foldername/urllist.txt
 done
-echo "$(cat $rootPath/$domain/$foldername/urllist.txt | sort -u)" > $rootPath/$domain/$foldername/urllist.txt
+echo "$(cat $rootPath/$domain/$foldername/urllist.txt | sed 's/\.$//' | awk '!seen[$0]++')" > $rootPath/$domain/$foldername/urllist.txt
 echo  "${yellow}Total of $(wc -l $rootPath/$domain/$foldername/urllist.txt | awk '{print $1}') live subdomains were found${reset}"
 }
 
@@ -150,11 +150,6 @@ recon(){
 }
 
 
-# dirsearcher(){
-#
-# echo "Starting dirsearch..."
-# cat $rootPath/$domain/$foldername/urllist.txt | xargs -P$subdomainThreads -I % sh -c "python3 ~/tools/dirsearch/dirsearch.py -e php,asp,aspx,jsp,html,zip,jar -w $dirsearchWordlist -t $dirsearchThreads -u % | grep Target && tput sgr0 && ./lazyrecon.sh -r $domain -r $foldername -r %"
-# }
 
 test_meg(){
   echo "filtering url which will return 200 status for any endpoint..."
