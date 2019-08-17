@@ -127,14 +127,18 @@ recon(){
   echo "Listing subdomains using assertfinder..."
   assetfinder --subs-only $domain >> $rootPath/$domain/$foldername/$domain.txt
 
+  echo "Checking Passive source with massdns"
+  massdns_seconed_check
+
   echo "Checking http://crt.sh"
   searchcrtsh $domain
   echo "Starting Massdns Subdomain discovery this may take a while"
   mass $domain > /dev/null
   echo "Massdns finished..."
 
-  echo "Starting altdns permution "
-  altdns
+  # echo "Starting altdns permution "
+  # altdns
+  rm_dup_file $rootPath/$domain/$foldername/$domain.txt
 
   nsrecords $domain
 
@@ -244,17 +248,23 @@ xsltproc $nmap_outfile -o $rootPath/$domain/$foldername/nmap.html
 
 }
 
+massdns_seconed_check(){
+  cat $rootPath/$domain/$foldername/$domain.txt | massdns -r /root/Wordlist/resolver.txt -t A -q -o S -w  $rootPath/$domain/$foldername/domaintemp.txt
+
+ awk '{print $1}'  $rootPath/$domain/$foldername/domaintemp.txt > $rootPath/$domain/$foldername/$domain.txt
+
+ cat $rootPath/$domain/$foldername/domaintemp.txt >> $rootPath/$domain/$foldername/massdns_temp.txt
+}
+
 searchcrtsh(){
 
  /root/recon_tools/massdns/scripts/ct.py $domain 2>/dev/null > $rootPath/$domain/$foldername/tmp.txt
  [ -s $rootPath/$domain/$foldername/tmp.txt ] && cat $rootPath/$domain/$foldername/tmp.txt | massdns -r /root/Wordlist/resolver.txt -t A -q -o S -w  $rootPath/$domain/$foldername/crtsh.txt
 
- cat $rootPath/$domain/$foldername/$domain.txt | massdns -r /root/Wordlist/resolver.txt -t A -q -o S -w  $rootPath/$domain/$foldername/domaintemp.txt
 
-awk '{print $1}'  $rootPath/$domain/$foldername/domaintemp.txt >> $rootPath/$domain/$foldername/$domain.txt
 awk '{print $1}'  $rootPath/$domain/$foldername/crtsh.txt >> $rootPath/$domain/$foldername/$domain.txt
 
- cat $rootPath/$domain/$foldername/domaintemp.txt >> $rootPath/$domain/$foldername/massdns_temp.txt
+
  cat $rootPath/$domain/$foldername/crtsh.txt >> $rootPath/$domain/$foldername/massdns_temp.txt
 }
 
