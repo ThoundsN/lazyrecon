@@ -7,7 +7,7 @@
 #
 #
 ########################################
-auquatoneThreads=5
+auquatoneThreads=1
 # subdomainThreads=10
 megThreads=600
 megWordlist=/root/Wordlist/endpoint/meg.txt
@@ -183,7 +183,7 @@ meger(){
 aqua(){
 
 echo "Starting aquatone scan..."
-cat $rootPath/$domain/$foldername/urllist.txt | aquatone -chrome-path $chromiumPath -out $rootPath/$domain/$foldername/aqua_out -threads $auquatoneThreads -silent
+cat $rootPath/$domain/$foldername/urllist.txt | aquatone -chrome-path $chromiumPath -out $rootPath/$domain/$foldername/aqua_out -threads $auquatoneThreads   -scan-timeout   1000 -screenshot-timeout 60000
 
 
 }
