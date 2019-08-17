@@ -609,7 +609,7 @@ fi
   touch $rootPath/$domain/$foldername/master_report.html
   touch $nmap_outfile
 
-
+  rm_resolver
   recon $domain
   master_report $domain
   echo "${green}Scan for $domain finished successfully${reset}"
