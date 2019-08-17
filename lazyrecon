@@ -72,7 +72,6 @@ discovery(){
 	cleanup $domain
 	waybackrecon $domain
   portscanning
-  meger
 
 }
 waybackrecon () {
@@ -229,7 +228,7 @@ portscanning(){
 
   awk '{print $2}' $rootPath/$domain/$foldername/domain_ip.txt > $rootPath/$domain/$foldername/only_ip.txt
 
- masscan  -p1-65535 $rootPath/$domain/$foldername/only_ip.txt --source-port 61000 --rate 50000 -ol  $rootPath/$domain/$foldername/masscan.out
+ masscan  -p1-65535 -iL $rootPath/$domain/$foldername/only_ip.txt --source-port 61000 --rate 50000 -ol  $rootPath/$domain/$foldername/masscan.out
 
 awk 'print {$4,$3}' $rootPath/$domain/$foldername/masscan.out | sed '/^[[:space:]]*$/d' > $rootPath/$domain/$foldername/open_ip_port.txt
 
@@ -604,6 +603,7 @@ fi
   rm_resolver
   recon $domain
   master_report $domain
+  meger
   echo "${green}Scan for $domain finished successfully${reset}"
   duration=$SECONDS
   echo "Scan completed in : $(($duration / 60)) minutes and $(($duration % 60)) seconds."
