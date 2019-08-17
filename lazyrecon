@@ -73,7 +73,7 @@ discovery(){
 	cleanup $domain
 	waybackrecon $domain
 	# dirsearcher
-  meg
+  meger
   portscanning
 
 
@@ -170,7 +170,7 @@ run_meg(){
 
 }
 
-meg(){
+meger(){
   test_meg
   run_meg
 
