@@ -14,7 +14,7 @@ megWordlist=/root/Wordlist/endpoint/meg.txt
 massdnsWordlist=/root/Wordlist/subdomain/726w_subdomain.txt
 
 
-meg_randomfile="$rootpath/meg/randompath.txt"
+meg_randomfile="/root/OneDrive/output/meg/randompath.txt"
 
 
 
