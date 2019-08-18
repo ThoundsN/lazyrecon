@@ -213,14 +213,14 @@ nmap_one(){
 portscanning(){
   touch $rootPath/$domain/$foldername/domain_ip_tmp.txt
   while read line; do
-     ip=$(dig +short $line @8.8.8.8)
+     ip=$(dig +short $line @8.8.8.8| grep -m 1 -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}')
      if [[ -z $ip ]]; then
        continue
      fi
      echo "$line     $ip" >>$rootPath/$domain/$foldername/domain_ip_tmp.txt
-  done <  $rootPath/$domain/$foldername/urllist.txt
+  done <  cat $rootPath/$domain/$foldername/urllist.txt | unfurl --unique domains
 
-  cat $rootPath/$domain/$foldername/domain_ip_tmp.txt | awk '!seen[$1]++' > $rootPath/$domain/$foldername/domain_ip.txt
+  cat $rootPath/$domain/$foldername/domain_ip_tmp.txt | awk '!seen[$2]++' > $rootPath/$domain/$foldername/domain_ip.txt
 
   rm $rootPath/$domain/$foldername/domain_ip_tmp.txt
 
