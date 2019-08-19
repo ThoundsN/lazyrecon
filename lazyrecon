@@ -216,7 +216,7 @@ portscanning(){
        continue
      fi
      echo "$line     $ip" >>$rootPath/$domain/$foldername/domain_ip_tmp.txt
-  done <  cat $rootPath/$domain/$foldername/responsiveDomains.txt
+  done <  $rootPath/$domain/$foldername/responsiveDomains.txt
 
   cat $rootPath/$domain/$foldername/domain_ip_tmp.txt | awk '!seen[$2]++' > $rootPath/$domain/$foldername/domain_ip.txt
 
