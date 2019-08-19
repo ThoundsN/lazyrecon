@@ -102,7 +102,7 @@ cleanup(){
 
 hostalive(){
 echo "Probing for live hosts..."
-cat $rootPath/$domain/$foldername/alldomains.txt | awk '!seen[$0]++' | httprobe -c 50 -t 3000 >> $rootPath/$domain/$foldername/responsive.txt
+cat $rootPath/$domain/$foldername/alldomains.txt | awk '!seen[$0]++' | httprobe -c 50 -t 3000 -s -p https:443>> $rootPath/$domain/$foldername/responsive.txt
 cat $rootPath/$domain/$foldername/responsive.txt |
 unfurl -unique domain > $rootPath/$domain/$foldername/responsiveDomains.txt
 
@@ -295,8 +295,8 @@ nsrecords(){
                 x="$line"
                 echo "${x%?}" >> $rootPath/$domain/$foldername/alldomains.txt
                 done
-                sleep 1
-
+                sed 's/\.$//' $rootPath/$domain/$foldername/alldomains.txt | awk '!seen[$0]++' > /tmp/$domain.txt
+                mv /tmp/$domain.txt $rootPath/$domain/$foldername/alldomains.txt
         }
 
 report(){
