@@ -7,9 +7,9 @@
 #
 #
 ########################################
-auquatoneThreads=3
+auquatoneThreads=2
 # subdomainThreads=10
-megThreads=1000
+megThreads=1500
 megWordlist=/root/Wordlist/endpoint/meg.txt
 massdnsWordlist=/root/Wordlist/subdomain/726w_subdomain.txt
 
