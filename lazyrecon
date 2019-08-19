@@ -226,7 +226,7 @@ portscanning(){
 
   awk '{print $2}' $rootPath/$domain/$foldername/domain_ip.txt | awk '!seen[$0]++' > $rootPath/$domain/$foldername/only_ip.txt
 
- masscan  -p1-65535 -iL $rootPath/$domain/$foldername/only_ip.txt --source-port 61000 --rate 50000 -ol  $rootPath/$domain/$foldername/masscan.out
+ masscan  -p1-65535 -iL $rootPath/$domain/$foldername/only_ip.txt --source-port 61000 --rate 50000 -oL  $rootPath/$domain/$foldername/masscan.out
 
 awk 'print {$4,$3}' $rootPath/$domain/$foldername/masscan.out | sed '/^[[:space:]]*$/d' > $rootPath/$domain/$foldername/open_ip_port.txt
 
