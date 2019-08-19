@@ -12,6 +12,7 @@ auquatoneThreads=2
 megThreads=1500
 megWordlist=/root/Wordlist/endpoint/meg.txt
 massdnsWordlist=/root/Wordlist/subdomain/726w_subdomain.txt
+ffuf_Wordlist=/root/Wordlist/endpoint/10w_common.txt
 
 
 meg_randomfile="/root/OneDrive/output/meg/randompath.txt"
@@ -104,6 +105,8 @@ hostalive(){
 echo "Probing for live hosts..."
 cat $rootPath/$domain/$foldername/alldomains.txt | awk '!seen[$0]++' | httprobe -c 50 -t 3000 -s -p https:443>> $rootPath/$domain/$foldername/responsive.txt
 cat $rootPath/$domain/$foldername/responsive.txt |
+sed '/http:/' > $rootPath/$domain/$foldername/ffuf_input.txt
+cat $rootPath/$domain/$foldername/responsive.txt |
 unfurl -unique domain > $rootPath/$domain/$foldername/responsiveDomains.txt
 
 echo  "${yellow}Total of $(wc -l $rootPath/$domain/$foldername/responsiveDomains.txt | awk '{print $1}') live subdomains were found${reset}"
@@ -175,6 +178,15 @@ echo "Starting aquatone scan..."
 cat $rootPath/$domain/$foldername/responsive.txt | aquatone -chrome-path $chromiumPath -out $rootPath/$domain/$foldername/aqua_out -threads $auquatoneThreads   -scan-timeout   1000 -screenshot-timeout 60000
 
 
+}
+
+ffufer(){
+  echo "Starting ffuf....."
+  touch $rootPath/$domain/$foldername/ffuf_out.txt
+  while read line; do
+    echo "ffufing $line"
+    ffuf -w $ffuf_Wordlist   -u $line/FUZZ -se  -mc 200 >> $rootPath/$domain/$foldername/ffuf_out.txt
+  done < $rootPath/$domain/$foldername/ffuf_input.txt
 }
 
 altdns(){
@@ -601,7 +613,7 @@ fi
   rm_resolver
   recon $domain
   master_report $domain
-  meger
+  ffufer
   echo "${green}Scan for $domain finished successfully${reset}"
   duration=$SECONDS
   echo "Scan completed in : $(($duration / 60)) minutes and $(($duration % 60)) seconds."
