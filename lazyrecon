@@ -69,7 +69,7 @@ fi
 
 discovery(){
 	hostalive $domain
-	aqua $domain
+  eyewitnesser
 	cleanup $domain
 	waybackrecon $domain
   portscanning
@@ -103,11 +103,17 @@ cleanup(){
 
 hostalive(){
 echo "Probing for live hosts..."
-cat $rootPath/$domain/$foldername/alldomains.txt | awk '!seen[$0]++' | httprobe -c 50 -t 3000 -s -p https:443>> $rootPath/$domain/$foldername/responsive.txt
+cat $rootPath/$domain/$foldername/alldomains.txt | awk '!seen[$0]++' | httprobe -c 50 -t 3000 -s > $rootPath/$domain/$foldername/responsive.txt
+
+cat $rootPath/$domain/$foldername/responsive.txt |unfurl -unique domain > $rootPath/$domain/$foldername/responsiveDomains.txt
+
+cat $rootPath/$domain/$foldername/responsiveDomains.txt | httprobe -c 50 -t 3000 -s > $rootPath/$domain/$foldername/responsive.txt
+
+cat $rootPath/$domain/$foldername/responsive.txt |unfurl -unique domain > $rootPath/$domain/$foldername/responsiveDomains.txt
+
 cat $rootPath/$domain/$foldername/responsive.txt |
-sed '/http:/' > $rootPath/$domain/$foldername/ffuf_input.txt
-cat $rootPath/$domain/$foldername/responsive.txt |
-unfurl -unique domain > $rootPath/$domain/$foldername/responsiveDomains.txt
+sed '/http:/d' > $rootPath/$domain/$foldername/ffuf_input.txt
+
 
 echo  "${yellow}Total of $(wc -l $rootPath/$domain/$foldername/responsiveDomains.txt | awk '{print $1}') live subdomains were found${reset}"
 }
@@ -175,9 +181,14 @@ meger(){
 aqua(){
 
 echo "Starting aquatone scan..."
-cat $rootPath/$domain/$foldername/responsive.txt | aquatone -chrome-path $chromiumPath -out $rootPath/$domain/$foldername/aqua_out -threads $auquatoneThreads   -scan-timeout   1000 -screenshot-timeout 60000
+cat $rootPath/$domain/$foldername/ffuf_input.txt | aquatone -chrome-path $chromiumPath -out $rootPath/$domain/$foldername/aqua_out -threads $auquatoneThreads   -scan-timeout   1000 -screenshot-timeout 60000
 
 
+}
+
+eyewitnesser(){
+  echo "Starting Eyewitness scan..."
+  EyeWitness.py --web  --no-prompt  -f $rootPath/$domain/$foldername/ffuf_input.txt --timeout 30 --cycle -d $rootPath/$domain/$foldername/eyewitness
 }
 
 ffufer(){
@@ -214,8 +225,7 @@ rm $rootPath/$domain/$foldername/massdns_temp
 }
 
 nmap_one(){
-
-  nmap -sV -T3 -p$2   -g 61000 --version-intensity 8 $1  -oX >> $nmap_outfile
+  nmap -sV -T3 -p$2   -g 61000 --version-intensity 8 $1  -oG $rootPath/$domain/$foldername/nmap/${1}.out
 }
 
 
@@ -573,13 +583,13 @@ cleantemp(){
 
 }
 main(){
-if [ -z "${domain}" ]; then
-domain=${subreport[1]}
-foldername=${subreport[2]}
-subd=${subreport[3]}
-report $domain $subdomain $foldername $subd; exit 1;
-fi
-  clear
+# if [ -z "${domain}" ]; then
+# domain=${subreport[1]}
+# foldername=${subreport[2]}
+# subd=${subreport[3]}
+# report $domain $subdomain $foldername $subd; exit 1;
+# fi
+#   clear
   logo
   if [ -d "$rootPath/$domain" ]
   then
@@ -597,6 +607,7 @@ fi
   mkdir -p $rootPath/$domain/$foldername/meg/remove
   mkdir -p $rootPath/$domain/$foldername/meg/
   mkdir -p $rootPath/$domain/$foldername/meg/output
+  mkdir -p $rootPath/$domain/$foldername/eyewitness
   touch $rootPath/$domain/$foldername/crtsh.txt
   touch $rootPath/$domain/$foldername/mass.txt
   touch $rootPath/$domain/$foldername/cnames.txt
@@ -626,9 +637,12 @@ todate=$(date +'%Y-%m-%d-%H-%M')
 path=$(pwd)
 foldername=recon-$todate
 
-nmap_outfile=$rootPath/$domain/$foldername/nmapout.xml
 export -f nmap_one
-export nmap_outfile
+export rootPath
+export domain
+export foldername
+mkdir -p $rootPath/$domain/$foldername/nmap
+
 
 source ~/.bash_profile
 main $domain
