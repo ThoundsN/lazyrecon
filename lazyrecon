@@ -90,11 +90,11 @@ cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep
 
 hostalive(){
 echo "Probing for live hosts..."
-cat $rootPath/$domain/$foldername/$domain.txt  | httprobe -c 50 -t 3000 -s > $rootPath/$domain/$foldername/responsive.txt
+cat $rootPath/$domain/$foldername/$domain.txt  | httprobe -c 50 -t 3000 > $rootPath/$domain/$foldername/responsive.txt
 
 cat $rootPath/$domain/$foldername/responsive.txt |unfurl -unique domain > $rootPath/$domain/$foldername/responsiveDomains.txt
 
-cat $rootPath/$domain/$foldername/responsiveDomains.txt | httprobe -c 50 -t 3000 -s > $rootPath/$domain/$foldername/responsive.txt
+cat $rootPath/$domain/$foldername/responsiveDomains.txt | httprobe -c 50 -t 3000 > $rootPath/$domain/$foldername/responsive.txt
 
 cat $rootPath/$domain/$foldername/responsive.txt |unfurl -unique domain > $rootPath/$domain/$foldername/responsiveDomains.txt
 
@@ -373,5 +373,4 @@ export foldername
 mkdir -p $rootPath/$domain/$foldername/nmap
 
 
-source ~/.bash_profile
 main $domain
