@@ -63,8 +63,8 @@ shift $((OPTIND - 1))
 
 discovery(){
 	hostalive
+  waybackrecon
   eyewitnesser
-	waybackrecon
   portscanning
 
 }
@@ -180,13 +180,23 @@ eyewitnesser(){
   EyeWitness.py --web  --no-prompt  -f $rootPath/$domain/$foldername/ffuf_input.txt --timeout 30  -d $rootPath/$domain/$foldername/eyewitness
 }
 
+
+ffuf_one(){
+    echo "ffufing $1 from $rootPath/$domain/$foldername/ffuf_input.txt   "
+    echo "Number count   $(grep -n  $1 $rootPath/$domain/$foldername/ffuf_input.txt | cut -f1 -d)"
+    ffuf -w $ffuf_Wordlist   -u $1/FUZZ -se  -mc 200 >> $rootPath/$domain/$foldername/ffuf_out.txt
+}
+
+export -f ffuf_one
+
 ffufer(){
   echo "Starting ffuf....."
   touch $rootPath/$domain/$foldername/ffuf_out.txt
-  while read line; do
-    echo "ffufing $line"
-    ffuf -w $ffuf_Wordlist   -u $line/FUZZ -se  -mc 200 >> $rootPath/$domain/$foldername/ffuf_out.txt
-  done < $rootPath/$domain/$foldername/ffuf_input.txt
+  cat $rootPath/$domain/$foldername/ffuf_input.txt | parallel -j2 ffuf_one {}
+  # while read line; do
+  #   echo "ffufing $line"
+  #   ffuf -w $ffuf_Wordlist   -u $line/FUZZ -se  -mc 200 >> $rootPath/$domain/$foldername/ffuf_out.txt
+  # done < $rootPath/$domain/$foldername/ffuf_input.txt
 }
 
 altdns(){
@@ -243,7 +253,7 @@ awk '{print $4,$3}' $rootPath/$domain/$foldername/masscan.out | sed '/^[[:space:
 
 parallel -j10 --colsep ' ' nmap_one {1} {2}  :::: $rootPath/$domain/$foldername/open_ip_port.txt
 
-xsltproc $nmap_outfile -o $rootPath/$domain/$foldername/nmap.html
+# xsltproc $nmap_outfile -o $rootPath/$domain/$foldername/nmap.html
 
 
 }
