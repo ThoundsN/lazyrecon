@@ -183,7 +183,7 @@ eyewitnesser(){
 
 ffuf_one(){
     echo "ffufing $1 from $rootPath/$domain/$foldername/ffuf_input.txt   "
-    echo "Number count   $(grep -n  $1 $rootPath/$domain/$foldername/ffuf_input.txt | cut -f1 -d)"
+    echo "The  $(grep -n  $1 $rootPath/$domain/$foldername/ffuf_input.txt | cut -f1 -d)th target"
     ffuf -w $ffuf_Wordlist   -u $1/FUZZ -se  -mc 200 >> $rootPath/$domain/$foldername/ffuf_out.txt
 }
 
