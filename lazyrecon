@@ -219,7 +219,7 @@ rm $rootPath/$domain/$foldername/massdns_temp
 }
 
 nmap_one(){
-  nmap -sV -T3 -p$2   -g 61000 --version-intensity 8 $1  -oG $rootPath/$domain/$foldername/nmap/${1}.out
+  nmap -sV -T3 -p$2   -g 61000 --version-intensity 8 $1  -oG $rootPath/$domain/$foldername/nmap/${1}_${2}.out
 }
 
 
@@ -250,7 +250,8 @@ parallel -j10 --colsep ' ' nmap_one {1} {2}  :::: $rootPath/$domain/$foldername/
 
 # xsltproc $nmap_outfile -o $rootPath/$domain/$foldername/nmap.html
 
-
+touch $rootPath/$domain/$foldername/ip_services.txt
+ls $rootPath/$domain/$foldername/nmap/ | xargs cat | grep Ports  >> $rootPath/$domain/$foldername/ip_services.txt
 }
 
 massdns_seconed_check(){
