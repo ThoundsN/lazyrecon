@@ -65,8 +65,9 @@ discovery(){
 	hostalive
   waybackrecon
   checkjsfile
-  eyewitnesser
   portscanning
+   eyewitnesser
+
 
 }
 
@@ -180,37 +181,18 @@ meger(){
 
 }
 
-aqua(){
 
-echo "Starting aquatone scan..."
-cat $rootPath/$domain/$foldername/ffuf_input.txt | aquatone -chrome-path $chromiumPath -out $rootPath/$domain/$foldername/aqua_out -threads $auquatoneThreads   -scan-timeout   1000 -screenshot-timeout 60000
-
-
-}
 
 eyewitnesser(){
   echo "Starting Eyewitness scan..."
-  EyeWitness.py --web  --no-prompt  -f $rootPath/$domain/$foldername/ffuf_input.txt --timeout 30  -d $rootPath/$domain/$foldername/eyewitness
+  timeout 3h EyeWitness.py --web  --no-prompt  -f $rootPath/$domain/$foldername/ffuf_input.txt --timeout 30  -d $rootPath/$domain/$foldername/eyewitness
+  cd $rootPath/$domain/$foldername/eyewitness/screens
+  fdupes . -r -f -1 -S -d
+  cd -
 }
 
 
-ffuf_one(){
-    echo "ffufing $1 from $rootPath/$domain/$foldername/ffuf_input.txt   "
-    echo "The  $(grep -n  $1 $rootPath/$domain/$foldername/ffuf_input.txt | cut -f1 -d)th target"
-    ffuf -w $ffuf_Wordlist   -u $1/FUZZ -se  -mc 200 >> $rootPath/$domain/$foldername/ffuf_out.txt
-}
 
-export -f ffuf_one
-
-ffufer(){
-  echo "Starting ffuf....."
-  touch $rootPath/$domain/$foldername/ffuf_out.txt
-  cat $rootPath/$domain/$foldername/ffuf_input.txt | parallel -j2 ffuf_one {}
-  # while read line; do
-  #   echo "ffufing $line"
-  #   ffuf -w $ffuf_Wordlist   -u $line/FUZZ -se  -mc 200 >> $rootPath/$domain/$foldername/ffuf_out.txt
-  # done < $rootPath/$domain/$foldername/ffuf_input.txt
-}
 
 altdns(){
 rm_dup_file $rootPath/$domain/$foldername/$domain.txt
@@ -353,13 +335,9 @@ ${reset}                                                      "
 
 main(){
   logo
-  if [ -d "$rootPath/$domain" ]
-  then
-    echo "This is a known target."
-  else
-    mkdir $rootPath/$domain
-  fi
 
+
+  mkdir -p $rootPath/$domain
   mkdir -p $rootPath/$domain/$foldername
   mkdir -p $rootPath/$domain/$foldername/wayback-data/
   mkdir -p $rootPath/$domain/$foldername/screenshots/
@@ -377,7 +355,7 @@ main(){
 
   rm_resolver
   recon $domain
-  ffufer
+  ffuf_mass -f $rootPath/$domain/$foldername/ffuf_input.txt -o $rootPath/$domain/$foldername/ffuf_ouput.txt
   echo "${green}Scan for $domain finished successfully${reset}"
   duration=$SECONDS
   echo "Scan completed in : $(($duration / 60)) minutes and $(($duration % 60)) seconds."
