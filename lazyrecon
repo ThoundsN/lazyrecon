@@ -254,7 +254,9 @@ parallel -j10 --colsep ' ' nmap_one {1} {2}  :::: $rootPath/$domain/$foldername/
 # xsltproc $nmap_outfile -o $rootPath/$domain/$foldername/nmap.html
 
 touch $rootPath/$domain/$foldername/ip_services.txt
-ls $rootPath/$domain/$foldername/nmap/ | xargs cat | grep Ports  >> $rootPath/$domain/$foldername/ip_services.txt
+cd $rootPath/$domain/$foldername/nmap/
+ls | xargs cat | grep Ports  >> $rootPath/$domain/$foldername/ip_services.txt
+cd -
 }
 
 massdns_seconed_check(){
@@ -344,7 +346,6 @@ main(){
   mkdir -p $rootPath/$domain
   mkdir -p $rootPath/$domain/$foldername
   mkdir -p $rootPath/$domain/$foldername/wayback-data/
-  mkdir -p $rootPath/$domain/$foldername/screenshots/
   mkdir -p $rootPath/$domain/$foldername/eyewitness
   touch $rootPath/$domain/$foldername/crtsh.txt
   touch $rootPath/$domain/$foldername/mass.txt
@@ -354,7 +355,6 @@ main(){
   touch $rootPath/$domain/$foldername/massdns_temp.txt
   touch $rootPath/$domain/$foldername/tmp.txt
   touch $rootPath/$domain/$foldername/domaintemp.txt
-  touch $rootPath/$domain/$foldername/ipaddress.txt
   touch $rootPath/$domain/$foldername/cleantemp.txt
 
   rm_resolver
