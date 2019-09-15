@@ -7,8 +7,6 @@
 #
 #
 ########################################
-auquatoneThreads=2
-# subdomainThreads=10
 megThreads=1500
 megWordlist=/root/Wordlist/endpoint/meg.txt
 massdnsWordlist=/root/Wordlist/subdomain/726w_subdomain.txt
@@ -195,8 +193,6 @@ eyewitnesser(){
 }
 
 
-
-
 altdns(){
 rm_dup_file $rootPath/$domain/$foldername/$domain.txt
 
@@ -221,9 +217,6 @@ echo "clear temporary massdns file $rootPath/$domain/$foldername/massdns_temp "
 rm $rootPath/$domain/$foldername/massdns_temp
 }
 
-nmap_one(){
-  nmap -sV -T3 -p$2   -g 61000 --version-intensity 8 $1  -oG $rootPath/$domain/$foldername/nmap/${1}_${2}.out
-}
 
 
 
@@ -245,18 +238,8 @@ portscanning(){
 
   awk '{print $2}' $rootPath/$domain/$foldername/domain_ip.txt | awk '!seen[$0]++' > $rootPath/$domain/$foldername/only_ip.txt
 
- masscan  -p1-65535 -iL $rootPath/$domain/$foldername/only_ip.txt --source-port 61000 --rate 50000 -oL  $rootPath/$domain/$foldername/masscan.out
+ipport_mass -f  $rootPath/$domain/$foldername/only_ip.txt -o $rootPath/$domain/$foldername/portscanning
 
-awk '{print $4,$3}' $rootPath/$domain/$foldername/masscan.out | sed '/^[[:space:]]*$/d' > $rootPath/$domain/$foldername/open_ip_port.txt
-
-parallel -j10 --colsep ' ' nmap_one {1} {2}  :::: $rootPath/$domain/$foldername/open_ip_port.txt
-
-# xsltproc $nmap_outfile -o $rootPath/$domain/$foldername/nmap.html
-
-touch $rootPath/$domain/$foldername/ip_services.txt
-cd $rootPath/$domain/$foldername/nmap/
-ls | xargs cat | grep Ports  >> $rootPath/$domain/$foldername/ip_services.txt
-cd -
 }
 
 massdns_seconed_check(){
@@ -371,7 +354,6 @@ todate=$(date +'%Y-%m-%d-%H-%M')
 path=$(pwd)
 foldername=recon-$todate
 
-export -f nmap_one
 export rootPath
 export domain
 export foldername
