@@ -72,6 +72,7 @@ discovery(){
 checkjsfile(){
   mkdir -p $rootPath/$domain/$foldername/html
   wget2 -i $rootPath/$domain/$foldername/wayback-data/jsurls.txt -P $rootPath/$domain/$foldername/wayback-data/jsfile
+  mkdir -p $rootPath/$domain/$foldername/wayback-data/jsfile
   cd $rootPath/$domain/$foldername/wayback-data/jsfile
   ls -v | cat -n | while read n f; do mv -n "$f" "$n.ext"; done
   python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'   -o $rootPath/$domain/$foldername/html/${domain}_js.html
