@@ -343,7 +343,7 @@ main(){
 
   rm_resolver
   recon $domain
-  ffuf_mass -f $rootPath/$domain/$foldername/ffuf_input.txt -o $rootPath/$domain/$foldername/ffuf_ouput.txt
+  ffuf_mass -f $rootPath/$domain/$foldername/ffuf_input.txt -o $rootPath/$domain/$foldername/
   echo "${green}Scan for $domain finished successfully${reset}"
   duration=$SECONDS
   echo "Scan completed in : $(($duration / 60)) minutes and $(($duration % 60)) seconds."
