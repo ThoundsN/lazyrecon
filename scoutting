@@ -1,0 +1,142 @@
+#!/usr/bin/env bash
+
+ffuf_Wordlist=/root/Wordlist/endpoint/10w_common.txt
+
+chromiumPath=/snap/bin/chromium
+
+rootPath=/root/OneDrive/output/lazyrecon
+
+
+usage() { echo -e "Usage: $0 -d file which containing domains you would like to discovery  -n name of the directory " 1>&2; exit 1; }
+
+while getopts ":d:n:" o; do
+    case "${o}" in
+        d)
+          file=${OPTARG}
+            ;;
+
+            #### working on subdomain exclusion
+        n)
+           dir_name=${OPTARG}
+            ;;
+
+        *)
+            usage
+            ;;
+    esac
+done
+shift $((OPTIND - 1))
+
+
+discovery(){
+	hostalive
+  waybackrecon
+  checkjsfile
+  portscanning
+   eyewitnesser
+
+
+}
+
+hostalive(){
+echo "Probing for live hosts..."
+cat $rootPath/$foldername/domain_input.txt  | httprobe -c 50 -t 3000 > $rootPath/$foldername/responsive.txt
+
+cat $rootPath/$foldername/responsive.txt |unfurl -unique domain > $rootPath/$foldername/responsiveDomains.txt
+
+cat $rootPath/$foldername/responsive.txt |
+sed '/http:/d' > $rootPath/$foldername/ffuf_input.txt
+
+
+echo  "${yellow}Total of $(wc -l $rootPath/$foldername/responsiveDomains.txt | awk '{print $1}') live subdomains were found${reset}"
+}
+
+waybackrecon () {
+echo "Scraping wayback for data..."
+cat $rootPath/$foldername/responsive.txt | waybackurls > $rootPath/$foldername/wayback-data/waybackurls.txt
+cat $rootPath/$foldername/wayback-data/waybackurls.txt  | sort -u | unfurl --unique keys > $rootPath/$foldername/wayback-data/paramlist.txt
+[ -s $rootPath/$foldername/wayback-data/paramlist.txt ] && echo "Wordlist saved "
+
+cat $rootPath/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.js(\?|$)" | sort -u > $rootPath/$foldername/wayback-data/jsurls.txt
+[ -s $rootPath/$foldername/wayback-data/jsurls.txt ] && echo "JS Urls saved"
+
+cat $rootPath/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.php(\?|$) | sort -u " > $rootPath/$foldername/wayback-data/phpurls.txt
+[ -s $rootPath/$foldername/wayback-data/phpurls.txt ] && echo "PHP Urls saved "
+
+cat $rootPath/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.aspx(\?|$) | sort -u " > $rootPath/$foldername/wayback-data/aspxurls.txt
+[ -s $rootPath/$foldername/wayback-data/aspxurls.txt ] && echo "ASP Urls saved "
+
+cat $rootPath/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.jsp(\?|$) | sort -u " > $rootPath/$foldername/wayback-data/jspurls.txt
+[ -s $rootPath/$foldername/wayback-data/jspurls.txt ] && echo "JSP Urls saved "
+}
+
+
+checkjsfile(){
+  mkdir -p $rootPath/$foldername/html
+  wget2 -i $rootPath/$foldername/wayback-data/jsurls.txt -P $rootPath/$foldername/wayback-data/jsfile
+  mkdir -p $rootPath/$foldername/wayback-data/jsfile
+  cd $rootPath/$foldername/wayback-data/jsfile
+  ls -v | cat -n | while read n f; do mv -n "$f" "$n.ext"; done
+  python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'   -o $rootPath/$foldername/html/${dir_name}_js.html
+  python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'  -r /api/   -o $rootPath/$foldername/html/${dir_name}_js_api.html
+  cd -
+  mkdir -p /var/www/jsrecon/$dir_name
+  cp $rootPath/$foldername/html/${dir_name}_js.html /var/www/jsrecon/$dir_name/${dir_name}_js.html
+  cp $rootPath/$foldername/html/${dir_name}_js_api.html /var/www/jsrecon/$dir_name/${dir_name}_js_api.html
+
+}
+
+eyewitnesser(){
+  echo "Starting Eyewitness scan..."
+  timeout 3h EyeWitness.py --web  --no-prompt  -f $rootPath/$foldername/ffuf_input.txt --timeout 30  -d $rootPath/$foldername/eyewitness
+  cd $rootPath/$foldername/eyewitness/screens
+  fdupes . -r -f -1 -S -d
+  cd -
+}
+
+
+portscanning(){
+  touch $rootPath/$foldername/domain_ip_tmp.txt
+  while read line; do
+     ip=$(dig +short $line @8.8.8.8| grep -m 1 -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}')
+     if [[ -z $ip ]]; then
+       continue
+     fi
+     echo "$line     $ip" >>$rootPath/$foldername/domain_ip_tmp.txt
+  done <  $rootPath/$foldername/responsiveDomains.txt
+
+  cat $rootPath/$foldername/domain_ip_tmp.txt | awk '!seen[$2]++' > $rootPath/$foldername/domain_ip.txt
+
+  rm $rootPath/$foldername/domain_ip_tmp.txt
+
+  awk '{print $2}' $rootPath/$foldername/domain_ip.txt | awk '!seen[$0]++' > $rootPath/$foldername/only_ip.txt
+
+ipport_mass -f  $rootPath/$foldername/only_ip.txt -o $rootPath/$foldername/portscanning
+
+
+main(){
+
+  mkdir -p $rootPath/$foldername
+
+  cp $file $rootPath/$foldername/domain_input.txt
+
+  mkdir -p $rootPath/$foldername/wayback-data/
+  mkdir -p $rootPath/$foldername/eyewitness
+  mkdir -p $rootPath/$foldername/nmap
+
+  discovery
+
+  ffuf_mass -f $rootPath/$foldername/ffuf_input.txt -o $rootPath/$foldername/
+  echo "${green}Scan for $dir_name finished successfully${reset}"
+  duration=$SECONDS
+  echo "Scan completed in : $(($duration / 60)) minutes and $(($duration % 60)) seconds."
+  stty sane
+  tput sgr0
+}
+
+todate=$(date +'%Y-%m-%d-%H-%M')
+path=$(pwd)
+foldername=${dir_name}-$todate
+
+
+main $dir_name
