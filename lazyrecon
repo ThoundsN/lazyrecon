@@ -122,32 +122,24 @@ echo  "${yellow}Total of $(wc -l $rootPath/$domain/$foldername/responsiveDomains
 recon(){
 
   echo "${green}Recon started on $domain ${reset}"
-  echo "Listing subdomains using sublister..."
-  sublist3r.py -d $domain -t 10 -v -o $rootPath/$domain/$foldername/$domain.txt > /dev/null
-  echo "Checking certspotter..."
-  curl -s https://certspotter.com/api/v0/certs\?domain\=$domain | jq '.[].dns_names[]' | sed 's/\"//g' | sed 's/\*\.//g' | sort -u | grep $domain >> $rootPath/$domain/$foldername/$domain.txt
   echo "Listing subdomains using assertfinder..."
   assetfinder --subs-only $domain >> $rootPath/$domain/$foldername/$domain.txt
 
   echo "Checking Passive source with massdns"
-  massdns_seconed_check
+  massdns_second_check
 
-  echo "Checking http://crt.sh"
-  searchcrtsh $domain
+
   echo "Starting Massdns Subdomain discovery this may take a while"
   mass $domain > /dev/null
   echo "Massdns finished..."
 
+  rm_dup_file $rootPath/$domain/$foldername/$domain.txt
 
+  using_dnsgen
 
   rm_dup_file $rootPath/$domain/$foldername/$domain.txt
 
   nsrecords $domain
-
-
-
-  echo "Starting discovery..."
-  discovery $domain
 
 
 
@@ -180,7 +172,6 @@ meger(){
 }
 
 
-
 eyewitnesser(){
   echo "Starting Eyewitness scan..."
   timeout 3h EyeWitness.py --web  --no-prompt  -f $rootPath/$domain/$foldername/ffuf_input.txt --timeout 30  -d $rootPath/$domain/$foldername/eyewitness
@@ -188,32 +179,6 @@ eyewitnesser(){
   fdupes . -r -f -1 -S -d
   cd -
 }
-
-
-altdns(){
-rm_dup_file $rootPath/$domain/$foldername/$domain.txt
-
-linecount=$(wc -l $rootPath/$domain/$foldername/$domain.txt | awk '{print $1}')
-if [[ $linecount -gt 500 ]]; then
-  echo "Too many Possible subdomain seems to contain lots of false positive, skipping altdns which may cause Address Boundary Error"
-  return
-fi
-
-touch $rootPath/$domain/$foldername/altdns_temp
-altdns -i $rootPath/$domain/$foldername/$domain.txt -o $rootPath/$domain/$foldername/altdns_temp -w  /root/Wordlist/altdnsword.txt
-
-echo "Starting resolving permution of subdomain with massdns "
-massdns -r /root/Wordlist/resolver.txt -t A -o S  $rootPath/$domain/$foldername/altdns_temp --outfile  $rootPath/$domain/$foldername/massdns_temp
-
-cat $rootPath/$domain/$foldername/massdns_temp >> $rootPath/$domain/$foldername/massdns_temp.txt
-awk '{print $1}' $rootPath/$domain/$foldername/massdns_temp >> $rootPath/$domain/$foldername/$domain.txt
-rm_dup_file  $rootPath/$domain/$foldername/$domain.txt
-
-
-echo "clear temporary massdns file $rootPath/$domain/$foldername/massdns_temp "
-rm $rootPath/$domain/$foldername/massdns_temp
-}
-
 
 
 
@@ -238,7 +203,7 @@ ipport_mass -f  $rootPath/$domain/$foldername/only_ip.txt -o $rootPath/$domain/$
 
 }
 
-massdns_seconed_check(){
+massdns_second_check(){
   cat $rootPath/$domain/$foldername/$domain.txt | massdns -r /root/Wordlist/resolver.txt -t A -q -o S -w  $rootPath/$domain/$foldername/domaintemp.txt
 
  awk '{print $1}'  $rootPath/$domain/$foldername/domaintemp.txt > $rootPath/$domain/$foldername/$domain.txt
@@ -261,11 +226,21 @@ awk '{print $1}'  $rootPath/$domain/$foldername/crtsh.txt >> $rootPath/$domain/$
 }
 
 mass(){
-/root/recon_tools/massdns/scripts/subbrute.py $massdnsWordlist $domain | massdns -r /root/Wordlist/resolver.txt -t A -q -o S | grep -v 142.54.173.92 > $rootPath/$domain/$foldername/mass.txt
+/root/recon_tools/massdns/scripts/subbrute.py $massdnsWordlist $domain | massdns -r /root/Wordlist/resolver.txt -t A -q -o S > $rootPath/$domain/$foldername/mass.txt
 
 awk '{print $1}' $rootPath/$domain/$foldername/mass.txt >> $rootPath/$domain/$foldername/$domain.txt
 
 cat $rootPath/$domain/$foldername/mass.txt >> $rootPath/$domain/$foldername/massdns_temp.txt
+
+rm $rootPath/$domain/$foldername/mass.txt
+}
+
+using_dnsgen(){
+  cat $rootPath/$domain/$foldername/$domain.txt | dnsgen - > $rootPath/$domain/$foldername/dnsgen_tmp.txt
+
+  cat $rootPath/$domain/$foldername/dnsgen_tmp.txt |massdns -r /root/Wordlist/resolver.txt -t A -q -o S > $rootPath/$domain/$foldername/dnsgen_mass.txt
+
+awk '{print $1}' $rootPath/$domain/$foldername/dnsgen_mass.txt >> $rootPath/$domain/$foldername/$domain.txt
 }
 
 nsrecords(){
@@ -338,6 +313,10 @@ main(){
 
   rm_resolver
   recon $domain
+
+  echo "Starting discovery..."
+  discovery $domain
+
   ffuf_mass -f $rootPath/$domain/$foldername/ffuf_input.txt -o $rootPath/$domain/$foldername/
   echo "${green}Scan for $domain finished successfully${reset}"
   duration=$SECONDS
