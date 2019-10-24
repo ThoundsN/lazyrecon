@@ -329,7 +329,6 @@ foldername=recon-$todate
 export rootPath
 export domain
 export foldername
-mkdir -p $rootPath/$domain/$foldername/nmap
 
 
 main $domain
