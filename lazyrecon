@@ -236,9 +236,8 @@ rm $rootPath/$domain/$foldername/mass.txt
 }
 
 using_dnsgen(){
-  cat $rootPath/$domain/$foldername/$domain.txt | dnsgen - > $rootPath/$domain/$foldername/dnsgen_tmp.txt
+  cat $rootPath/$domain/$foldername/$domain.txt | dnsgen - | massdns -r /root/Wordlist/resolver.txt -t A -q -o S > $rootPath/$domain/$foldername/dnsgen_mass.txt
 
-  cat $rootPath/$domain/$foldername/dnsgen_tmp.txt |massdns -r /root/Wordlist/resolver.txt -t A -q -o S > $rootPath/$domain/$foldername/dnsgen_mass.txt
 
 awk '{print $1}' $rootPath/$domain/$foldername/dnsgen_mass.txt >> $rootPath/$domain/$foldername/$domain.txt
 }
@@ -301,13 +300,11 @@ main(){
   mkdir -p $rootPath/$domain/$foldername
   mkdir -p $rootPath/$domain/$foldername/wayback-data/
   mkdir -p $rootPath/$domain/$foldername/eyewitness
-  touch $rootPath/$domain/$foldername/crtsh.txt
   touch $rootPath/$domain/$foldername/mass.txt
   touch $rootPath/$domain/$foldername/cnames.txt
   touch $rootPath/$domain/$foldername/pos.txt
   touch $rootPath/$domain/$foldername/$domain.txt
   touch $rootPath/$domain/$foldername/massdns_temp.txt
-  touch $rootPath/$domain/$foldername/tmp.txt
   touch $rootPath/$domain/$foldername/domaintemp.txt
   touch $rootPath/$domain/$foldername/cleantemp.txt
 
