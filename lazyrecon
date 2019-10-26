@@ -330,7 +330,7 @@ main(){
   discovery $domain
 
   ffuf_mass -f $rootPath/$domain/$foldername/ffuf_input.txt -o $rootPath/$domain/$foldername/
-  echo "Fininshed ffuf scanning   " | mutt -s 'FFUF  Notification ${domain} ' inthebybyby@gmail.com -a $rootPath/$domain/$foldername/filtered_ffuf_output.txt
+  echo "Fininshed ffuf scanning   " | mutt -s 'FFUF  Notification ${domain} ' inthebybyby@gmail.com -a $rootPath/$domain/$foldername/filtered_ffuf_output.txt  -a $rootPath/$domain/$foldername/ffuf_output.txt
 
 
 
