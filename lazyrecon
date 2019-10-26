@@ -184,7 +184,7 @@ portscanning(){
        continue
      fi
      echo "$line     $ip" >>$rootPath/$domain/$foldername/domain_ip_tmp.txt
-  done <  $rootPath/$domain/$foldername/responsiveDomains.txt
+  done <  $rootPath/$domain/$foldername/$domain.txt
 
   cat $rootPath/$domain/$foldername/domain_ip_tmp.txt | awk '!seen[$2]++' > $rootPath/$domain/$foldername/domain_ip.txt
 
@@ -240,6 +240,10 @@ using_dnsgen(){
 
 
   awk '{print $1}' $rootPath/$domain/$foldername/dnsgen_mass.txt >> $rootPath/$domain/$foldername/dnsgen_resolved_domains.txt
+
+  cat $rootPath/$domain/$foldername/dnsgen_resolved_domains.txt >>  $rootPath/$domain/$foldername/$domain.txt
+
+  rm_dup_file  $rootPath/$domain/$foldername/$domain.txt
 
   rm $rootPath/$domain/$foldername/dnsgen_temp.txt
 }
