@@ -202,7 +202,7 @@ massdns_second_check(){
 
  awk '{print $1}'  $rootPath/$domain/$foldername/domaintemp.txt > $rootPath/$domain/$foldername/$domain.txt
 
- cat $rootPath/$domain/$foldername/domaintemp.txt >> $rootPath/$domain/$foldername/massdns_temp.txt
+ cat $rootPath/$domain/$foldername/domaintemp.txt >> $rootPath/$domain/$foldername/useless/massdns_temp.txt
 
  rm $rootPath/$domain/$foldername/domaintemp.txt
 }
@@ -216,7 +216,7 @@ searchcrtsh(){
 awk '{print $1}'  $rootPath/$domain/$foldername/crtsh.txt >> $rootPath/$domain/$foldername/$domain.txt
 
 
- cat $rootPath/$domain/$foldername/crtsh.txt >> $rootPath/$domain/$foldername/massdns_temp.txt
+ cat $rootPath/$domain/$foldername/crtsh.txt >> $rootPath/$domain/$foldername/useless/massdns_temp.txt
 }
 
 mass(){
@@ -224,7 +224,7 @@ mass(){
 
 awk '{print $1}' $rootPath/$domain/$foldername/mass.txt >> $rootPath/$domain/$foldername/$domain.txt
 
-cat $rootPath/$domain/$foldername/mass.txt >> $rootPath/$domain/$foldername/massdns_temp.txt
+cat $rootPath/$domain/$foldername/mass.txt >> $rootPath/$domain/$foldername/useless/massdns_temp.txt
 
 rm $rootPath/$domain/$foldername/mass.txt
 }
@@ -236,12 +236,12 @@ using_dnsgen(){
 
   rm_dup_file  $rootPath/$domain/$foldername/dnsgen_temp.txt
 
-  cat $rootPath/$domain/$foldername/dnsgen_temp.txt | massdns -r /root/Wordlist/resolver.txt -t A -q -o S > $rootPath/$domain/$foldername/dnsgen_mass.txt
+  cat $rootPath/$domain/$foldername/dnsgen_temp.txt | massdns -r /root/Wordlist/resolver.txt -t A -q -o S > $rootPath/$domain/$foldername/useless/dnsgen_mass.txt
 
 
-  awk '{print $1}' $rootPath/$domain/$foldername/dnsgen_mass.txt >> $rootPath/$domain/$foldername/dnsgen_resolved_domains.txt
+  awk '{print $1}' $rootPath/$domain/$foldername/useless/dnsgen_mass.txt >> $rootPath/$domain/$foldername/useless/dnsgen_resolved_domains.txt
 
-  cat $rootPath/$domain/$foldername/dnsgen_resolved_domains.txt >>  $rootPath/$domain/$foldername/$domain.txt
+  cat $rootPath/$domain/$foldername/useless/dnsgen_resolved_domains.txt >>  $rootPath/$domain/$foldername/$domain.txt
 
   rm_dup_file  $rootPath/$domain/$foldername/$domain.txt
 
@@ -249,9 +249,9 @@ using_dnsgen(){
 }
 
 hostalive_for_dnsgen(){
-  cat $rootPath/$domain/$foldername/dnsgen_resolved_domains.txt | httprobe -c 50 -t 3000 > $rootPath/$domain/$foldername/dnsgen_responsive.txt
+  cat $rootPath/$domain/$foldername/useless/dnsgen_resolved_domains.txt | httprobe -c 50 -t 3000 > $rootPath/$domain/$foldername/useless/dnsgen_responsive.txt
 
-  cat $rootPath/$domain/$foldername/dnsgen_responsive.txt >> $rootPath/$domain/$foldername/responsive.txt
+  cat $rootPath/$domain/$foldername/useless/dnsgen_responsive.txt >> $rootPath/$domain/$foldername/responsive.txt
 
   rm_dup_file $rootPath/$domain/$foldername/responsive.txt
 
@@ -267,14 +267,14 @@ nsrecords(){
                 echo "Looking into CNAME Records..."
 
 
-                cat $rootPath/$domain/$foldername/massdns_temp.txt | awk '{print $3}' |  awk '!seen[$0]++' | while read line; do
-                wildcard=$(cat $rootPath/$domain/$foldername/massdns_temp.txt | grep -m 1 $line)
-                echo "$wildcard" >> $rootPath/$domain/$foldername/cleantemp.txt
+                cat $rootPath/$domain/$foldername/useless/massdns_temp.txt | awk '{print $3}' |  awk '!seen[$0]++' | while read line; do
+                wildcard=$(cat $rootPath/$domain/$foldername/useless/massdns_temp.txt | grep -m 1 $line)
+                echo "$wildcard" >> $rootPath/$domain/$foldername/useless/cleantemp.txt
                 done
 
 
 
-                cat $rootPath/$domain/$foldername/cleantemp.txt | grep CNAME >> $rootPath/$domain/$foldername/cnames.txt
+                cat $rootPath/$domain/$foldername/cleantempuseless/.txt | grep CNAME >> $rootPath/$domain/$foldername/cnames.txt
                 cat $rootPath/$domain/$foldername/cnames.txt | sort -u | while read line; do
                 hostrec=$(echo "$line" | awk '{print $1}')
                 if [[ $(host $hostrec | grep NXDOMAIN) != "" ]]
@@ -288,7 +288,7 @@ nsrecords(){
                 sleep 1
 
 
-                cat $rootPath/$domain/$foldername/cleantemp.txt | awk  '{print $1}' | while read line; do
+                cat $rootPath/$domain/$foldername/cleantempuseless/.txt | awk  '{print $1}' | while read line; do
                 x="$line"
                 echo "${x%?}" >> $rootPath/$domain/$foldername/$domain.txt
                 done
@@ -319,13 +319,14 @@ main(){
   mkdir -p $rootPath/$domain/$foldername
   mkdir -p $rootPath/$domain/$foldername/wayback-data/
   mkdir -p $rootPath/$domain/$foldername/eyewitness
+  mkdir -p $rootPath/$domain/$foldername/useless
   touch $rootPath/$domain/$foldername/mass.txt
   touch $rootPath/$domain/$foldername/cnames.txt
   touch $rootPath/$domain/$foldername/pos.txt
   touch $rootPath/$domain/$foldername/$domain.txt
-  touch $rootPath/$domain/$foldername/massdns_temp.txt
+  touch $rootPath/$domain/$foldername/useless/massdns_temp.txt
   touch $rootPath/$domain/$foldername/domaintemp.txt
-  touch $rootPath/$domain/$foldername/cleantemp.txt
+  touch $rootPath/$domain/$foldername/useless/cleantemp.txt
 
   rm_resolver
   recon $domain
