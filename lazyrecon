@@ -7,13 +7,15 @@
 #
 #
 ########################################
-megThreads=1500
-megWordlist=/root/Wordlist/endpoint/meg.txt
+# megThreads=1500
+# megWordlist=/root/Wordlist/endpoint/meg.txt
+# meg_randomfile="/root/OneDrive/output/meg/randompath.txt"
+
+
 massdnsWordlist=/root/Wordlist/subdomain/726w_subdomain.txt
 ffuf_Wordlist=/root/Wordlist/endpoint/10w_common.txt
 
 
-meg_randomfile="/root/OneDrive/output/meg/randompath.txt"
 
 
 
@@ -36,7 +38,6 @@ reset=`tput sgr0`
 
 SECONDS=0
 
-domain=
 
 usage() { echo -e "Usage: $0 -d domain [-e]\n  Select -e to specify excluded domains\n " 1>&2; exit 1; }
 
@@ -86,7 +87,7 @@ checkjsfile(){
 
 waybackrecon () {
 echo "Scraping wayback for data..."
-cat $rootPath/$domain/$foldername/responsive.txt | waybackurls > $rootPath/$domain/$foldername/wayback-data/waybackurls.txt
+cat $rootPath/$domain/$foldername/responsive_urls.txt | waybackurls > $rootPath/$domain/$foldername/wayback-data/waybackurls.txt
 cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | unfurl --unique keys > $rootPath/$domain/$foldername/wayback-data/paramlist.txt
 [ -s $rootPath/$domain/$foldername/wayback-data/paramlist.txt ] && echo "Wordlist saved to /$domain/$foldername/wayback-data/paramlist.txt"
 
@@ -106,9 +107,9 @@ cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep
 
 hostalive(){
 echo "Probing for live hosts..."
-cat $rootPath/$domain/$foldername/$domain.txt  | httprobe -c 50 -t 3000 > $rootPath/$domain/$foldername/responsive.txt
+cat $rootPath/$domain/$foldername/massdns_checked_subdomains.txt  | httprobe -c 50 -t 3000 > $rootPath/$domain/$foldername/responsive_urls.txt
 
-cat $rootPath/$domain/$foldername/responsive.txt |unfurl -unique domain > $rootPath/$domain/$foldername/responsiveDomains.txt
+# cat $rootPath/$domain/$foldername/responsive_urls.txt |unfurl -unique domain > $rootPath/$domain/$foldername/responsiveDomains.txt
 
 echo  "${yellow}Total of $(wc -l $rootPath/$domain/$foldername/responsiveDomains.txt | awk '{print $1}') live subdomains were found${reset}"
 }
@@ -119,7 +120,9 @@ recon(){
 
   echo "${green}Recon started on $domain ${reset}"
   echo "Listing subdomains using assertfinder..."
-  assetfinder --subs-only $domain >> $rootPath/$domain/$foldername/$domain.txt
+  assetfinder --subs-only $domain > $rootPath/$domain/$foldername/raw_subdomains.txt
+
+
 
   echo "Checking Passive source with massdns"
   massdns_second_check
@@ -129,14 +132,27 @@ recon(){
   mass $domain > /dev/null
   echo "Massdns finished..."
 
-  rm_dup_file $rootPath/$domain/$foldername/$domain.txt
+  rm_dup_file $rootPath/$domain/$foldername/massdns_checked_subdomains.txt
 
-  nsrecords $domain
 
   hostalive
 
   using_dnsgen
   hostalive_for_dnsgen
+
+  cat $rootPath/$domain/$foldername/responsive_urls.txt >> $rootPath/$domain/$foldername/responsive_urls_final.txt
+
+  rm_dup_file $rootPath/$domain/$foldername/responsive_urls_final.txt
+
+  cat $rootPath/$domain/$foldername/responsive_urls_final.txt |unfurl -unique domain > $rootPath/$domain/$foldername/responsiveDomains_final.txt
+
+  cat $rootPath/$domain/$foldername/responsive_urls_final.txt |
+  sed '/http:/d' > $rootPath/$domain/$foldername/ffuf_input.txt
+
+  nsrecords $domain
+
+  rm_dup_file $rootPath/$domain/$foldername/subdomains_all_checked_for_nmap.txt
+
 }
 
 
@@ -144,12 +160,12 @@ recon(){
 # test_meg(){
 #   echo "filtering url which will return 200 status for any endpoint..."
 #
-#   meg -c $megThreads --savestatus 200  $meg_randomfile  $rootPath/$domain/$foldername/responsive.txt $rootPath/$domain/$foldername/meg/remove  2>&1 | tee $rootPath/$domain/$foldername/meg/remove/error_hosts
+#   meg -c $megThreads --savestatus 200  $meg_randomfile  $rootPath/$domain/$foldername/responsive_urls.txt $rootPath/$domain/$foldername/meg/remove  2>&1 | tee $rootPath/$domain/$foldername/meg/remove/error_hosts
 #   find $rootPath/$domain/$foldername/meg/remove  -mindepth 1 -maxdepth 1 -type d -print0 | xargs -0 rm -R
 #    awk '{print $2}'  $rootPath/$domain/$foldername/meg/remove/index | awk -F[/:] '{print $1"://"$4}' | awk '!seen[$0]++'  > $rootPath/$domain/$foldername/meg/remove/host_to_remove
 #   awk '{print $4}'  $rootPath/$domain/$foldername/meg/remove/error_hosts | awk -F[/:] '{print $1"://"$4}'| sort | uniq -c | sort -nr | awk '$1>3 {print $2}'|awk '!seen[$0]++' >> $rootPath/$domain/$foldername/meg/remove/host_to_remove
 #   rm_dup_file $rootPath/$domain/$foldername/meg/remove/host_to_remove
-#   comm -2 -3 <(sort $rootPath/$domain/$foldername/responsive.txt ) <(sort $rootPath/$domain/$foldername/meg/remove/host_to_remove) > $rootPath/$domain/$foldername/meg/filtered_url.txt
+#   comm -2 -3 <(sort $rootPath/$domain/$foldername/responsive_urls.txt ) <(sort $rootPath/$domain/$foldername/meg/remove/host_to_remove) > $rootPath/$domain/$foldername/meg/filtered_url.txt
 # }
 #
 # run_meg(){
@@ -165,10 +181,23 @@ recon(){
 #
 # }
 
+#
+# searchcrtsh(){
+#
+#  /root/recon_tools/massdns/scripts/ct.py $domain 2>/dev/null > $rootPath/$domain/$foldername/tmp.txt
+#  [ -s $rootPath/$domain/$foldername/tmp.txt ] && cat $rootPath/$domain/$foldername/tmp.txt | massdns -r /root/Wordlist/resolver.txt -t A -q -o S -w  $rootPath/$domain/$foldername/crtsh.txt
+#
+#
+# awk '{print $1}'  $rootPath/$domain/$foldername/crtsh.txt >> $rootPath/$domain/$foldername/raw_subdomains.txt
+#
+#
+#  cat $rootPath/$domain/$foldername/crtsh.txt >> $rootPath/$domain/$foldername/useless/massdns_temp.txt
+# }
+
 
 eyewitnesser(){
   echo "Starting Eyewitness scan..."
-  timeout 3h EyeWitness.py --web  --no-prompt  -f $rootPath/$domain/$foldername/ffuf_input.txt --timeout 30  -d $rootPath/$domain/$foldername/eyewitness
+  timeout 3h EyeWitness.py --web  --no-prompt  -f $rootPath/$domain/$foldername/responsive_urls_final.txt --timeout 30  -d $rootPath/$domain/$foldername/eyewitness
   cd $rootPath/$domain/$foldername/eyewitness/screens
   fdupes . -r -f -1 -S -d
   cd -
@@ -184,7 +213,7 @@ portscanning(){
        continue
      fi
      echo "$line     $ip" >>$rootPath/$domain/$foldername/domain_ip_tmp.txt
-  done <  $rootPath/$domain/$foldername/$domain.txt
+  done <  $rootPath/$domain/$foldername/subdomains_all_checked_for_nmap.txt
 
   cat $rootPath/$domain/$foldername/domain_ip_tmp.txt | awk '!seen[$2]++' > $rootPath/$domain/$foldername/domain_ip.txt
 
@@ -198,35 +227,33 @@ ipport_mass -f  $rootPath/$domain/$foldername/only_ip.txt -o $rootPath/$domain/$
 }
 
 massdns_second_check(){
-  cat $rootPath/$domain/$foldername/$domain.txt | massdns -r /root/Wordlist/resolver.txt -t A -q -o S -w  $rootPath/$domain/$foldername/domaintemp.txt
+  cat $rootPath/$domain/$foldername/raw_subdomains.txt | massdns -r /root/Wordlist/resolver.txt -t A -q -o S -w  $rootPath/$domain/$foldername/useless/massdns_temp.txt
 
- awk '{print $1}'  $rootPath/$domain/$foldername/domaintemp.txt > $rootPath/$domain/$foldername/$domain.txt
-
- cat $rootPath/$domain/$foldername/domaintemp.txt >> $rootPath/$domain/$foldername/useless/massdns_temp.txt
-
- rm $rootPath/$domain/$foldername/domaintemp.txt
 }
 
-searchcrtsh(){
-
- /root/recon_tools/massdns/scripts/ct.py $domain 2>/dev/null > $rootPath/$domain/$foldername/tmp.txt
- [ -s $rootPath/$domain/$foldername/tmp.txt ] && cat $rootPath/$domain/$foldername/tmp.txt | massdns -r /root/Wordlist/resolver.txt -t A -q -o S -w  $rootPath/$domain/$foldername/crtsh.txt
-
-
-awk '{print $1}'  $rootPath/$domain/$foldername/crtsh.txt >> $rootPath/$domain/$foldername/$domain.txt
-
-
- cat $rootPath/$domain/$foldername/crtsh.txt >> $rootPath/$domain/$foldername/useless/massdns_temp.txt
-}
 
 mass(){
-/root/recon_tools/massdns/scripts/subbrute.py $massdnsWordlist $domain | massdns -r /root/Wordlist/resolver.txt -t A -q -o S > $rootPath/$domain/$foldername/mass.txt
+/root/recon_tools/massdns/scripts/subbrute.py $massdnsWordlist $domain | massdns -r /root/Wordlist/resolver.txt -t A -q -o S > $rootPath/$domain/$foldername/useless/mass.txt
 
-awk '{print $1}' $rootPath/$domain/$foldername/mass.txt >> $rootPath/$domain/$foldername/$domain.txt
 
-cat $rootPath/$domain/$foldername/mass.txt >> $rootPath/$domain/$foldername/useless/massdns_temp.txt
+cat $rootPath/$domain/$foldername/useless/mass.txt >> $rootPath/$domain/$foldername/useless/massdns_temp.txt
 
-rm $rootPath/$domain/$foldername/mass.txt
+rm $rootPath/$domain/$foldername/useless/mass.txt
+
+deduplicate_massdns_output $rootPath/$domain/$foldername/useless/massdns_temp.txt
+
+awk '{print $1}' $rootPath/$domain/$foldername/useless/massdns_temp.txt | sed 's/\.$//' > $rootPath/$domain/$foldername/massdns_checked_subdomains.txt
+
+rm_dup_file $rootPath/$domain/$foldername/massdns_checked_subdomains.txt
+
+cat $rootPath/$domain/$foldername/massdns_checked_subdomains.txt > $rootPath/$domain/$foldername/subdomains_all_checked_for_nmap.txt
+
+}
+
+deduplicate_massdns_output(){
+tmpfile=/tmp/$(basename $1)
+awk '!seen[$3]++' $1 > $tmpfile
+mv $tmpfile $1
 }
 
 using_dnsgen(){
@@ -238,27 +265,27 @@ using_dnsgen(){
 
   cat $rootPath/$domain/$foldername/dnsgen_temp.txt | massdns -r /root/Wordlist/resolver.txt -t A -q -o S > $rootPath/$domain/$foldername/useless/dnsgen_mass.txt
 
+  deduplicate_massdns_output $rootPath/$domain/$foldername/useless/dnsgen_mass.txt
 
-  awk '{print $1}' $rootPath/$domain/$foldername/useless/dnsgen_mass.txt >> $rootPath/$domain/$foldername/useless/dnsgen_resolved_domains.txt
+  awk '{print $1}' $rootPath/$domain/$foldername/useless/dnsgen_mass.txt | sed 's/\.$//' > $rootPath/$domain/$foldername/dnsgen_resolved_domains.txt
 
-  cat $rootPath/$domain/$foldername/useless/dnsgen_resolved_domains.txt >>  $rootPath/$domain/$foldername/$domain.txt
+    rm_dup_file  $rootPath/$domain/$foldername/dnsgen_resolved_domains.txt
 
-  rm_dup_file  $rootPath/$domain/$foldername/$domain.txt
+  cat $rootPath/$domain/$foldername/dnsgen_resolved_domains.txt >>  $rootPath/$domain/$foldername/subdomains_all_checked_for_nmap.txt
 
   rm $rootPath/$domain/$foldername/dnsgen_temp.txt
 }
 
 hostalive_for_dnsgen(){
-  cat $rootPath/$domain/$foldername/useless/dnsgen_resolved_domains.txt | httprobe -c 50 -t 3000 > $rootPath/$domain/$foldername/useless/dnsgen_responsive.txt
+  cat $rootPath/$domain/$foldername/dnsgen_resolved_domains.txt | httprobe -c 50 -t 3000 > $rootPath/$domain/$foldername/useless/dnsgen_responsive.txt
 
-  cat $rootPath/$domain/$foldername/useless/dnsgen_responsive.txt >> $rootPath/$domain/$foldername/responsive.txt
+  cat $rootPath/$domain/$foldername/useless/dnsgen_responsive.txt > $rootPath/$domain/$foldername/responsive_urls_final.txt
 
-  rm_dup_file $rootPath/$domain/$foldername/responsive.txt
+  rm_dup_file $rootPath/$domain/$foldername/responsive_urls_final.txt
 
-  cat $rootPath/$domain/$foldername/responsive.txt |unfurl -unique domain > $rootPath/$domain/$foldername/responsiveDomains.txt
 
-  cat $rootPath/$domain/$foldername/responsive.txt |
-  sed '/http:/d' > $rootPath/$domain/$foldername/ffuf_input.txt
+
+
 }
 
 nsrecords(){
@@ -267,14 +294,13 @@ nsrecords(){
                 echo "Looking into CNAME Records..."
 
 
-                cat $rootPath/$domain/$foldername/useless/massdns_temp.txt | awk '{print $3}' |  awk '!seen[$0]++' | while read line; do
-                wildcard=$(cat $rootPath/$domain/$foldername/useless/massdns_temp.txt | grep -m 1 $line)
-                echo "$wildcard" >> $rootPath/$domain/$foldername/useless/cleantemp.txt
-                done
 
 
 
-                cat $rootPath/$domain/$foldername/cleantempuseless/.txt | grep CNAME >> $rootPath/$domain/$foldername/cnames.txt
+                cat $rootPath/$domain/$foldername/useless/massdns_temp.txt | grep CNAME >> $rootPath/$domain/$foldername/cnames.txt
+                cat $rootPath/$domain/$foldername/useless/dnsgen_mass.txt | grep CNAME >> $rootPath/$domain/$foldername/cnames.txt
+
+
                 cat $rootPath/$domain/$foldername/cnames.txt | sort -u | while read line; do
                 hostrec=$(echo "$line" | awk '{print $1}')
                 if [[ $(host $hostrec | grep NXDOMAIN) != "" ]]
@@ -287,14 +313,6 @@ nsrecords(){
                 done
                 sleep 1
 
-
-                cat $rootPath/$domain/$foldername/cleantempuseless/.txt | awk  '{print $1}' | while read line; do
-                x="$line"
-                echo "${x%?}" >> $rootPath/$domain/$foldername/$domain.txt
-                done
-
-                sed 's/\.$//' $rootPath/$domain/$foldername/$domain.txt | awk '!seen[$0]++' > /tmp/$domain.txt
-                mv /tmp/$domain.txt $rootPath/$domain/$foldername/$domain.txt
         }
 
 
@@ -320,22 +338,24 @@ main(){
   mkdir -p $rootPath/$domain/$foldername/wayback-data/
   mkdir -p $rootPath/$domain/$foldername/eyewitness
   mkdir -p $rootPath/$domain/$foldername/useless
-  touch $rootPath/$domain/$foldername/mass.txt
+  touch $rootPath/$domain/$foldername/useless/mass.txt
   touch $rootPath/$domain/$foldername/cnames.txt
   touch $rootPath/$domain/$foldername/pos.txt
-  touch $rootPath/$domain/$foldername/$domain.txt
+  touch $rootPath/$domain/$foldername/raw_subdomains.txt
   touch $rootPath/$domain/$foldername/useless/massdns_temp.txt
   touch $rootPath/$domain/$foldername/domaintemp.txt
   touch $rootPath/$domain/$foldername/useless/cleantemp.txt
+  touch $rootPath/$domain/$foldername/subdomains_all_checked_for_nmap.txt
 
   rm_resolver
-  recon $domain
+  recon
 
   echo "Starting discovery..."
-  discovery $domain
+  discovery
 
   ffuf_mass -f $rootPath/$domain/$foldername/ffuf_input.txt -o $rootPath/$domain/$foldername/
-  echo "Fininshed ffuf scanning   " | mutt -s 'FFUF  Notification ${domain} ' inthebybyby@gmail.com -a $rootPath/$domain/$foldername/filtered_ffuf_output.txt  -a $rootPath/$domain/$foldername/ffuf_output.txt
+  echo "Fininshed ffuf scanning   " | mutt -s 'FFUF_full ${domain} ' inthebybyby@gmail.com  -a $rootPath/$domain/$foldername/ffuf_output.txt
+  echo "Fininshed ffuf scanning   " | mutt -s 'FFUF_filtered ${domain} ' inthebybyby@gmail.com -a $rootPath/$domain/$foldername/filtered_ffuf_output.txt
 
 
 
