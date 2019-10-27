@@ -109,7 +109,7 @@ hostalive(){
 echo "Probing for live hosts..."
 cat $rootPath/$domain/$foldername/massdns_checked_subdomains.txt  | httprobe -c 50 -t 3000 > $rootPath/$domain/$foldername/responsive_urls.txt
 
-# cat $rootPath/$domain/$foldername/responsive_urls.txt |unfurl -unique domain > $rootPath/$domain/$foldername/responsiveDomains.txt
+cat $rootPath/$domain/$foldername/responsive_urls.txt |unfurl -unique domain > $rootPath/$domain/$foldername/responsiveDomains.txt
 
 echo  "${yellow}Total of $(wc -l $rootPath/$domain/$foldername/responsiveDomains.txt | awk '{print $1}') live subdomains were found${reset}"
 }
