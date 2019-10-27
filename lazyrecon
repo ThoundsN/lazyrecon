@@ -151,7 +151,7 @@ recon(){
 
   nsrecords $domain
 
-  rm_dup_file $rootPath/$domain/$foldername/subdomains_all_checked_for_nmap.txt
+  rm_dup_file $rootPath/$domain/$foldername/${domain}_subdomains_nmap.txt
 
 }
 
@@ -213,7 +213,7 @@ portscanning(){
        continue
      fi
      echo "$line     $ip" >>$rootPath/$domain/$foldername/domain_ip_tmp.txt
-  done <  $rootPath/$domain/$foldername/subdomains_all_checked_for_nmap.txt
+  done <  $rootPath/$domain/$foldername/${domain}_subdomains_nmap.txt
 
   cat $rootPath/$domain/$foldername/domain_ip_tmp.txt | awk '!seen[$2]++' > $rootPath/$domain/$foldername/domain_ip.txt
 
@@ -246,7 +246,7 @@ awk '{print $1}' $rootPath/$domain/$foldername/useless/massdns_temp.txt | sed 's
 
 rm_dup_file $rootPath/$domain/$foldername/massdns_checked_subdomains.txt
 
-cat $rootPath/$domain/$foldername/massdns_checked_subdomains.txt > $rootPath/$domain/$foldername/subdomains_all_checked_for_nmap.txt
+cat $rootPath/$domain/$foldername/massdns_checked_subdomains.txt > $rootPath/$domain/$foldername/${domain}_subdomains_nmap.txt
 
 }
 
@@ -271,7 +271,7 @@ using_dnsgen(){
 
     rm_dup_file  $rootPath/$domain/$foldername/dnsgen_resolved_domains.txt
 
-  cat $rootPath/$domain/$foldername/dnsgen_resolved_domains.txt >>  $rootPath/$domain/$foldername/subdomains_all_checked_for_nmap.txt
+  cat $rootPath/$domain/$foldername/dnsgen_resolved_domains.txt >>  $rootPath/$domain/$foldername/${domain}_subdomains_nmap.txt
 
   rm $rootPath/$domain/$foldername/dnsgen_temp.txt
 }
@@ -345,7 +345,7 @@ main(){
   touch $rootPath/$domain/$foldername/useless/massdns_temp.txt
   touch $rootPath/$domain/$foldername/domaintemp.txt
   touch $rootPath/$domain/$foldername/useless/cleantemp.txt
-  touch $rootPath/$domain/$foldername/subdomains_all_checked_for_nmap.txt
+  touch $rootPath/$domain/$foldername/${domain}_subdomains_nmap.txt
 
   rm_resolver
   recon
@@ -354,8 +354,8 @@ main(){
   discovery
 
   ffuf_mass -f $rootPath/$domain/$foldername/ffuf_input.txt -o $rootPath/$domain/$foldername/
-  echo "Fininshed ffuf scanning   " | mutt -s 'FFUF_full ${domain} ' inthebybyby@gmail.com  -a $rootPath/$domain/$foldername/ffuf_output.txt
-  echo "Fininshed ffuf scanning   " | mutt -s 'FFUF_filtered ${domain} ' inthebybyby@gmail.com -a $rootPath/$domain/$foldername/filtered_ffuf_output.txt
+  echo "Fininshed ffuf scanning   " | mutt -s "FFUF_full ${domain}"  inthebybyby@gmail.com  -a $rootPath/$domain/$foldername/ffuf_output.txt
+  echo "Fininshed ffuf scanning   " | mutt -s "FFUF_filtered ${domain}"  inthebybyby@gmail.com -a $rootPath/$domain/$foldername/filtered_ffuf_output.txt
 
 
 
