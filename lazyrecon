@@ -111,7 +111,13 @@ cat $rootPath/$domain/$foldername/massdns_checked_subdomains.txt  | httprobe -c 
 
 cat $rootPath/$domain/$foldername/responsive_urls.txt |unfurl -unique domain > $rootPath/$domain/$foldername/responsiveDomains.txt
 
-echo  "${yellow}Total of $(wc -l $rootPath/$domain/$foldername/responsiveDomains.txt | awk '{print $1}') live subdomains were found${reset}"
+count=$(wc -l $rootPath/$domain/$foldername/responsiveDomains.txt | awk '{print $1}')
+
+if [[ $count = 0 ]]; then
+  exit 1
+fi
+
+echo  "${yellow}Total of ${count} live subdomains were found${reset}"
 }
 
 
