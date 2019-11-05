@@ -130,7 +130,7 @@ recon(){
 
   number=$(wc -l $rootPath/$domain/$foldername/raw_subdomains.txt)
   if [[ $number -le 2 ]]; then
-    echo "It seems this domain doesn't have any subdomain"
+    echo "It seems this domain doesn't have any subdomain" | tee  $rootPath/$domain/$foldername/nosubdomain
     exit 1
   fi
 
