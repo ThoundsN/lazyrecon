@@ -128,7 +128,7 @@ recon(){
   echo "Listing subdomains using assertfinder..."
   assetfinder --subs-only $domain > $rootPath/$domain/$foldername/raw_subdomains.txt
 
-  number=$(wc -l $rootPath/$domain/$foldername/raw_subdomains.txt)
+  number=$(wc -l $rootPath/$domain/$foldername/raw_subdomains.txt| awk '{print $1}')
   if [[ $number -le 2 ]]; then
     echo "It seems this domain doesn't have any subdomain" | tee  $rootPath/$domain/$foldername/nosubdomain
     exit 1
