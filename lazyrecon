@@ -128,11 +128,15 @@ recon(){
   echo "Listing subdomains using assertfinder..."
   assetfinder --subs-only $domain > $rootPath/$domain/$foldername/raw_subdomains.txt
 
-  # number=$(wc -l $rootPath/$domain/$foldername/raw_subdomains.txt| awk '{print $1}')
-  # if [[ $number -le 2 ]]; then
-  #   echo "It seems this domain doesn't have any subdomain" | tee  $rootPath/$domain/$foldername/nosubdomain
-  #   exit 1
-  # fi
+  number=$(wc -l $rootPath/$domain/$foldername/raw_subdomains.txt| awk '{print $1}')
+  if [[ $number -le 3 ]]; then
+    ffuf -w $ffuf_Wordlist   -u https://${domain}/FUZZ -se -fs 0 -fw 1  > $rootPath/$domain/$foldername/${domain}_output.txt
+    ip=$(dig +short $line @8.8.8.8| grep -m 1 -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}')
+    printf "${ip}" > $rootPath/$domain/$foldername/only_ip.txt
+    ipport_mass -f  $rootPath/$domain/$foldername/only_ip.txt -o $rootPath/$domain/$foldername/portscanning
+    echo "Fininshed ffuf scanning   " | mutt -s "FFUF_full ${domain}"  inthebybyby@gmail.com  -a $rootPath/$domain/$foldername/${domain}_output.txt
+    exit 1
+  fi
 
 
 
