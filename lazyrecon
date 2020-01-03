@@ -64,11 +64,16 @@ discovery(){
 
   waybackrecon
   checkjsfile
+
+memento_mass -f $rootPath/$domain/$foldername/responsiveDomains_final.txt  -o $rootPath/$domain/$foldername/wayback-data/robots_archieve.txt
+  cp $rootPath/$domain/$foldername/wayback-data/robots_archieve.txt /var/www/jsrecon/links/$domain/urls/robots_archieve.txt
+  
   portscanning
   eyewitnesser
 
 
 }
+
 
 checkjsfile(){
   mkdir -p $rootPath/$domain/$foldername/html
@@ -79,6 +84,7 @@ checkjsfile(){
   python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'   -o $rootPath/$domain/$foldername/html/${domain}_js.html
   python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'  -r /api/   -o $rootPath/$domain/$foldername/html/${domain}_js_api.html
   cd -
+
   mkdir -p /var/www/jsrecon/links/$domain
   cp $rootPath/$domain/$foldername/html/${domain}_js.html /var/www/jsrecon/links/$domain/${domain}_js.html
   cp $rootPath/$domain/$foldername/html/${domain}_js_api.html /var/www/jsrecon/links/$domain/${domain}_js_api.html
@@ -87,9 +93,16 @@ checkjsfile(){
 
 waybackrecon () {
 echo "Scraping wayback for data..."
-cat $rootPath/$domain/$foldername/responsive_urls.txt | waybackurls > $rootPath/$domain/$foldername/wayback-data/waybackurls.txt
+cat $rootPath/$domain/$foldername/responsiveDomains_final.txt  | gau > $rootPath/$domain/$foldername/wayback-data/waybackurls.txt
 cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | unfurl --unique keys > $rootPath/$domain/$foldername/wayback-data/paramlist.txt
 [ -s $rootPath/$domain/$foldername/wayback-data/paramlist.txt ] && echo "Wordlist saved to /$domain/$foldername/wayback-data/paramlist.txt"
+
+mkdir -p /var/www/jsrecon/links/$domain/urls
+
+cp $rootPath/$domain/$foldername/wayback-data/paramlist.txt /var/www/jsrecon/links/$domain/urls/paramlist.txt
+
+python3 $rootPath/$domain/$foldername/wayback-data/waybackurls.txt /var/www/jsrecon/links/$domain/urls/waybackurls.html
+
 
 cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.js(\?|$)" | sort -u > $rootPath/$domain/$foldername/wayback-data/jsurls.txt
 [ -s $rootPath/$domain/$foldername/wayback-data/jsurls.txt ] && echo "JS Urls saved to /$domain/$foldername/wayback-data/jsurls.txt"
@@ -374,7 +387,7 @@ main(){
   ffuf_mass -f $rootPath/$domain/$foldername/ffuf_input.txt -o $rootPath/$domain/$foldername/ffuf/
   cp $rootPath/$domain/$foldername/ffuf/ffuf_output.html /var/www/jsrecon/links/$domain/ffuf_output.html
   echo "Fininshed ffuf scanning   " | mutt -s "FFUF_full ${domain}
-  http://jsrecon.ragnarokv.site/links/${domain}/ffuf_output.html"  inthebybyby@gmail.com  
+  http://jsrecon.ragnarokv.site/links/${domain}/ffuf_output.html"  inthebybyby@gmail.com
 
 
   # -a $rootPath/$domain/$foldername/ffuf/ffuf_output.html
