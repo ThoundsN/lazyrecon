@@ -67,7 +67,7 @@ discovery(){
 
 memento_mass -f $rootPath/$domain/$foldername/responsiveDomains_final.txt  -o $rootPath/$domain/$foldername/wayback-data/robots_archieve.txt
   cp $rootPath/$domain/$foldername/wayback-data/robots_archieve.txt /var/www/jsrecon/links/$domain/urls/robots_archieve.txt
-  
+
   portscanning
   eyewitnesser
 
@@ -175,8 +175,7 @@ recon(){
 
   cat $rootPath/$domain/$foldername/responsive_urls_final.txt |unfurl -unique domain > $rootPath/$domain/$foldername/responsiveDomains_final.txt
 
-  cat $rootPath/$domain/$foldername/responsive_urls_final.txt |
-  sed '/http:/d' > $rootPath/$domain/$foldername/ffuf_input.txt
+  python3 /root/recon_tools/Scripts/python/urls_processing.py  $rootPath/$domain/$foldername/responsive_urls_final.txt  $rootPath/$domain/$foldername/ffuf_input.txt
 
   nsrecords $domain
 
@@ -228,9 +227,13 @@ eyewitnesser(){
   echo "Starting Eyewitness scan..."
   timeout 3h EyeWitness.py --web  --no-prompt  -f $rootPath/$domain/$foldername/responsive_urls_final.txt --timeout 30  -d $rootPath/$domain/$foldername/eyewitness
   cd $rootPath/$domain/$foldername/eyewitness/screens
-  fdupes . -r -f -1 -S -d
+  # fdupes . -r -f -1 -S -d
   cd -
+	mv -r $rootPath/$domain/$foldername/eyewitness /var/www/jsrecon/links/$domain/
+
 }
+
+
 
 
 
