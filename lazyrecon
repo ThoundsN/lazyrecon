@@ -258,6 +258,7 @@ portscanning(){
 
 ipport_mass -f  $rootPath/$domain/$foldername/only_ip.txt -o $rootPath/$domain/$foldername/portscanning
 
+cp $rootPath/$domain/$foldername/portscanning/ip_services.txt /var/www/jsrecon/links/$domain/
 }
 
 massdns_second_check(){
