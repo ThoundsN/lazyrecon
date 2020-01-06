@@ -392,8 +392,8 @@ main(){
 
   ffuf_mass -f $rootPath/$domain/$foldername/ffuf_input.txt -o $rootPath/$domain/$foldername/ffuf/
   cp $rootPath/$domain/$foldername/ffuf/ffuf_output.html /var/www/jsrecon/links/$domain/ffuf_output.html
-  echo "Fininshed ffuf scanning   " | mutt -s "FFUF_full ${domain}
-  http://jsrecon.ragnarokv.site/links/${domain}/ffuf_output.html"  inthebybyby@gmail.com
+  echo "Fininshed ffuf scanning  http://jsrecon.ragnarokv.site/links/${domain}/ffuf_output.html " | mutt -s "FFUF_full ${domain}
+  "  inthebybyby@gmail.com
 
 
   # -a $rootPath/$domain/$foldername/ffuf/ffuf_output.html
