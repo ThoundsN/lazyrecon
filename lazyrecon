@@ -99,7 +99,6 @@ cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | unfu
 
 mkdir -p /var/www/jsrecon/links/$domain/urls
 
-cp $rootPath/$domain/$foldername/wayback-data/paramlist.txt /var/www/jsrecon/links/$domain/urls/paramlist.txt
 
 python3 $rootPath/$domain/$foldername/wayback-data/waybackurls.txt /var/www/jsrecon/links/$domain/urls/waybackurls.html
 
@@ -107,14 +106,17 @@ python3 $rootPath/$domain/$foldername/wayback-data/waybackurls.txt /var/www/jsre
 cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.js(\?|$)" | sort -u > $rootPath/$domain/$foldername/wayback-data/jsurls.txt
 [ -s $rootPath/$domain/$foldername/wayback-data/jsurls.txt ] && echo "JS Urls saved to /$domain/$foldername/wayback-data/jsurls.txt"
 
-cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.php(\?|$) | sort -u " > $rootPath/$domain/$foldername/wayback-data/phpurls.txt
+cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.php(\?|$) "| sort -u > $rootPath/$domain/$foldername/wayback-data/phpurls.txt
 [ -s $rootPath/$domain/$foldername/wayback-data/phpurls.txt ] && echo "PHP Urls saved to /$domain/$foldername/wayback-data/phpurls.txt"
 
-cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.aspx(\?|$) | sort -u " > $rootPath/$domain/$foldername/wayback-data/aspxurls.txt
+cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.aspx(\?|$) "| sort -u  > $rootPath/$domain/$foldername/wayback-data/aspxurls.txt
 [ -s $rootPath/$domain/$foldername/wayback-data/aspxurls.txt ] && echo "ASP Urls saved to /$domain/$foldername/wayback-data/aspxurls.txt"
 
-cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.jsp(\?|$) | sort -u " > $rootPath/$domain/$foldername/wayback-data/jspurls.txt
+cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.jsp(\?|$) "| sort -u  > $rootPath/$domain/$foldername/wayback-data/jspurls.txt
 [ -s $rootPath/$domain/$foldername/wayback-data/jspurls.txt ] && echo "JSP Urls saved to /$domain/$foldername/wayback-data/jspurls.txt"
+
+cp -r $rootPath/$domain/$foldername/wayback-data/ /var/www/jsrecon/links/$domain/urls/
+
 }
 
 
@@ -229,7 +231,7 @@ eyewitnesser(){
   cd $rootPath/$domain/$foldername/eyewitness/screens
   # fdupes . -r -f -1 -S -d
   cd -
-	mv -r $rootPath/$domain/$foldername/eyewitness /var/www/jsrecon/links/$domain/
+	mv $rootPath/$domain/$foldername/eyewitness /var/www/jsrecon/links/$domain/
 
 }
 
