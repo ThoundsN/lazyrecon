@@ -94,7 +94,7 @@ checkjsfile(){
 waybackrecon () {
 echo "Scraping wayback for data..."
 cat $rootPath/$domain/$foldername/responsiveDomains_final.txt  | gau > $rootPath/$domain/$foldername/wayback-data/waybackurls.txt
-cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | unfurl --unique keys > $rootPath/$domain/$foldername/wayback-data/paramlist.txt
+cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | unfurl --unique keypairs > $rootPath/$domain/$foldername/wayback-data/paramlist.txt
 [ -s $rootPath/$domain/$foldername/wayback-data/paramlist.txt ] && echo "Wordlist saved to /$domain/$foldername/wayback-data/paramlist.txt"
 
 mkdir -p /var/www/jsrecon/links/$domain/urls
@@ -106,6 +106,9 @@ python3 $rootPath/$domain/$foldername/wayback-data/waybackurls.txt /var/www/jsre
 cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.js(\?|$)" | sort -u > $rootPath/$domain/$foldername/wayback-data/jsurls.txt
 [ -s $rootPath/$domain/$foldername/wayback-data/jsurls.txt ] && echo "JS Urls saved to /$domain/$foldername/wayback-data/jsurls.txt"
 
+cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  |  unfurl --unique format "%s://%d%p" >  $rootPath/$domain/$foldername/wayback-data/paths.txt
+
+
 cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.php(\?|$) "| sort -u > $rootPath/$domain/$foldername/wayback-data/phpurls.txt
 [ -s $rootPath/$domain/$foldername/wayback-data/phpurls.txt ] && echo "PHP Urls saved to /$domain/$foldername/wayback-data/phpurls.txt"
 
@@ -114,6 +117,8 @@ cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep
 
 cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.jsp(\?|$) "| sort -u  > $rootPath/$domain/$foldername/wayback-data/jspurls.txt
 [ -s $rootPath/$domain/$foldername/wayback-data/jspurls.txt ] && echo "JSP Urls saved to /$domain/$foldername/wayback-data/jspurls.txt"
+
+rm $rootPath/$domain/$foldername/wayback-data/waybackurls.txt
 
 mv  $rootPath/$domain/$foldername/wayback-data/ /var/www/jsrecon/links/$domain/urls/
 
