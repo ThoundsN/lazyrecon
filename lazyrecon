@@ -115,7 +115,7 @@ cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep
 cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.jsp(\?|$) "| sort -u  > $rootPath/$domain/$foldername/wayback-data/jspurls.txt
 [ -s $rootPath/$domain/$foldername/wayback-data/jspurls.txt ] && echo "JSP Urls saved to /$domain/$foldername/wayback-data/jspurls.txt"
 
-cp -r $rootPath/$domain/$foldername/wayback-data/ /var/www/jsrecon/links/$domain/urls/
+mv  $rootPath/$domain/$foldername/wayback-data/ /var/www/jsrecon/links/$domain/urls/
 
 }
 
