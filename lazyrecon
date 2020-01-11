@@ -273,12 +273,18 @@ massdns_second_check(){
 
 
 mass(){
-/root/recon_tools/massdns/scripts/subbrute.py $massdnsWordlist $domain | massdns -r /root/Wordlist/resolver.txt -t A -q -o S > $rootPath/$domain/$foldername/useless/mass.txt
 
+  if [[ "$(dig @1.1.1.1 A,CNAME {test321123,testingforwildcard,plsdontgimmearesult}.$domain +short | wc -l)" -gt "1" ]]; then
+    echo "[!] Possible wildcard detected."
+    echo "Skipping Massdns enumeration."
+    else
+    /root/recon_tools/massdns/scripts/subbrute.py $massdnsWordlist $domain | massdns -r /root/Wordlist/resolver.txt -t A -q -o S > $rootPath/$domain/$foldername/useless/mass.txt
 
 cat $rootPath/$domain/$foldername/useless/mass.txt >> $rootPath/$domain/$foldername/useless/massdns_temp.txt
 
 rm $rootPath/$domain/$foldername/useless/mass.txt
+
+fi
 
 deduplicate_massdns_output $rootPath/$domain/$foldername/useless/massdns_temp.txt
 
