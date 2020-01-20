@@ -124,6 +124,9 @@ mv  $rootPath/$domain/$foldername/wayback-data/ /var/www/jsrecon/links/$domain/u
 
 }
 
+import_subdomains(){
+    findomain --import-subdomains $rootPath/$domain/$foldername/allsubdomains_final.txt -m -t $domain --postgres-database subdomains_name
+}
 
 hostalive(){
 echo "Probing for live hosts..."
@@ -146,7 +149,11 @@ recon(){
 
   echo "${green}Recon started on $domain ${reset}"
   echo "Listing subdomains using assertfinder..."
-  assetfinder --subs-only $domain > $rootPath/$domain/$foldername/raw_subdomains.txt
+
+  findomain -t $domain -u $rootPath/$domain/$foldername/raw_subdomains.txt
+
+  assetfinder --subs-only $domain >> $rootPath/$domain/$foldername/raw_subdomains.txt
+
 
   number=$(wc -l $rootPath/$domain/$foldername/raw_subdomains.txt| awk '{print $1}')
   if [[ $number -le 3 ]]; then
@@ -169,12 +176,16 @@ recon(){
   echo "Massdns finished..."
 
   rm_dup_file $rootPath/$domain/$foldername/massdns_checked_subdomains.txt
-
+  import_subdomains
 
   hostalive
 
   using_dnsgen
   hostalive_for_dnsgen
+
+  rm_dup_file $rootPath/$domain/$foldername/allsubdomains_final.txt
+
+
 
   cat $rootPath/$domain/$foldername/responsive_urls.txt >> $rootPath/$domain/$foldername/responsive_urls_final.txt
 
@@ -186,7 +197,6 @@ recon(){
 
   nsrecords $domain
 
-  rm_dup_file $rootPath/$domain/$foldername/${domain}_subdomains_nmap.txt
 
 }
 
@@ -252,7 +262,7 @@ portscanning(){
        continue
      fi
      echo "$line     $ip" >>$rootPath/$domain/$foldername/domain_ip_tmp.txt
-  done <  $rootPath/$domain/$foldername/${domain}_subdomains_nmap.txt
+  done <  $rootPath/$domain/$foldername/allsubdomains_final.txt
 
   cat $rootPath/$domain/$foldername/domain_ip_tmp.txt | awk '!seen[$2]++' > $rootPath/$domain/$foldername/domain_ip.txt
 
@@ -292,7 +302,7 @@ awk '{print $1}' $rootPath/$domain/$foldername/useless/massdns_temp.txt | sed 's
 
 rm_dup_file $rootPath/$domain/$foldername/massdns_checked_subdomains.txt
 
-cat $rootPath/$domain/$foldername/massdns_checked_subdomains.txt > $rootPath/$domain/$foldername/${domain}_subdomains_nmap.txt
+cat $rootPath/$domain/$foldername/massdns_checked_subdomains.txt > $rootPath/$domain/$foldername/allsubdomains_final.txt
 
 }
 
@@ -317,7 +327,7 @@ using_dnsgen(){
 
     rm_dup_file  $rootPath/$domain/$foldername/dnsgen_resolved_domains.txt
 
-  cat $rootPath/$domain/$foldername/dnsgen_resolved_domains.txt >>  $rootPath/$domain/$foldername/${domain}_subdomains_nmap.txt
+  cat $rootPath/$domain/$foldername/dnsgen_resolved_domains.txt >>  $rootPath/$domain/$foldername/allsubdomains_final.txt
 
   rm $rootPath/$domain/$foldername/dnsgen_temp.txt
 }
@@ -391,7 +401,7 @@ main(){
   touch $rootPath/$domain/$foldername/useless/massdns_temp.txt
   touch $rootPath/$domain/$foldername/domaintemp.txt
   touch $rootPath/$domain/$foldername/useless/cleantemp.txt
-  touch $rootPath/$domain/$foldername/${domain}_subdomains_nmap.txt
+  touch $rootPath/$domain/$foldername/allsubdomains_final.txt
 
   rm_resolver
   recon
