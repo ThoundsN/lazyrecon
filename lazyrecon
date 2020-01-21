@@ -118,7 +118,6 @@ cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep
 cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.jsp(\?|$) "| sort -u  > $rootPath/$domain/$foldername/wayback-data/jspurls.txt
 [ -s $rootPath/$domain/$foldername/wayback-data/jspurls.txt ] && echo "JSP Urls saved to /$domain/$foldername/wayback-data/jspurls.txt"
 
-rm $rootPath/$domain/$foldername/wayback-data/waybackurls.txt
 
 mv  $rootPath/$domain/$foldername/wayback-data/ /var/www/jsrecon/links/$domain/urls/
 
@@ -150,7 +149,7 @@ recon(){
   echo "${green}Recon started on $domain ${reset}"
   echo "Listing subdomains using assertfinder..."
 
-  findomain -t $domain -u $rootPath/$domain/$foldername/raw_subdomains.txt -m --postgres-database subdomains_name
+  findomain -r -t $domain -u $rootPath/$domain/$foldername/raw_subdomains.txt  
 
   assetfinder --subs-only $domain >> $rootPath/$domain/$foldername/raw_subdomains.txt
 
@@ -281,7 +280,7 @@ portscanning(){
 
   awk '{print $2}' $rootPath/$domain/$foldername/domain_ip.txt | awk '!seen[$0]++' > $rootPath/$domain/$foldername/only_ip.txt
 
-ipport_mass -f  $rootPath/$domain/$foldername/only_ip.txt -o $rootPath/$domain/$foldername/portscanning
+ timeout 3h ipport_mass -f  $rootPath/$domain/$foldername/only_ip.txt -o $rootPath/$domain/$foldername/portscanning
 
 cp $rootPath/$domain/$foldername/portscanning/ip_services.txt /var/www/jsrecon/links/$domain/
 }
