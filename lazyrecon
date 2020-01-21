@@ -150,7 +150,7 @@ recon(){
   echo "${green}Recon started on $domain ${reset}"
   echo "Listing subdomains using assertfinder..."
 
-  findomain -t $domain -u $rootPath/$domain/$foldername/raw_subdomains.txt
+  findomain -t $domain -u $rootPath/$domain/$foldername/raw_subdomains.txt -m --postgres-database subdomains_name
 
   assetfinder --subs-only $domain >> $rootPath/$domain/$foldername/raw_subdomains.txt
 
@@ -191,6 +191,8 @@ recon(){
     using_dnsgen
     hostalive_for_dnsgen
   fi
+
+  
   rm_dup_file $rootPath/$domain/$foldername/allsubdomains_final.txt
  
 
@@ -443,5 +445,7 @@ export rootPath
 export domain
 export foldername
 
+touch /root/Wordlist/domains_monitoring.txt
+echo $domain >> /root/Wordlist/domains_monitoring.txt
 
 main $domain
