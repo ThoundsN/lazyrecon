@@ -100,7 +100,7 @@ cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | unfu
 mkdir -p /var/www/jsrecon/links/$domain/urls
 
 
-python3 $rootPath/$domain/$foldername/wayback-data/waybackurls.txt /var/www/jsrecon/links/$domain/urls/waybackurls.html
+
 
 
 cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.js(\?|$)" | sort -u > $rootPath/$domain/$foldername/wayback-data/jsurls.txt
@@ -336,7 +336,7 @@ using_dnsgen(){
 
   cat $rootPath/$domain/$foldername/useless/dnsgen_resolved_domains.txt >>  $rootPath/$domain/$foldername/allsubdomains_final.txt
 
-  rm $rootPath/$useless/domain/$foldername/dnsgen_temp.txt
+  rm $rootPath/$domain/$foldername/useless/dnsgen_temp.txt
 }
 
 hostalive_for_dnsgen(){
