@@ -83,11 +83,11 @@ checkjsfile(){
   ls -v | cat -n | while read n f; do mv -n "$f" "$n.ext"; done
   python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'   -o $rootPath/$domain/$foldername/html/${domain}_js.html
   python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'  -r /api/   -o $rootPath/$domain/$foldername/html/${domain}_js_api.html
+  python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'  -r /admin/   -o $rootPath/$domain/$foldername/html/${domain}_js_admin.html
   cd -
 
   mkdir -p /var/www/jsrecon/links/$domain
-  cp $rootPath/$domain/$foldername/html/${domain}_js.html /var/www/jsrecon/links/$domain/${domain}_js.html
-  cp $rootPath/$domain/$foldername/html/${domain}_js_api.html /var/www/jsrecon/links/$domain/${domain}_js_api.html
+  cp -r $rootPath/$domain/$foldername/html/ /var/www/jsrecon/links/$domain/
 
 }
 
