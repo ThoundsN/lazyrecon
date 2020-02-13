@@ -72,10 +72,23 @@ memento_mass -f $rootPath/$domain/$foldername/allsubdomains_final.txt  -o $rootP
 }
 
 
+waybackdowloader_oldjsfile(){
+  cd $rootPath/$domain/$foldername/wayback-data/
+  while read p ; do 
+      wayback_machine_downloader $p  --only "/\.js$/i"
+  done < $rootPath/$domain/$foldername/allsubdomains_final.txt
+  cd $rootPath/$domain/$foldername/wayback-data/websites/
+  for fl_nm in $(find . -type f );
+  do cp $fl_nm  $rootPath/$domain/$foldername/wayback-data/jsfile/$(echo $fl_nm | sed -e 's/[^A-Za-z0-9._-]/_/g'); 
+done 
+
+}
+
+
 checkjsfile(){
   mkdir -p $rootPath/$domain/$foldername/html
-  wget2 -i $rootPath/$domain/$foldername/wayback-data/jsurls.txt -P $rootPath/$domain/$foldername/wayback-data/jsfile
   mkdir -p $rootPath/$domain/$foldername/wayback-data/jsfile
+  wget2 -i $rootPath/$domain/$foldername/wayback-data/jsurls.txt -P $rootPath/$domain/$foldername/wayback-data/jsfile
   cd $rootPath/$domain/$foldername/wayback-data/jsfile
   fdupes . -r -f -1 -S -d
   ls | while read file; do mv $file $(echo $file | sed -e 's/[^A-Za-z0-9._-]/_/g'); done
