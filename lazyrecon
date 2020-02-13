@@ -60,7 +60,11 @@ shift $((OPTIND - 1))
 discovery(){
 
   waybackrecon
+  waybackdowloader_oldjsfile
   checkjsfile
+
+cp -r  $rootPath/$domain/$foldername/wayback-data/ /var/www/jsrecon/links/$domain/wayback-data/
+
 
 memento_mass -f $rootPath/$domain/$foldername/allsubdomains_final.txt  -o $rootPath/$domain/$foldername/wayback-data/robots_archieve.txt
   cp $rootPath/$domain/$foldername/wayback-data/robots_archieve.txt /var/www/jsrecon/links/$domain/urls/robots_archieve.txt
@@ -86,8 +90,6 @@ done
 
 
 checkjsfile(){
-  mkdir -p $rootPath/$domain/$foldername/html
-  mkdir -p $rootPath/$domain/$foldername/wayback-data/jsfile
   wget2 -i $rootPath/$domain/$foldername/wayback-data/jsurls.txt -P $rootPath/$domain/$foldername/wayback-data/jsfile
   cd $rootPath/$domain/$foldername/wayback-data/jsfile
   fdupes . -r -f -1 -S -d
@@ -110,7 +112,6 @@ done
 rm $rootPath/$domain/$foldername/html/?.html
   cd -
 
-  mkdir -p /var/www/jsrecon/links/$domain
   cp -r $rootPath/$domain/$foldername/html/ /var/www/jsrecon/links/$domain/
 
 }
@@ -121,7 +122,6 @@ cat $rootPath/$domain/$foldername/allsubdomains_final.txt  | gau > $rootPath/$do
 cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | unfurl --unique keypairs > $rootPath/$domain/$foldername/wayback-data/paramlist.txt
 [ -s $rootPath/$domain/$foldername/wayback-data/paramlist.txt ] && echo "Wordlist saved to /$domain/$foldername/wayback-data/paramlist.txt"
 
-mkdir -p /var/www/jsrecon/links/$domain/urls
 
 
 
@@ -143,7 +143,6 @@ cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep
 [ -s $rootPath/$domain/$foldername/wayback-data/jspurls.txt ] && echo "JSP Urls saved to /$domain/$foldername/wayback-data/jspurls.txt"
 
 
-cp -r  $rootPath/$domain/$foldername/wayback-data/ /var/www/jsrecon/links/$domain/urls/
 
 }
 
@@ -386,6 +385,12 @@ main(){
   mkdir -p $rootPath/$domain/$foldername/wayback-data/
   mkdir -p $rootPath/$domain/$foldername/eyewitness
   mkdir -p $rootPath/$domain/$foldername/useless
+  mkdir -p $rootPath/$domain/$foldername/html
+  mkdir -p /var/www/jsrecon/links/$domain
+  mkdir -p /var/www/jsrecon/links/$domain/urls
+
+  mkdir -p $rootPath/$domain/$foldername/wayback-data/jsfile
+
   touch $rootPath/$domain/$foldername/useless/mass.txt
   touch $rootPath/$domain/$foldername/cnames.txt
   touch $rootPath/$domain/$foldername/pos.txt
