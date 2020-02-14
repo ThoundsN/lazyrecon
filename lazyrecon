@@ -83,16 +83,17 @@ waybackdowloader_oldjsfile(){
   done < $rootPath/$domain/$foldername/allsubdomains_final.txt
   cd $rootPath/$domain/$foldername/wayback-data/websites/
   for fl_nm in $(find . -type f );
-  do cp $fl_nm  $rootPath/$domain/$foldername/wayback-data/jsfile/$(echo $fl_nm | sed -e 's/[^A-Za-z0-9._-]/_/g'); 
+  do cp $fl_nm  $rootPath/$domain/$foldername/wayback-data/jsfile/$(echo $fl_nm | cut -c 3- |sed -e 's/[^A-Za-z0-9._-]/_/g'); 
 done 
 
+  rm -rf $rootPath/$domain/$foldername/wayback-data/websites/
 }
 
 
 checkjsfile(){
   wget2 -i $rootPath/$domain/$foldername/wayback-data/jsurls.txt -P $rootPath/$domain/$foldername/wayback-data/jsfile
   cd $rootPath/$domain/$foldername/wayback-data/jsfile
-  fdupes . -r -f -1 -S -d
+  fdupes . -r -f -1 -S -d -N 
   ls | while read file; do mv $file $(echo $file | sed -e 's/[^A-Za-z0-9._-]/_/g'); done
   DumpsterDiver.py -p . -o  $rootPath/$domain/$foldername/html/entropy.json
   rm $rootPath/$domain/$foldername/wayback-data/jsfile/errors.log
@@ -142,7 +143,8 @@ cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep
 cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.jsp(\?|$) "| sort -u  > $rootPath/$domain/$foldername/wayback-data/jspurls.txt
 [ -s $rootPath/$domain/$foldername/wayback-data/jspurls.txt ] && echo "JSP Urls saved to /$domain/$foldername/wayback-data/jspurls.txt"
 
-
+cat paths.txt | sed -E -e '/(\.jpg|\.png|\.gif|\.js)$/d' | perl -p -e 's/(.*)/<br><a href="\1" target="_blank">\1<\/a><br>/'  >  $rootPath/$domain/$foldername/html/paths.html
+  
 
 }
 
