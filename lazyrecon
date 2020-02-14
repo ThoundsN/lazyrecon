@@ -63,11 +63,14 @@ discovery(){
   waybackdowloader_oldjsfile
   checkjsfile
 
-cp -r  $rootPath/$domain/$foldername/wayback-data/ /var/www/jsrecon/links/$domain/wayback-data/
+  cp -r $rootPath/$domain/$foldername/html/ /var/www/jsrecon/links/$domain/
 
 
-memento_mass -f $rootPath/$domain/$foldername/allsubdomains_final.txt  -o $rootPath/$domain/$foldername/wayback-data/robots_archieve.txt
-  cp $rootPath/$domain/$foldername/wayback-data/robots_archieve.txt /var/www/jsrecon/links/$domain/urls/robots_archieve.txt
+  memento_mass -f $rootPath/$domain/$foldername/allsubdomains_final.txt  -o $rootPath/$domain/$foldername/wayback-data/robots_archieve.txt
+
+  cp -r  $rootPath/$domain/$foldername/wayback-data/ /var/www/jsrecon/links/$domain/wayback-data/
+  rm -rf $rootPath/$domain/$foldername/wayback-data/jsfile/
+
 
   portscanning
   eyewitnesser
@@ -98,22 +101,13 @@ checkjsfile(){
   DumpsterDiver.py -p . -o  $rootPath/$domain/$foldername/html/entropy.json
   rm $rootPath/$domain/$foldername/wayback-data/jsfile/errors.log
   grep -oE ".{0,75}(password|application\/xml|encodeuricomponent).{0,60}"  * > $rootPath/$domain/$foldername/html/pattern.txt
+
   python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'   -o $rootPath/$domain/$foldername/html/${domain}_js.html
-  python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'  -r /api/   -o $rootPath/$domain/$foldername/html/${domain}_js_api.html
-  python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'  -r /admin/   -o $rootPath/$domain/$foldername/html/1.html
-  python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'  -r /dev/   -o $rootPath/$domain/$foldername/html/2.html
-  python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'  -r /beta/   -o $rootPath/$domain/$foldername/html/3.html
-  python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'  -r /test/   -o $rootPath/$domain/$foldername/html/4.html
-  python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'  -r /internal/   -o $rootPath/$domain/$foldername/html/5.html
-  python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'  -r /prod/   -o $rootPath/$domain/$foldername/html/6.html
-  touch $rootPath/$domain/$foldername/html/?.html
-  for f in  $rootPath/$domain/$foldername/html/?.html;
-  do cat $f >> $rootPath/$domain/$foldername/html/${domain}_js_other.html;
-done
-rm $rootPath/$domain/$foldername/html/?.html
+
+  python3 /root/recon_tools/Scripts/python/extract_link.py $rootPath/$domain/$foldername/html/${domain}_js.html $rootPath/$domain/$foldername/html/${domain}_other.html $rootPath/$domain/$foldername/html/${domain}_api.html
+
   cd -
 
-  cp -r $rootPath/$domain/$foldername/html/ /var/www/jsrecon/links/$domain/
 
 }
 
