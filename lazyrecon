@@ -99,8 +99,9 @@ checkjsfile(){
   fdupes . -r -f -1 -S -d -N 
   ls | while read file; do mv $file $(echo $file | sed -e 's/[^A-Za-z0-9._-]/_/g'); done
   DumpsterDiver.py -p . -o  $rootPath/$domain/$foldername/html/entropy.json
+  python3 ~/recon_tools/Scripts/python/entropy_json.py $rootPath/$domain/$foldername/html/entropy.json $rootPath/$domain/$foldername/html/new.json
   rm $rootPath/$domain/$foldername/wayback-data/jsfile/errors.log
-  grep -oE ".{0,75}(password|application\/xml|encodeuricomponent).{0,60}"  * > $rootPath/$domain/$foldername/html/pattern.txt
+  grep -oE ".{0,75}(application\/xml|encodeuricomponent).{0,60}"  * > $rootPath/$domain/$foldername/html/pattern.txt
 
   python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'   -o $rootPath/$domain/$foldername/html/${domain}_js.html
 
@@ -139,7 +140,7 @@ cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep
 
 cat $rootPath/$domain/$foldername/wayback-data/paths.txt | sed -E -e '/(\.jpg|\.png|\.gif|\.woff|\.css|\.ico|\.js)$/d' | perl -p -e 's/(.*)/<br><a href="\1" target="_blank">\1<\/a><br>/'  >  $rootPath/$domain/$foldername/html/paths.html
   
-grep 'admin\|proxy' $rootPath/$domain/$foldername/html/paths.html > $rootPath/$domain/$foldername/html/adminpath.txt
+grep 'admin\|proxy' $rootPath/$domain/$foldername/html/paths.html > $rootPath/$domain/$foldername/html/adminpath.html
 }
 
 import_subdomains(){
