@@ -100,6 +100,9 @@ checkjsfile(){
   ls | while read file; do mv $file $(echo $file | sed -e 's/[^A-Za-z0-9._-]/_/g'); done
   DumpsterDiver.py -p . -o  $rootPath/$domain/$foldername/html/entropy.json
   python3 ~/recon_tools/Scripts/python/entropy_json.py $rootPath/$domain/$foldername/html/entropy.json $rootPath/$domain/$foldername/html/new.json
+
+  echo "Fininshed high entropy scanning  in jsfile http://jsrecon.ragnarokv.site/links/${domain}/html/new.json " | mutt -s "Entropy string ${domain} "  inthebybyby@gmail.com
+
   rm $rootPath/$domain/$foldername/wayback-data/jsfile/errors.log
   grep -oE ".{0,75}(application\/xml|encodeuricomponent).{0,60}"  * > $rootPath/$domain/$foldername/html/pattern.txt
 
@@ -407,8 +410,7 @@ main(){
 
   ffuf_mass -f $rootPath/$domain/$foldername/ffuf_input.txt -o $rootPath/$domain/$foldername/ffuf/
   cp $rootPath/$domain/$foldername/ffuf/ffuf_output.html /var/www/jsrecon/links/$domain/ffuf_output.html
-  echo "Fininshed ffuf scanning  http://jsrecon.ragnarokv.site/links/${domain}/ffuf_output.html " | mutt -s "FFUF_full ${domain}
-  "  inthebybyby@gmail.com
+  echo "Fininshed ffuf scanning  http://jsrecon.ragnarokv.site/links/${domain}/ffuf_output.html " | mutt -s "FFUF_full ${domain} "  inthebybyby@gmail.com
 
 
   # -a $rootPath/$domain/$foldername/ffuf/ffuf_output.html
