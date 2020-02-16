@@ -186,6 +186,7 @@ recon(){
   echo "Massdns finished..."
 
  
+  hostalive
 
 
   if [[ $wildcard_boolean !=  1 ]]; then
@@ -247,6 +248,21 @@ deduplicate_massdns_output(){
 tmpfile=/tmp/$(basename $1)
 awk '!seen[$3]++' $1 > $tmpfile
 mv $tmpfile $1
+}
+
+hostalive(){
+echo "Probing for live hosts..."
+cat $rootPath/$domain/$foldername/massdns_checked_subdomains.txt  | httprobe -c 50 -t 3000 > $rootPath/$domain/$foldername/responsive_urls.txt
+
+cat $rootPath/$domain/$foldername/responsive_urls.txt |unfurl -unique domain > $rootPath/$domain/$foldername/responsiveDomains.txt
+
+count=$(wc -l $rootPath/$domain/$foldername/responsiveDomains.txt | awk '{print $1}')
+
+if [[ $count = 0 ]]; then
+  exit 1
+fi
+
+echo  "${yellow}Total of ${count} live subdomains were found${reset}"
 }
 
 using_dnsgen(){
