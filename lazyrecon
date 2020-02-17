@@ -57,7 +57,7 @@ done
 shift $((OPTIND - 1))
 
 
-discovery(){
+wayback(){
 
   waybackrecon
   waybackdowloader_oldjsfile
@@ -70,6 +70,17 @@ discovery(){
 
   cp -r  $rootPath/$domain/$foldername/wayback-data/ /var/www/jsrecon/links/$domain/wayback-data/
   rm -rf $rootPath/$domain/$foldername/wayback-data/jsfile/
+
+}
+
+discovery(){
+
+  if [ ! -d "$rootPath/$domain/$foldername/wayback-data/jsfile/" ]; then
+  # Control will enter here if $DIRECTORY doesn't exist.
+  wayback
+fi
+
+
 
 
   portscanning
