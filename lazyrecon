@@ -75,7 +75,7 @@ wayback(){
 
 discovery(){
 
-  if [ ! -d "$rootPath/$domain/$foldername/wayback-data/jsfile/" ]; then
+  if [ ! -d "/var/www/jsrecon/links/$domain/wayback-data/jsfile/" ]; then
   # Control will enter here if $DIRECTORY doesn't exist.
   wayback
 fi

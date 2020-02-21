@@ -56,6 +56,9 @@ done
 shift $((OPTIND - 1))
 
 
+
+
+
 discovery(){
 
   waybackrecon
@@ -100,7 +103,7 @@ if [ -s "$rootPath/$domain/$foldername/html/firebase_js_location.txt" ]
   then python3  ~/recon_tools/Scripts/python/location2link.py $rootPath/$domain/$foldername/html/firebase_js_location.txt $rootPath/$domain/$foldername/html/firebase_js_link.html
   else
 rm $rootPath/$domain/$foldername/html/firebase_js_location.txt
-    
+
     return 
   fi
 
@@ -366,6 +369,13 @@ ${reset}                                                      "
 
 main(){
   logo
+
+
+    if [ -d "/var/www/jsrecon/links/$domain/wayback-data/jsfile/" ]; then
+  # Control will enter here if $DIRECTORY doesn't exist.
+  exit 1 
+fi
+
 
 
   mkdir -p $rootPath/$domain
