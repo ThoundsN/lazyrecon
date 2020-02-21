@@ -104,6 +104,28 @@ done
 }
 
 
+find_firebase(){
+
+  touch  $rootPath/$domain/$foldername/html/firebase_js_location.txt
+
+  cd $rootPath/$domain/$foldername/wayback-data/jsfile/
+    for fl_nm in $(find . -type f );
+  do grep "firebaseio" $fl_nm > /dev/null &&  readlink -f $fl_nm >> $rootPath/$domain/$foldername/html/firebase_js_location.txt;
+done 
+
+if [ -s "$rootPath/$domain/$foldername/html/firebase_js_location.txt" ]
+  then python3  ~/recon_tools/Scripts/python/location2link.py $rootPath/$domain/$foldername/html/firebase_js_location.txt $rootPath/$domain/$foldername/html/firebase_js_link.html
+  else
+    return 
+  done
+
+rm $rootPath/$domain/$foldername/html/firebase_js_location.txt
+cd -- 
+
+    echo "  http://jsrecon.ragnarokv.site/links/${domain}/html/firebase_js_link.html " | mutt -s "Found potential firebaseio url from  ${domain}"  inthebybyby@gmail.com   
+
+}
+
 checkjsfile(){
   wget2 -i $rootPath/$domain/$foldername/wayback-data/jsurls.txt -P $rootPath/$domain/$foldername/wayback-data/jsfile
   cd $rootPath/$domain/$foldername/wayback-data/jsfile
@@ -114,8 +136,11 @@ checkjsfile(){
 
   echo "Fininshed high entropy scanning  in jsfile http://jsrecon.ragnarokv.site/links/${domain}/html/new.json " | mutt -s "Entropy string ${domain} "  inthebybyby@gmail.com
 
+  find_firebase
+
   rm $rootPath/$domain/$foldername/wayback-data/jsfile/errors.log
-  grep -oE ".{0,75}(application\/xml|encodeuricomponent).{0,60}"  * > $rootPath/$domain/$foldername/html/pattern.txt
+  grep -oE ".{0,75}(application\/xml|encodeuricomponent|wsdl).{0,60}"  * > $rootPath/$domain/$foldername/html/pattern.txt
+
 
   python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'   -o $rootPath/$domain/$foldername/html/${domain}_js.html
 
