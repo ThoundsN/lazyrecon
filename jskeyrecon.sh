@@ -99,6 +99,8 @@ done
 if [ -s "$rootPath/$domain/$foldername/html/firebase_js_location.txt" ]
   then python3  ~/recon_tools/Scripts/python/location2link.py $rootPath/$domain/$foldername/html/firebase_js_location.txt $rootPath/$domain/$foldername/html/firebase_js_link.html
   else
+rm $rootPath/$domain/$foldername/html/firebase_js_location.txt
+    
     return 
   fi
 
