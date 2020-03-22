@@ -38,7 +38,7 @@ SECONDS=0
 
 usage() { echo -e "Usage: $0 -d domain [-e]\n  Select -e to specify excluded domains\n " 1>&2; exit 1; }
 
-while getopts ":d:e:r:" o; do
+while getopts ":d:f:r:" o; do
     case "${o}" in
         d)
             domain=${OPTARG}
