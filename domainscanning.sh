@@ -203,7 +203,7 @@ recon(){
 
   python3 /root/recon_tools/Scripts/python/urls_processing.py  $rootPath/$domain/$foldername/responsive_urls.txt  $rootPath/$domain/$foldername/ffuf_input.txt
 
-  nsrecords $domain
+  # nsrecords $domain
 
 
 }
@@ -245,10 +245,7 @@ portscanning(){
 cp $rootPath/$domain/$foldername/portscanning/ip_services.txt /var/www/jsrecon/links/$domain/
 }
 
-massdns_second_check(){
-  cat $rootPath/$domain/$foldername/raw_subdomains.txt | massdns -r /root/Wordlist/resolver.txt -t A -q -o S -w  $rootPath/$domain/$foldername/useless/massdns_temp.txt
 
-}
 
 
 
