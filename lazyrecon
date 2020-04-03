@@ -381,8 +381,8 @@ nsrecords_subjack(){
 
 
 
-                cat $rootPath/$domain/$foldername/useless/massdns_temp.txt | grep CNAME >> $rootPath/$domain/$foldername/cnames.txt
-                cat $rootPath/$domain/$foldername/useless/dnsgen_mass.txt | grep CNAME >> $rootPath/$domain/$foldername/cnames.txt
+                cat $rootPath/$domain/$foldername/useless/massdns_temp.txt | egrep 'CNAME|wp' >> $rootPath/$domain/$foldername/cnames.txt
+                cat $rootPath/$domain/$foldername/useless/dnsgen_mass.txt | grep 'CNAME|wp' >> $rootPath/$domain/$foldername/cnames.txt
 
 
                 cat $rootPath/$domain/$foldername/cnames.txt | sort -u | while read line; do
