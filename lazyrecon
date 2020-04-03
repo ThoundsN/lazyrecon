@@ -264,7 +264,7 @@ recon(){
 
   python3 /root/recon_tools/Scripts/python/urls_processing.py  $rootPath/$domain/$foldername/responsive_urls.txt  $rootPath/$domain/$foldername/ffuf_input.txt
 
-  nsrecords $domain
+  nsrecords_subjack $domain
 
 
 }
@@ -372,7 +372,7 @@ hostalive_for_dnsgen(){
 
 }
 
-nsrecords(){
+nsrecords_subjack(){
 
                 echo "${green}Started dns records check...${reset}"
                 echo "Looking into CNAME Records..."
@@ -397,6 +397,14 @@ nsrecords(){
                 done
                 sleep 1
 
+                subjack -c ~/go/src/github.com/haccer/subjack/fingerprints.json  -w $rootPath/$domain/$foldername/allsubdomains_final.txt  -t 10 -timeout 15 -o $rootPath/$domain/$foldername/subjack.txt -ssl -a -m
+
+
+                cp $rootPath/$domain/$foldername/cnames.txt /var/www/jsrecon/links/$domain/
+                cp $rootPath/$domain/$foldername/pos.txt /var/www/jsrecon/links/$domain/
+                cp $rootPath/$domain/$foldername/subjack.txt /var/www/jsrecon/links/$domain/
+
+                echo "Fininshed subjack scanning  http://jsrecon.ragnarokv.site/links/${domain}/subjack.txt " | mutt -s "Subjack ${domain} "  inthebybyby@gmail.com
         }
 
 
