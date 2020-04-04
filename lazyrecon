@@ -399,6 +399,7 @@ nsrecords_subjack(){
 
                 subjack -c ~/go/src/github.com/haccer/subjack/fingerprints.json  -w $rootPath/$domain/$foldername/allsubdomains_final.txt  -t 10 -timeout 15 -o $rootPath/$domain/$foldername/subjack.txt -ssl -a -m
 
+                chmod +r $rootPath/$domain/$foldername/subjack.txt
 
                 cp $rootPath/$domain/$foldername/cnames.txt /var/www/jsrecon/links/$domain/
                 cp $rootPath/$domain/$foldername/pos.txt /var/www/jsrecon/links/$domain/
