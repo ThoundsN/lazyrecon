@@ -60,8 +60,13 @@ shift $((OPTIND - 1))
 wayback(){
 
   waybackrecon
-  waybackdowloader_oldjsfile
+
+  if [ ! -d "/var/www/jsrecon/links/$domain/wayback-data/jsfile/" ]; then
+  # Control will enter here if $DIRECTORY doesn't exist.
+    waybackdowloader_oldjsfile
   checkjsfile
+fi
+
 
   cp -r $rootPath/$domain/$foldername/html/ /var/www/jsrecon/links/$domain/
 
@@ -75,13 +80,8 @@ wayback(){
 
 discovery(){
 
-  if [ ! -d "/var/www/jsrecon/links/$domain/wayback-data/jsfile/" ]; then
-  # Control will enter here if $DIRECTORY doesn't exist.
+  
   wayback
-fi
-
-
-
 
   portscanning
   eyewitnesser
@@ -142,6 +142,16 @@ checkjsfile(){
   rm $rootPath/$domain/$foldername/wayback-data/jsfile/errors.log
   grep -oE ".{0,75}(application\/xml|encodeuricomponent|wsdl).{0,60}"  * > $rootPath/$domain/$foldername/html/pattern.txt
 
+  echo "\n\n\n\n Things from gf \n\n\n"
+  gf http-auth * >> $rootPath/$domain/$foldername/html/pattern.txt
+  gf fw * >> $rootPath/$domain/$foldername/html/pattern.txt
+  gf firebase * >> $rootPath/$domain/$foldername/html/pattern.txt
+  gf s3-buckets * >> $rootPath/$domain/$foldername/html/pattern.txt
+  gf servers * >> $rootPath/$domain/$foldername/html/pattern.txt
+  gf sec * >> $rootPath/$domain/$foldername/html/pattern.txt
+  gf aws-keys * >> $rootPath/$domain/$foldername/html/pattern.txt
+  
+  
 
   python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'   -o $rootPath/$domain/$foldername/html/${domain}_js.html
 
@@ -152,13 +162,18 @@ checkjsfile(){
 
 }
 
-waybackrecon () {
+waybackrecon() {
 echo "Scraping wayback for data..."
-cat $rootPath/$domain/$foldername/allsubdomains_final.txt  | gau > $rootPath/$domain/$foldername/wayback-data/waybackurls.txt
-cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | unfurl --unique keypairs > $rootPath/$domain/$foldername/wayback-data/paramlist.txt
-[ -s $rootPath/$domain/$foldername/wayback-data/paramlist.txt ] && echo "Wordlist saved to /$domain/$foldername/wayback-data/paramlist.txt"
+printf $domain  | gau -subs -providers  wayback | awk '!seen[$0]++'> $rootPath/$domain/$foldername/wayback-data/wayback.txt
+printf $domain  | gau -subs -providers  commoncrawl | awk '!seen[$0]++' > $rootPath/$domain/$foldername/wayback-data/commoncrawl.txt
+touch $rootPath/$domain/$foldername/wayback-data/temp.txt
+cat $rootPath/$domain/$foldername/wayback-data/commoncrawl.txt >> $rootPath/$domain/$foldername/wayback-data/temp.txt
+cat $rootPath/$domain/$foldername/wayback-data/wayback.txt >> $rootPath/$domain/$foldername/wayback-data/temp.txt
+cat $rootPath/$domain/$foldername/wayback-data/temp.txt | awk '!seen[$0]++'>  $rootPath/$domain/$foldername/wayback-data/gau.txt
 
+rm $rootPath/$domain/$foldername/wayback-data/temp.txt $rootPath/$domain/$foldername/wayback-data/commoncrawl.txt $rootPath/$domain/$foldername/wayback-data/wayback.txt
 
+rscan.sh -f $rootPath/$domain/$foldername/wayback-data/gau.txt -o $rootPath/$domain/$foldername/wayback-data/
 
 
 
@@ -166,21 +181,25 @@ cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | unfu
 cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.js(\?|$)" | sort -u > $rootPath/$domain/$foldername/wayback-data/jsurls.txt
 [ -s $rootPath/$domain/$foldername/wayback-data/jsurls.txt ] && echo "JS Urls saved to /$domain/$foldername/wayback-data/jsurls.txt"
 
-cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  |  unfurl --unique format "%s://%d%p" >  $rootPath/$domain/$foldername/wayback-data/paths.txt
+# cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | unfurl --unique keypairs > $rootPath/$domain/$foldername/wayback-data/paramlist.txt
+# [ -s $rootPath/$domain/$foldername/wayback-data/paramlist.txt ] && echo "Wordlist saved to /$domain/$foldername/wayback-data/paramlist.txt"
 
-
-cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.php(\?|$) "| sort -u > $rootPath/$domain/$foldername/wayback-data/phpurls.txt
-[ -s $rootPath/$domain/$foldername/wayback-data/phpurls.txt ] && echo "PHP Urls saved to /$domain/$foldername/wayback-data/phpurls.txt"
-
-cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.aspx(\?|$) "| sort -u  > $rootPath/$domain/$foldername/wayback-data/aspxurls.txt
-[ -s $rootPath/$domain/$foldername/wayback-data/aspxurls.txt ] && echo "ASP Urls saved to /$domain/$foldername/wayback-data/aspxurls.txt"
-
-cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.jsp(\?|$) "| sort -u  > $rootPath/$domain/$foldername/wayback-data/jspurls.txt
-[ -s $rootPath/$domain/$foldername/wayback-data/jspurls.txt ] && echo "JSP Urls saved to /$domain/$foldername/wayback-data/jspurls.txt"
-
-cat $rootPath/$domain/$foldername/wayback-data/paths.txt | sed -E -e '/(\.jpg|\.png|\.gif|\.woff|\.css|\.ico|\.js)$/d' | perl -p -e 's/(.*)/<br><a href="\1" target="_blank">\1<\/a><br>/'  >  $rootPath/$domain/$foldername/html/paths.html
+# cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  |  unfurl --unique format "%s://%d%p" >  $rootPath/$domain/$foldername/wayback-data/paths.txt
+# cat $rootPath/$domain/$foldername/wayback-data/paths.txt | sed -E -e '/(\.jpg|\.png|\.gif|\.woff|\.css|\.ico|\.js)$/d' | perl -p -e 's/(.*)/<br><a href="\1" target="_blank">\1<\/a><br>/'  >  $rootPath/$domain/$foldername/html/paths.html
   
-grep 'admin\|proxy' $rootPath/$domain/$foldername/html/paths.html > $rootPath/$domain/$foldername/html/adminpath.html
+# grep 'admin\|proxy' $rootPath/$domain/$foldername/html/paths.html > $rootPath/$domain/$foldername/html/adminpath.html
+
+
+# cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.php(\?|$) "| sort -u > $rootPath/$domain/$foldername/wayback-data/phpurls.txt
+# [ -s $rootPath/$domain/$foldername/wayback-data/phpurls.txt ] && echo "PHP Urls saved to /$domain/$foldername/wayback-data/phpurls.txt"
+
+# cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.aspx(\?|$) "| sort -u  > $rootPath/$domain/$foldername/wayback-data/aspxurls.txt
+# [ -s $rootPath/$domain/$foldername/wayback-data/aspxurls.txt ] && echo "ASP Urls saved to /$domain/$foldername/wayback-data/aspxurls.txt"
+
+# cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.jsp(\?|$) "| sort -u  > $rootPath/$domain/$foldername/wayback-data/jspurls.txt
+# [ -s $rootPath/$domain/$foldername/wayback-data/jspurls.txt ] && echo "JSP Urls saved to /$domain/$foldername/wayback-data/jspurls.txt"
+
+
 }
 
 import_subdomains(){
@@ -193,6 +212,8 @@ cat $rootPath/$domain/$foldername/massdns_checked_subdomains.txt  | httprobe -c 
 
 cat $rootPath/$domain/$foldername/responsive_urls.txt |unfurl -unique domain > $rootPath/$domain/$foldername/responsiveDomains.txt
 
+run_subscraper
+
 count=$(wc -l $rootPath/$domain/$foldername/responsiveDomains.txt | awk '{print $1}')
 
 if [[ $count = 0 ]]; then
@@ -200,6 +221,23 @@ if [[ $count = 0 ]]; then
 fi
 
 echo  "${yellow}Total of ${count} live subdomains were found${reset}"
+}
+
+
+run_subscraper(){
+     touch $rootPath/$domain/$foldername/useless/subscraper.txt
+     cat $rootPath/$domain/$foldername/responsiveDomains.txt| parallel subscraper.py -u youtube.com -o $rootPath/$domain/$foldername/useless/subscraper.txt
+     cat $rootPath/$domain/$foldername/useless/subscraper.txt |  awk '!seen[$0]++' > $rootPath/$domain/$foldername/useless/unique_subscraper.txt
+     cat $rootPath/$domain/$foldername/useless/unique_subscraper.txt |  httprobe -c 50 -t 3000 > $rootPath/$domain/$foldername/responsive_unique_subscraper_urls.txt
+     cat $rootPath/$domain/$foldername/responsive_urls.txt >> $rootPath/$domain/$foldername/responsive_unique_subscraper_urls.txt
+     cat $rootPath/$domain/$foldername/responsive_unique_subscraper_urls.txt |  awk '!seen[$0]++' > $rootPath/$domain/$foldername/responsive_urls.txt 
+}
+
+run_cloud_enum(){
+brand=$(echo $domain |cut -d '.' -f 1 )
+cloud_enum.py -k $domain -k $brand  -t 20 -l $rootPath/$domain/$foldername/cloud_enum.txt
+cp $rootPath/$domain/$foldername/cloud_enum.txt  $rootPath/$domain/$foldername/html/
+
 }
 
 
@@ -241,7 +279,7 @@ recon(){
   mass $domain > /dev/null
   echo "Massdns finished..."
 
- 
+  
 
   hostalive
 
@@ -281,6 +319,18 @@ eyewitnesser(){
 }
 
 
+using_blc(){
+  touch $rootPath/$domain/$foldername/blc.txt
+
+  while read p ; do 
+    blc  $p -rfoi --exclude youtube.com  --flter--level 3 >> $rootPath/$domain/$foldername/blc.txt
+  done < $rootPath/$domain/$foldername/responsive_urls.txt
+
+  chmod +r $rootPath/$domain/$foldername/blc.txt
+  cp $rootPath/$domain/$foldername/blc.txt /var/www/jsrecon/links/$domain/blc.txt
+
+
+}
 
 
 
