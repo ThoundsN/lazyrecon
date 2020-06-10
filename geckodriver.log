@@ -1,0 +1,1493 @@
+1569291097221	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.CxDRd9jISLQy"
+*** You are running in headless mode.
+1569291097727	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.CxDRd9jISLQy/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569291097934	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569291097934	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569291097934	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569291097934	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569291100345	Marionette	INFO	Listening on port 39223
+1569291100439	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569291101570	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.lKz557yhwZTz"
+*** You are running in headless mode.
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Failed to create WebGL context: WebGL creation failed: 
+* Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Failed to create WebGL context: WebGL creation failed: 
+* Can't use WebGL in headless mode (https://bugzil.la/1375585).
+1569291102175	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.lKz557yhwZTz/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569291102560	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569291102560	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569291102560	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569291102560	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569291108127	Marionette	INFO	Listening on port 37385
+1569291108196	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569291109412	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.UTQO8RdAcETV"
+*** You are running in headless mode.
+1569291110183	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.UTQO8RdAcETV/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Failed to create WebGL context: WebGL creation failed: 
+* Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Failed to create WebGL context: WebGL creation failed: 
+* Can't use WebGL in headless mode (https://bugzil.la/1375585).
+1569291110858	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569291110858	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569291110858	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569291110858	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Failed to create WebGL context: WebGL creation failed: 
+* Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Failed to create WebGL context: WebGL creation failed: 
+* Can't use WebGL in headless mode (https://bugzil.la/1375585).
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221569253171368%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+1569291121572	Marionette	INFO	Listening on port 46333
+1569291121673	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569291123064	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.APoQp0gsD3h0"
+*** You are running in headless mode.
+1569291125897	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.APoQp0gsD3h0/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221569253171368%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+1569291127414	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569291127417	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569291127418	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569291127418	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Failed to create WebGL context: WebGL creation failed: 
+* Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Failed to create WebGL context: WebGL creation failed: 
+* Can't use WebGL in headless mode (https://bugzil.la/1375585).
+Exiting due to channel error.
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Failed to create WebGL context: WebGL creation failed: 
+* Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Failed to create WebGL context: WebGL creation failed: 
+* Can't use WebGL in headless mode (https://bugzil.la/1375585).
+1569291186095	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.WY9YQ4i7bPoW"
+*** You are running in headless mode.
+1569291189425	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.WY9YQ4i7bPoW/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569291189632	Marionette	INFO	Stopped listening on port 46333
+1569291190319	Marionette	INFO	Stopped listening on port 37385
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221569253171368%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+observe@resource://gre/modules/AsyncShutdown.jsm:532:16
+GeckoDriver.prototype.quit@chrome://marionette/content/driver.js:3380:20
+despatch@chrome://marionette/content/server.js:289:40
+execute@chrome://marionette/content/server.js:262:16
+onPacket/<@chrome://marionette/content/server.js:235:20
+onPacket@chrome://marionette/content/server.js:236:9
+_onJSONObjectReady/<@chrome://marionette/content/transport.js:492:20
+
+1569291191631	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569291191698	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569291191703	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569291191703	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1569291194566	Marionette	INFO	Stopped listening on port 39223
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x53000D,name=PHttpChannel::Msg_RemoveCorsPreflightCacheEntry) Closed channel: cannot send/recv
+
+1569291196071	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.qAfiePeUx0aM"
+*** You are running in headless mode.
+1569291196884	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.qAfiePeUx0aM/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569291197311	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569291197311	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569291197311	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569291197311	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569291197327	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.AtnSSCylEt65"
+*** You are running in headless mode.
+1569291198045	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.AtnSSCylEt65/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569291198528	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569291198528	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569291198528	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569291198528	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569291200103	Marionette	INFO	Listening on port 44239
+1569291200166	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569291200291	Marionette	INFO	Stopped listening on port 44239
+1569291201351	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.gBGUvPWqYZgU"
+*** You are running in headless mode.
+1569291202230	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.gBGUvPWqYZgU/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569291202801	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569291202802	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569291202802	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569291202802	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569291203851	Marionette	INFO	Listening on port 36411
+1569291203958	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569291205134	Marionette	INFO	Listening on port 35319
+1569291205177	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Failed to create WebGL context: WebGL creation failed: 
+* Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Failed to create WebGL context: WebGL creation failed: 
+* Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Failed to create WebGL context: WebGL creation failed: 
+* Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Can't use WebGL in headless mode (https://bugzil.la/1375585).
+JavaScript warning: https://media.nintendo.com/share/nclood/stable/en-us/bundles/all.min.js, line 1: Error: WebGL warning: <SetDimensions>: Failed to create WebGL context: WebGL creation failed: 
+* Can't use WebGL in headless mode (https://bugzil.la/1375585).
+1569291211165	Marionette	INFO	Listening on port 37769
+1569291211219	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569291211594	Marionette	INFO	Stopped listening on port 37769
+1569291211729	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.vrz2vn1SnuXy"
+*** You are running in headless mode.
+1569291214498	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.vrz2vn1SnuXy/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569291215708	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569291215708	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569291215709	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569291215709	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221569253171368%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221569253171368%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+1569291226369	Marionette	INFO	Stopped listening on port 36411
+1569291230338	Marionette	INFO	Stopped listening on port 35319
+1569291233312	Marionette	INFO	Listening on port 39489
+1569291233476	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569291233700	Marionette	INFO	Stopped listening on port 39489
+1569291234801	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.ykwPl6E0LbVe"
+*** You are running in headless mode.
+1569291235827	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.ykwPl6E0LbVe/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569291236166	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569291236166	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569291236166	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569291236166	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569291240122	Marionette	INFO	Listening on port 40399
+1569291240176	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569291240281	Marionette	INFO	Stopped listening on port 40399
+1569291241345	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.i4SPTM0IQcyU"
+*** You are running in headless mode.
+1569291241996	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.i4SPTM0IQcyU/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569291242265	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569291242265	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569291242265	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569291242265	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569291246236	Marionette	INFO	Listening on port 35823
+1569291246339	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569291246462	Marionette	INFO	Stopped listening on port 35823
+1569291247528	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.cfS2sRQKLYJg"
+*** You are running in headless mode.
+1569291248083	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.cfS2sRQKLYJg/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569291248327	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569291248327	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569291248327	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569291248327	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569291252371	Marionette	INFO	Listening on port 34741
+1569291252445	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569291252601	Marionette	INFO	Stopped listening on port 34741
+JavaScript error: resource://gre/modules/UrlClassifierListManager.jsm, line 601: TypeError: this.tablesData[table] is undefined
+1569296633669	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.uIIpnKwRxTql"
+*** You are running in headless mode.
+1569296634284	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.uIIpnKwRxTql/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569296634528	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569296634529	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569296634529	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569296634529	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569296638513	Marionette	INFO	Listening on port 33679
+1569296638546	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569296639713	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.sAbapOoK3NFY"
+*** You are running in headless mode.
+1569296640568	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.sAbapOoK3NFY/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569296641162	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569296641162	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569296641162	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569296641162	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569296647644	Marionette	INFO	Listening on port 41149
+1569296647703	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569296648853	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.98vWIrSJeH54"
+*** You are running in headless mode.
+1569296649424	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.98vWIrSJeH54/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569296649813	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569296649814	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569296649814	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569296649814	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569296655650	Marionette	INFO	Listening on port 43643
+1569296655710	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569296656996	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.M5DcdzG8t3eP"
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221569253171368%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+*** You are running in headless mode.
+1569296658086	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.M5DcdzG8t3eP/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569296658686	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569296658686	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569296658686	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569296658686	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221569253171368%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+Exiting due to channel error.
+Exiting due to channel error.
+1569296718041	Marionette	INFO	Stopped listening on port 43643
+1569296718052	Marionette	INFO	Stopped listening on port 41149
+1569296718466	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.cYSIWYwxG9ft"
+*** You are running in headless mode.
+[Parent 17539, Gecko_IOThread] WARNING: pipe error (55): Connection reset by peer: file /build/firefox-izpums/firefox-68.0+build3/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+1569296718958	Marionette	INFO	Stopped listening on port 33679
+[Parent 17402, Gecko_IOThread] WARNING: pipe error (138): Connection reset by peer: file /build/firefox-izpums/firefox-68.0+build3/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+1569296720096	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.cYSIWYwxG9ft/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569296720587	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569296720587	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569296720587	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569296720587	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569296721866	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.9al6thBEqhsH"
+*** You are running in headless mode.
+1569296722149	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.GkC3ps9vHyfD"
+*** You are running in headless mode.
+1569296722422	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.eaUElGiCFT8z"
+*** You are running in headless mode.
+1569296722729	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.9al6thBEqhsH/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569296723065	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.GkC3ps9vHyfD/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569296723292	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.eaUElGiCFT8z/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569296723421	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569296723421	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569296723421	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569296723422	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569296723633	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569296723633	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569296723633	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569296723633	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569296723859	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569296723859	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569296723860	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569296723860	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569296725969	Marionette	INFO	Listening on port 46637
+1569296726050	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569296727575	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.dGBsMF0YhOf7"
+*** You are running in headless mode.
+1569296728644	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.dGBsMF0YhOf7/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569296729450	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569296729450	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569296729451	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569296729469	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569296733786	Marionette	INFO	Listening on port 43753
+1569296734093	Marionette	INFO	Listening on port 40367
+1569296734311	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569296734613	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569296735321	Marionette	INFO	Listening on port 39277
+1569296735604	Marionette	WARN	TLS certificate errors will be ignored for this session
+Exiting due to channel error.
+Exiting due to channel error.
+1569296788603	Marionette	INFO	Stopped listening on port 43753
+1569296788668	Marionette	INFO	Stopped listening on port 46637
+1569296788820	Marionette	INFO	Stopped listening on port 40367
+1569296789296	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.4pJ5Xej4f51D"
+1569296789879	Marionette	INFO	Stopped listening on port 39277
+*** You are running in headless mode.
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221569253171368%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+observe@resource://gre/modules/AsyncShutdown.jsm:532:16
+GeckoDriver.prototype.quit@chrome://marionette/content/driver.js:3380:20
+despatch@chrome://marionette/content/server.js:289:40
+execute@chrome://marionette/content/server.js:262:16
+onPacket/<@chrome://marionette/content/server.js:235:20
+onPacket@chrome://marionette/content/server.js:236:9
+_onJSONObjectReady/<@chrome://marionette/content/transport.js:492:20
+
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
+1569296794096	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.4pJ5Xej4f51D/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x53000D,name=PHttpChannel::Msg_RemoveCorsPreflightCacheEntry) Closed channel: cannot send/recv
+
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221569253171368%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+observe@resource://gre/modules/AsyncShutdown.jsm:532:16
+GeckoDriver.prototype.quit@chrome://marionette/content/driver.js:3380:20
+despatch@chrome://marionette/content/server.js:289:40
+execute@chrome://marionette/content/server.js:262:16
+onPacket/<@chrome://marionette/content/server.js:235:20
+onPacket@chrome://marionette/content/server.js:236:9
+_onJSONObjectReady/<@chrome://marionette/content/transport.js:492:20
+
+1569296796434	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569296796434	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569296796434	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569296796434	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+WARNING: At least one completion condition is taking too long to complete. Conditions: [{"name":"SessionStore: flushing all windows","state":{"total":1,"current":0},"filename":"resource:///modules/sessionstore/SessionStore.jsm","lineNumber":1648,"stack":["resource:///modules/sessionstore/SessionStore.jsm:ssi_onQuitApplicationGranted:1648","resource:///modules/sessionstore/SessionStore.jsm:ssi_observe:794","chrome://marionette/content/driver.js:GeckoDriver.prototype.quit:3380","chrome://marionette/content/server.js:despatch:289","chrome://marionette/content/server.js:execute:262","chrome://marionette/content/server.js:onPacket/<:235","chrome://marionette/content/server.js:onPacket:236","chrome://marionette/content/transport.js:_onJSONObjectReady/<:492"]}] Barrier: quit-application-granted
+1569296799150	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.oisc7ikD5gac"
+*** You are running in headless mode.
+1569296801856	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.oisc7ikD5gac/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569296801887	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.hd4BB120wa0c"
+*** You are running in headless mode.
+1569296803850	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569296803850	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569296803850	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569296803850	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569296804176	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.hd4BB120wa0c/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+WARNING: At least one completion condition is taking too long to complete. Conditions: [{"name":"SessionStore: flushing all windows","state":{"total":1,"current":0},"filename":"resource:///modules/sessionstore/SessionStore.jsm","lineNumber":1648,"stack":["resource:///modules/sessionstore/SessionStore.jsm:ssi_onQuitApplicationGranted:1648","resource:///modules/sessionstore/SessionStore.jsm:ssi_observe:794","chrome://marionette/content/driver.js:GeckoDriver.prototype.quit:3380","chrome://marionette/content/server.js:despatch:289","chrome://marionette/content/server.js:execute:262","chrome://marionette/content/server.js:onPacket/<:235","chrome://marionette/content/server.js:onPacket:236","chrome://marionette/content/transport.js:_onJSONObjectReady/<:492"]}] Barrier: quit-application-granted
+1569296805967	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569296805967	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569296805967	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569296805967	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569296806196	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.kM0cudCaS4aI"
+*** You are running in headless mode.
+1569296808291	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.kM0cudCaS4aI/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569296810087	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569296810087	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569296810087	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569296810088	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569296821557	Marionette	INFO	Listening on port 42909
+1569296822274	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569296824907	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.xqKNT3DICLIi"
+*** You are running in headless mode.
+1569296833703	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.xqKNT3DICLIi/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569296841487	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569296841505	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569296841511	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569296841512	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221569253171368%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+[Parent 17993, Gecko_IOThread] WARNING: pipe error (65): Connection reset by peer: file /build/firefox-izpums/firefox-68.0+build3/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+JavaScript error: resource:///modules/sessionstore/SessionStore.jsm, line 1667: TypeError: subject.QueryInterface is not a function
+A content process crashed and MOZ_CRASHREPORTER_SHUTDOWN is set, shutting down
+1569296856203	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.fABCFKcFHygE"
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221569253171368%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+*** You are running in headless mode.
+1569296858287	Marionette	INFO	Listening on port 42875
+1569296858467	Marionette	WARN	TLS certificate errors will be ignored for this session
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221569253171368%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+1569296860176	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.fABCFKcFHygE/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569296861106	Marionette	INFO	Listening on port 41321
+1569296861285	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569296862780	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569296862780	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569296862808	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569296862808	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1569296886553	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.PBtPE1cpnIdu"
+*** You are running in headless mode.
+1569296890025	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.PBtPE1cpnIdu/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569296892303	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569296892303	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569296892304	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569296892304	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569296892413	Marionette	INFO	Stopped listening on port 42909
+[Parent 18704, Gecko_IOThread] WARNING: pipe error (85): Connection reset by peer: file /build/firefox-izpums/firefox-68.0+build3/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+
+###!!! [Parent][MessageChannel] Error: (msgtype=0x53001B,name=PHttpChannel::Msg_DeleteSelf) Channel error: cannot send/recv
+
+
+###!!! [Parent][MessageChannel] Error: (msgtype=0x53001B,name=PHttpChannel::Msg_DeleteSelf) Channel error: cannot send/recv
+
+JavaScript error: resource:///modules/sessionstore/SessionStore.jsm, line 1667: TypeError: subject.QueryInterface is not a function
+A content process crashed and MOZ_CRASHREPORTER_SHUTDOWN is set, shutting down
+1569296902684	Marionette	INFO	Listening on port 44933
+1569296903045	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569296905825	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.57XJ8jAMVzMn"
+*** You are running in headless mode.
+1569296909126	Marionette	INFO	Stopped listening on port 42875
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221569253171368%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+1569296910172	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.57XJ8jAMVzMn/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569296912671	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569296912695	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569296912695	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569296912695	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+[Parent 18771, Gecko_IOThread] WARNING: pipe error (64): Connection reset by peer: file /build/firefox-izpums/firefox-68.0+build3/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+JavaScript error: resource:///modules/sessionstore/SessionStore.jsm, line 1667: TypeError: subject.QueryInterface is not a function
+A content process crashed and MOZ_CRASHREPORTER_SHUTDOWN is set, shutting down
+1569296920313	Marionette	INFO	Stopped listening on port 41321
+JavaScript error: https://websdk.appsflyer.com/?st=pba&af_id=8907ea6f-f962-475e-abea-80648586c85f, line 103: TypeError: window.AF_SDK is undefined
+1569296924115	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.6s9jEpbdMO8z"
+*** You are running in headless mode.
+1569296928127	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.6s9jEpbdMO8z/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569296929001	Marionette	INFO	Listening on port 43073
+1569296929201	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569296930527	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569296930527	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569296930544	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569296930544	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569296931299	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.PAdWnKf6CADz"
+*** You are running in headless mode.
+JavaScript warning: https://info.dev.rappi.com/_next/static/chunks/commons.2e53862ca80cc5db3054.js, line 1: unreachable code after return statement
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221569253171368%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+JavaScript warning: https://info.dev.rappi.com/_next/static/chunks/commons.2e53862ca80cc5db3054.js, line 1: unreachable code after return statement
+1569296932966	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.PAdWnKf6CADz/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569296934174	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569296934178	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569296934180	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569296934180	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569296936256	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.CoB5A3lvf29u"
+*** You are running in headless mode.
+1569296941475	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.CoB5A3lvf29u/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569296942245	Marionette	INFO	Listening on port 39985
+1569296942779	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569296947549	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569296947559	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569296947597	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569296947603	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+Exiting due to channel error.
+Exiting due to channel error.
+1569296985068	Marionette	INFO	Stopped listening on port 39985
+Exiting due to channel error.
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+[Child 20086, Chrome_ChildThread] WARNING: pipe error (3): Connection reset by peer: file /build/firefox-izpums/firefox-68.0+build3/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+Exiting due to channel error.
+1569296994654	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.9eADzWfoL3B0"
+*** You are running in headless mode.
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+[Child 20209, Chrome_ChildThread] WARNING: pipe error (3): Connection reset by peer: file /build/firefox-izpums/firefox-68.0+build3/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+Exiting due to channel error.
+Sandbox: Unexpected EOF, op 0 flags 00 path /usr/share/locale/en_US.UTF-8/LC_MESSAGES/libc.mo
+[Child 20240, Chrome_ChildThread] WARNING: pipe error (3): Connection reset by peer: file /build/firefox-izpums/firefox-68.0+build3/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+Exiting due to channel error.
+1569296996624	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.9eADzWfoL3B0/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569296997765	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569296997766	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569296997777	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569296997783	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569297010969	Marionette	INFO	Listening on port 34649
+1569297011110	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569297014666	Marionette	INFO	Stopped listening on port 44933
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1569297017839	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.8Rc8UUeoxC3A"
+*** You are running in headless mode.
+1569297019464	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.8Rc8UUeoxC3A/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569297020562	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569297020562	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569297020562	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569297020562	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221569253171368%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+JavaScript error: , line 0: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+JavaScript error: , line 0: SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+1569297032415	Marionette	INFO	Listening on port 35797
+1569297032603	Marionette	WARN	TLS certificate errors will be ignored for this session
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221569253171368%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+1569297052277	Marionette	INFO	Stopped listening on port 34649
+1569297053050	Marionette	INFO	Stopped listening on port 35797
+JavaScript error: resource://gre/modules/osfile/osfile_async_front.jsm, line 400: Error: OS.File has been shut down. Rejecting post to stat
+1569297064150	Marionette	INFO	Stopped listening on port 43073
+1569318781147	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.GbQLz2fdQHt5"
+*** You are running in headless mode.
+1569318781660	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.GbQLz2fdQHt5/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569318781844	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569318781844	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569318781844	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569318781844	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569318784151	Marionette	INFO	Listening on port 36375
+1569318784176	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569318785308	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.AQFmFLwsmtok"
+*** You are running in headless mode.
+1569318785774	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.AQFmFLwsmtok/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569318785895	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569318785895	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569318785895	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569318785896	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569318788996	Marionette	INFO	Listening on port 33191
+1569318789037	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569318790225	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.nXaOCoPg3FIS"
+*** You are running in headless mode.
+1569318791007	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.nXaOCoPg3FIS/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569318791404	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569318791407	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569318791408	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569318791408	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569318798352	Marionette	INFO	Listening on port 40619
+1569318798403	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569318799746	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.Pg98mTcc8DUC"
+*** You are running in headless mode.
+1569318800872	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.Pg98mTcc8DUC/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569318801917	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569318801917	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569318801920	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569318801920	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221569253171368%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+JavaScript error: https://partners.zellepay.com/, line 20: ReferenceError: ga is not defined
+JavaScript error: https://partners.zellepay.com/modules/custom/portal_quiz/js/portal_quiz.js?v=1.x, line 15: ReferenceError: H5P is not defined
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221569253171368%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+Sandbox: Unexpected EOF, op 0 flags 00 path /usr/share/locale/en_US.UTF-8/LC_MESSAGES/libc.mo
+[Child 31877, Chrome_ChildThread] WARNING: pipe error (3): Connection reset by peer: file /build/firefox-izpums/firefox-68.0+build3/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+Exiting due to channel error.
+Sandbox: Unexpected EOF, op 0 flags 00 path /usr/share/locale/en_US.UTF-8/LC_MESSAGES/libc.mo
+[Child 31912, Chrome_ChildThread] WARNING: pipe error (3): Connection reset by peer: file /build/firefox-izpums/firefox-68.0+build3/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+Exiting due to channel error.
+1569318872262	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.rRfE51zFU5id"
+JavaScript error: https://www.zellepay.com/sites/default/files/js/js_WWkK6d-lZE_Lx148WtcrA_7xdEi0anb1Qt81wDL9HOs.js line 16 > eval, line 1: TypeError: $(...).once is not a function
+*** You are running in headless mode.
+1569318873417	Marionette	INFO	Stopped listening on port 33191
+1569318873722	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.rRfE51zFU5id/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221569253171368%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+1569318874826	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569318874826	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569318874826	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569318874826	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+JavaScript error: https://www.youtube.com/yts/jsbin/www-embed-player-vflt09xm_/www-embed-player.js, line 408: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://www.youtube.com/yts/jsbin/www-embed-player-vflt09xm_/www-embed-player.js, line 408: NS_ERROR_NOT_INITIALIZED: 
+JavaScript error: https://www.youtube.com/yts/jsbin/www-embed-player-vflt09xm_/www-embed-player.js, line 408: NS_ERROR_NOT_INITIALIZED: 
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x3500BC,name=PContent::Msg_ScriptError) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1569318876901	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.tkCRuLFZMVU6"
+*** You are running in headless mode.
+1569318877552	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.tkCRuLFZMVU6/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569318877894	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569318877894	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569318877894	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569318877894	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569318879624	Marionette	INFO	Listening on port 46773
+1569318879785	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569318881231	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.G94hnsZ7YAMc"
+*** You are running in headless mode.
+1569318883257	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.G94hnsZ7YAMc/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569318884581	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569318884583	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569318884584	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569318884588	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+JavaScript error: resource://gre/modules/Prompter.jsm, line 345: NS_ERROR_NOT_AVAILABLE: Cannot call openModalWindow on a hidden window
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221569253171368%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+1569318938941	Marionette	INFO	Stopped listening on port 36375
+1569318938974	Marionette	INFO	Stopped listening on port 40619
+JavaScript error: resource:///modules/FaviconLoader.jsm, line 477: NS_ERROR_ILLEGAL_VALUE
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+Sandbox: Unexpected EOF, op 0 flags 00 path /usr/share/locale/en_US.UTF-8/LC_MESSAGES/libc.mo
+[Child 32350, Chrome_ChildThread] WARNING: pipe error (3): Connection reset by peer: file /build/firefox-izpums/firefox-68.0+build3/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+Exiting due to channel error.
+Sandbox: Unexpected EOF, op 0 flags 00 path /usr/share/locale/en_US.UTF-8/LC_MESSAGES/libc.mo
+[Child 32414, Chrome_ChildThread] WARNING: pipe error (3): Connection reset by peer: file /build/firefox-izpums/firefox-68.0+build3/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+Exiting due to channel error.
+1569318941599	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.UPKacM4uS8y7"
+*** You are running in headless mode.
+1569318942000	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.qPWCBfaIkE1X"
+*** You are running in headless mode.
+1569318942368	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.ib5DENxGuCpO"
+1569318942369	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.UPKacM4uS8y7/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+*** You are running in headless mode.
+1569318942766	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.qPWCBfaIkE1X/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569318942975	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569318942975	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569318942975	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569318942976	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569318943078	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.ib5DENxGuCpO/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569318943286	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569318943286	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569318943286	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569318943286	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569318943566	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569318943566	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569318943567	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569318943567	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569318950618	Marionette	INFO	Listening on port 41889
+1569318950684	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569318951120	Marionette	INFO	Listening on port 34267
+1569318951215	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569318951570	Marionette	INFO	Listening on port 42427
+1569318951641	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569318953086	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.5BzNpgD2UG6k"
+*** You are running in headless mode.
+1569318954373	Marionette	INFO	Stopped listening on port 46773
+1569318954669	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.5BzNpgD2UG6k/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569318955601	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569318955601	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569318955602	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569318955602	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569318958829	Marionette	INFO	Stopped listening on port 41889
+1569318959180	Marionette	INFO	Stopped listening on port 34267
+1569318960090	Marionette	INFO	Stopped listening on port 42427
+1569318962083	Marionette	INFO	Listening on port 38995
+1569318962136	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569318962208	Marionette	INFO	Stopped listening on port 38995
+1569318963268	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.9o4v6ynKfE3D"
+*** You are running in headless mode.
+1569318963606	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.9o4v6ynKfE3D/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569318963720	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569318963720	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569318963720	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569318963720	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569318965780	Marionette	INFO	Listening on port 38237
+1569318965876	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569318965953	Marionette	INFO	Stopped listening on port 38237
+1569318966991	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.orFLL6dK9Z1C"
+*** You are running in headless mode.
+1569318967354	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.orFLL6dK9Z1C/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1569318967535	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1569318967535	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1569318967535	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1569318967535	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1569318970040	Marionette	INFO	Listening on port 45439
+1569318970100	Marionette	WARN	TLS certificate errors will be ignored for this session
+1569318970170	Marionette	INFO	Stopped listening on port 45439
+1584892763464	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.WSDb8VtVlAWg"
+*** You are running in headless mode.
+1584892763890	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.WSDb8VtVlAWg/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1584892764018	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1584892764018	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1584892764019	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1584892764019	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1584892765577	Marionette	INFO	Listening on port 37203
+1584892765674	Marionette	WARN	TLS certificate errors will be ignored for this session
+1584892765764	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.i3pa5sx14AX2"
+*** You are running in headless mode.
+1584892765962	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.i3pa5sx14AX2/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1584892766085	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1584892766085	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1584892766085	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1584892766086	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1584892767565	Marionette	INFO	Listening on port 43521
+1584892767604	Marionette	WARN	TLS certificate errors will be ignored for this session
+1584892768740	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.uGPAiwbXvIMP"
+*** You are running in headless mode.
+1584892769021	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.uGPAiwbXvIMP/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1584892769144	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1584892769144	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1584892769144	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1584892769144	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1584892770568	Marionette	INFO	Listening on port 46389
+1584892770655	Marionette	WARN	TLS certificate errors will be ignored for this session
+1584892771779	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.gqkOgLwMHhlr"
+*** You are running in headless mode.
+1584892772010	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.gqkOgLwMHhlr/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1584892772144	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1584892772144	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1584892772144	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1584892772144	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1584892774272	Marionette	INFO	Listening on port 43451
+1584892774307	Marionette	WARN	TLS certificate errors will be ignored for this session
+1584892775518	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.VuOO8DXtRgue"
+*** You are running in headless mode.
+1584892775826	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.VuOO8DXtRgue/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1584892775963	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1584892775963	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1584892775963	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1584892775963	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1584892778204	Marionette	INFO	Listening on port 41789
+1584892778288	Marionette	WARN	TLS certificate errors will be ignored for this session
+1584892778463	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.GVwPGt1h39sa"
+*** You are running in headless mode.
+1584892778897	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.GVwPGt1h39sa/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1584892779192	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1584892779192	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1584892779192	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1584892779192	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1584892781990	Marionette	INFO	Listening on port 36071
+1584892782084	Marionette	WARN	TLS certificate errors will be ignored for this session
+1584892783155	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.XNC0zX1bdbJn"
+*** You are running in headless mode.
+1584892783721	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.XNC0zX1bdbJn/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1584892783733	Marionette	INFO	Stopped listening on port 43451
+1584892783905	Marionette	INFO	Stopped listening on port 36071
+1584892784067	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1584892784067	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1584892784067	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1584892784067	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1584892784749	Marionette	INFO	Stopped listening on port 41789
+1584892785191	Marionette	INFO	Stopped listening on port 37203
+1584892785602	Marionette	INFO	Stopped listening on port 46389
+1584892785675	Marionette	INFO	Stopped listening on port 43521
+1584892786851	Marionette	INFO	Listening on port 43549
+1584892786879	Marionette	WARN	TLS certificate errors will be ignored for this session
+1584892786939	Marionette	INFO	Stopped listening on port 43549
+1584892787969	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.THgKaArFzO5k"
+*** You are running in headless mode.
+1584892788362	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.THgKaArFzO5k/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1584892788624	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1584892788625	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1584892788625	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1584892788625	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1584892790104	Marionette	INFO	Listening on port 45435
+1584892790182	Marionette	WARN	TLS certificate errors will be ignored for this session
+1584892790314	Marionette	INFO	Stopped listening on port 45435
+1584892790355	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.VUg2l0j54QI6"
+*** You are running in headless mode.
+1584892790695	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.VUg2l0j54QI6/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1584892790825	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1584892790825	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1584892790826	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1584892790826	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1584892792141	Marionette	INFO	Listening on port 34253
+1584892792182	Marionette	WARN	TLS certificate errors will be ignored for this session
+1584892792236	Marionette	INFO	Stopped listening on port 34253
+1584892793265	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "--headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.avPL6bgxfrsT"
+*** You are running in headless mode.
+1584892793444	addons.xpi-utils	WARN	addMetadata: Add-on test@autoew.net is invalid: Error: File /tmp/rust_mozprofile.avPL6bgxfrsT/extensions/test@autoew.net does not contain a valid manifest(resource://gre/modules/addons/XPIInstall.jsm:610:11) JS Stack trace: loadManifest@XPIInstall.jsm:610:11
+awaitPromise@XPIProvider.jsm:200:15
+syncLoadManifest@XPIInstall.jsm:685:22
+addMetadata@XPIDatabase.jsm:2443:32
+processFileChanges@XPIDatabase.jsm:2809:26
+checkForChanges@XPIProvider.jsm:2728:55
+startup@XPIProvider.jsm:2265:12
+callProvider@AddonManager.jsm:193:31
+_startProvider@AddonManager.jsm:569:5
+startup@AddonManager.jsm:725:14
+startup@AddonManager.jsm:2797:26
+observe@addonManager.js:65:29
+1584892793570	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1584892793570	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1584892793570	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1584892793570	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1584892795319	Marionette	INFO	Listening on port 35991
+1584892795372	Marionette	WARN	TLS certificate errors will be ignored for this session
+1584892795422	Marionette	INFO	Stopped listening on port 35991

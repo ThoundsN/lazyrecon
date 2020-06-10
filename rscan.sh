@@ -34,51 +34,68 @@ output_directory=$(realpath $output_directory)
 
 run_gf(){
     mkdir -p $output_directory/output
+    mkdir -p $output_directory/gfonly
+
+    cp  $output_directory/final_full_live_urls.txt  $output_directory/gfonly/final_full_live_urls.txt
 
  touch $output_directory/output/gf_results.txt 
 
 
+
+cd $output_directory/gfonly/
+
  printf "Potential \n\n " >> $output_directory/output/gf_results.txt 
-gf potential $output_directory/final_full_live_urls.txt | awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
+gf potential $output_directory/gfonly/final_full_live_urls.txt| awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
  printf "\n\n\n" >> $output_directory/output/gf_results.txt 
 
   printf "xss \n\n " >> $output_directory/output/gf_results.txt 
-gf xss $output_directory/final_full_live_urls.txt | awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
+gf xss $output_directory/gfonly/final_full_live_urls.txt| awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
  printf "\n\n\n" >> $output_directory/output/gf_results.txt 
 
   printf "redirect \n\n " >> $output_directory/output/gf_results.txt 
-gf redirect $output_directory/final_full_live_urls.txt | awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
+gf redirect $output_directory/gfonly/final_full_live_urls.txt| awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
  printf "\n\n\n" >> $output_directory/output/gf_results.txt 
 
   printf "wordpress \n\n " >> $output_directory/output/gf_results.txt 
-gf wordpress $output_directory/final_full_live_urls.txt | awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
+gf wordpress $output_directory/gfonly/final_full_live_urls.txt| awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
  printf "\n\n\n" >> $output_directory/output/gf_results.txt 
 
    printf "debug_logic \n\n " >> $output_directory/output/gf_results.txt 
-gf debug_logic $output_directory/final_full_live_urls.txt | awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
+gf debug_logic $output_directory/gfonly/final_full_live_urls.txt| awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
  printf "\n\n\n" >> $output_directory/output/gf_results.txt 
  
    printf "idor \n\n " >> $output_directory/output/gf_results.txt 
-gf idor $output_directory/final_full_live_urls.txt | awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
+gf idor $output_directory/gfonly/final_full_live_urls.txt| awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
  printf "\n\n\n" >> $output_directory/output/gf_results.txt 
 
    printf "lfi \n\n " >> $output_directory/output/gf_results.txt 
-gf lfi $output_directory/final_full_live_urls.txt | awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
+gf lfi $output_directory/gfonly/final_full_live_urls.txt| awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
  printf "\n\n\n" >> $output_directory/output/gf_results.txt 
 
    printf "rce \n\n " >> $output_directory/output/gf_results.txt 
-gf rce $output_directory/final_full_live_urls.txt | awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
+gf rce $output_directory/gfonly/final_full_live_urls.txt| awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
  printf "\n\n\n" >> $output_directory/output/gf_results.txt 
    printf "sqli \n\n " >> $output_directory/output/gf_results.txt 
-gf sqli $output_directory/final_full_live_urls.txt | awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
+gf sqli $output_directory/gfonly/final_full_live_urls.txt| awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
  printf "\n\n\n" >> $output_directory/output/gf_results.txt 
 
    printf "ssrf \n\n " >> $output_directory/output/gf_results.txt 
-gf ssrf $output_directory/final_full_live_urls.txt | awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
+gf ssrf $output_directory/gfonly/final_full_live_urls.txt| awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
  printf "\n\n\n" >> $output_directory/output/gf_results.txt 
    printf "ssti \n\n " >> $output_directory/output/gf_results.txt 
-gf ssti $output_directory/final_full_live_urls.txt | awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
+gf ssti $output_directory/gfonly/final_full_live_urls.txt| awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
  printf "\n\n\n" >> $output_directory/output/gf_results.txt 
+
+
+ cd -
+}
+
+get_hidden_params(){
+  mkdir -p $output_directory/ffuf_hidden_params
+  ffuf -w $output_directory/final_full_live_urls.txt  -u FUZZ -t 100 -od $output_directory/ffuf_hidden_params/ -r
+  cd $output_directory/
+  extract_hidden_param.py -i "ffuf_hidden_params/*" -u $output_directory/final_full_live_urls.txt  -p $output_directory/output/hidden_params.txt
+  cat $output_directory/output/hidden_params.txt >> $output_directory/output/params.txt
 }
 
 build_urls(){
@@ -104,6 +121,8 @@ mkdir -p $output_directory/output
 
 cat $file | sed -E -e '/(\.jpg|\.png|\.gif|\.woff|\.css|\.ico|\.js|\.swf|\.zip|\.JPG|\.mp3|\.mov|\.svg|\.jpeg|\.map|\.pdf|\.txt)/d'| sed '/^[[:space:]]*$/d' > $output_directory/filtered_url.txt
 ### Remove urls with boring extensions
+
+cat $output_directory/filtered_url.txt | wordlistgen > $output_directory/output/wordlist.txt
 
 
 
@@ -137,7 +156,11 @@ deduplicate_urls.py $output_directory/temp_processing/pathandquery.txt   $output
 # https://www.takeaway.com/_Incapsula_Resource?SWKMTFSR=1&e=0.7240281121983518
 # https://www.takeaway.com/be/sushi-beveren?k1111=k1111
 
-# run_gf
+get_hidden_params
+
+whatweb -i $output_directory/final_full_live_urls.txt | tee $output_directory/ip.txt
+
+run_gf
 #bug with gf 
 
 cat  $output_directory/final_full_live_urls.txt | unfurl -u format "%s://%d%p" > $output_directory/temp_processing/unique_domainpaths.txt
@@ -147,12 +170,14 @@ build_urls
 
 
 #xss
-cat $output_directory/final_full_live_urls.txt | dalfox pipe -w 70  --ignore-return 302,403,404 --only-discovery   -b https://ragnarokv.xss.ht  --silence  -o $output_directory/output/xss1.txt
+cat $output_directory/final_full_live_urls.txt | dalfox pipe -w 70  --ignore-return 302,403,404 --only-discovery   -b https://ragnarokv.xss.ht  --silence  -o $output_directory/output/xss_dalfox.txt
+grep -E -i -C 10  "reflected|triggered"    $output_directory/output/xss_dalfox.txt > $output_directory/output/dalfox_good.txt
 # cat $output_directory/build_urls/xss.txt | dalfox pipe -w 70  --ignore-return 302,403,404 -b https://ragnarokv.xss.ht  --silence  -o $output_directory/output/xss2.txt
-# cat $output_directory/build_urls/xss.txt | kxss >  $output_directory/output/xss2.txt
- xss.py -v 4 -u $output_directory/build_urls/xss.txt   -t 50 -O $output_directory/output/xss2.txt
- touch $output_directory/output/xss_vulnerable.txt
- grep vulnerable $output_directory/output/xss2.txt >> $output_directory/output/xss_vulnerable.txt
+cat $output_directory/final_full_live_urls.txt | kxss >  $output_directory/output/xss1.txt
+timeout 3h cat $output_directory/build_urls/xss.txt | kxss >  $output_directory/output/xss2.txt
+#  xss.py -v 4 -u $output_directory/build_urls/xss.txt   -t 50 -O $output_directory/output/xss2.txt
+#  touch $output_directory/output/xss_vulnerable.txt
+#  grep vulnerable $output_directory/output/xss2.txt >> $output_directory/output/xss_vulnerable.txt
 
 
 
@@ -161,7 +186,7 @@ cat $output_directory/final_full_live_urls.txt | dalfox pipe -w 70  --ignore-ret
  lfi.py -v 4 -u $output_directory/final_full_live_urls.txt  -t 50 -n $output_directory/output/lfi1.txt
  touch $output_directory/output/lfi_vulnerable.txt
  grep vulnerable $output_directory/output/lfi1.txt > $output_directory/output/lfi_vulnerable.txt
- lfi.py -v 4 -u $output_directory/final_full_live_urls.txt   -t 50  -n  $output_directory/output/lfi2.txt
+timeout 3h  lfi.py -v 4 -u $output_directory/final_full_live_urls.txt   -t 50  -n  $output_directory/output/lfi2.txt
  grep vulnerable $output_directory/output/lfi2.txt >> $output_directory/output/lfi_vulnerable.txt
 
 
@@ -189,6 +214,6 @@ ssrf_replaceparam.py -f $output_directory/final_full_live_urls.txt > $output_dir
 ssrf_replaceparam.py -f $output_directory/build_urls/ssrf.txt > $output_directory/build_urls/ssrf_ffuf2.txt
 
 ffuf -w $output_directory/build_urls/ssrf_ffuf1.txt -u FUZZ -t 100
-ffuf -w $output_directory/build_urls/ssrf_ffuf2.txt -u FUZZ -t 100
+timeout 3h ffuf -w $output_directory/build_urls/ssrf_ffuf2.txt -u FUZZ -t 100
 psql -d ssrf  -c "SELECT * FROM ssrf_records where  created_on > current_date - interval '7 days'" --csv > $output_directory/output/ssrf.csv
 

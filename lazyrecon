@@ -132,6 +132,7 @@ checkjsfile(){
   cd $rootPath/$domain/$foldername/wayback-data/jsfile
   fdupes . -r -f -1 -S -d -N 
   ls | while read file; do mv $file $(echo $file | sed -e 's/[^A-Za-z0-9._-]/_/g'); done
+  SecretFinder.py -i './*' -o $rootPath/$domain/$foldername/html/${domain}_secretfinder.html
   DumpsterDiver.py -p . -o  $rootPath/$domain/$foldername/html/entropy.json
   python3 ~/recon_tools/Scripts/python/entropy_json.py $rootPath/$domain/$foldername/html/entropy.json $rootPath/$domain/$foldername/html/new.json
 
@@ -142,14 +143,14 @@ checkjsfile(){
   rm $rootPath/$domain/$foldername/wayback-data/jsfile/errors.log
   grep -oE ".{0,75}(application\/xml|encodeuricomponent|wsdl).{0,60}"  * > $rootPath/$domain/$foldername/html/pattern.txt
 
-  echo "\n\n\n\n Things from gf \n\n\n"
-  gf http-auth * >> $rootPath/$domain/$foldername/html/pattern.txt
-  gf fw * >> $rootPath/$domain/$foldername/html/pattern.txt
-  gf firebase * >> $rootPath/$domain/$foldername/html/pattern.txt
-  gf s3-buckets * >> $rootPath/$domain/$foldername/html/pattern.txt
-  gf servers * >> $rootPath/$domain/$foldername/html/pattern.txt
-  gf sec * >> $rootPath/$domain/$foldername/html/pattern.txt
-  gf aws-keys * >> $rootPath/$domain/$foldername/html/pattern.txt
+  printf "\n\n\n\n Things from gf \n\n\n" >> $rootPath/$domain/$foldername/html/pattern.txt
+  gf http-auth  >> $rootPath/$domain/$foldername/html/pattern.txt
+  gf fw  >> $rootPath/$domain/$foldername/html/pattern.txt
+  gf firebase  >> $rootPath/$domain/$foldername/html/pattern.txt
+  gf s3-buckets  >> $rootPath/$domain/$foldername/html/pattern.txt
+  gf servers  >> $rootPath/$domain/$foldername/html/pattern.txt
+  gf sec  >> $rootPath/$domain/$foldername/html/pattern.txt
+  gf aws-keys  >> $rootPath/$domain/$foldername/html/pattern.txt
   
   
 
