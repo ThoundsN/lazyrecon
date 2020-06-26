@@ -57,6 +57,8 @@ done
 shift $((OPTIND - 1))
 
 
+
+
 wayback(){
 
   waybackrecon
@@ -68,23 +70,24 @@ wayback(){
 fi
 
 
-  cp -r $rootPath/$domain/$foldername/html/ /var/www/jsrecon/links/$domain/
 
+  echo "Using mento......."
 
-  memento_mass -f $rootPath/$domain/$foldername/allsubdomains_final.txt  -o $rootPath/$domain/$foldername/wayback-data/robots_archieve.txt
+  memento_mass -f $rootPath/$domain/$foldername/allsubdomains_final.txt  -o $rootPath/$domain/$foldername/useful/robots_archieve.txt
 
   cp -r  $rootPath/$domain/$foldername/wayback-data/ /var/www/jsrecon/links/$domain/wayback-data/
   rm -rf $rootPath/$domain/$foldername/wayback-data/jsfile/
-
+  cd $rootPath/$domain/$foldername/
 }
 
 discovery(){
 
+  cat $rootPath/$domain/$foldername/responsive_urls.txt | smuggler.py -l $rootPath/$domain/$foldername/useless/smuggler.txt
   
   wayback
 
   portscanning
-  eyewitnesser
+  run_aquatone
 
 
 }
@@ -93,8 +96,8 @@ discovery(){
 waybackdowloader_oldjsfile(){
   cd $rootPath/$domain/$foldername/wayback-data/
   while read p ; do 
-      wayback_machine_downloader $p  --only "/\.js$/i"
-  done < $rootPath/$domain/$foldername/allsubdomains_final.txt
+      wayback_machine_downloader $p  --only "/\.js$/i" > /dev/null
+  done < $rootPath/$domain/$foldername/responsiveDomains.txt
   cd $rootPath/$domain/$foldername/wayback-data/websites/
   for fl_nm in $(find . -type f );
   do cp $fl_nm  $rootPath/$domain/$foldername/wayback-data/jsfile/$(echo $fl_nm | cut -c 3- |sed -e 's/[^A-Za-z0-9._-]/_/g'); 
@@ -106,57 +109,70 @@ done
 
 find_firebase(){
 
-  touch  $rootPath/$domain/$foldername/html/firebase_js_location.txt
+  touch  $rootPath/$domain/$foldername/useful/firebase_js_location.txt
 
   cd $rootPath/$domain/$foldername/wayback-data/jsfile/
     for fl_nm in $(find . -type f );
-  do grep "firebaseio" $fl_nm > /dev/null &&  readlink -f $fl_nm >> $rootPath/$domain/$foldername/html/firebase_js_location.txt;
+  do grep "firebaseio" $fl_nm > /dev/null &&  readlink -f $fl_nm >> $rootPath/$domain/$foldername/useful/firebase_js_location.txt;
 done 
 
-if [ -s "$rootPath/$domain/$foldername/html/firebase_js_location.txt" ]
-  then python3  ~/recon_tools/Scripts/python/location2link.py $rootPath/$domain/$foldername/html/firebase_js_location.txt $rootPath/$domain/$foldername/html/firebase_js_link.html
+if [ -s "$rootPath/$domain/$foldername/useful/firebase_js_location.txt" ]
+  then python3  ~/recon_tools/Scripts/python/location2link.py $rootPath/$domain/$foldername/useful/firebase_js_location.txt $rootPath/$domain/$foldername/useful/firebase_js_link.html
   else
-  rm $rootPath/$domain/$foldername/html/firebase_js_location.txt
+  rm $rootPath/$domain/$foldername/useful/firebase_js_location.txt
     return 
   fi
 
-rm $rootPath/$domain/$foldername/html/firebase_js_location.txt
+rm $rootPath/$domain/$foldername/useful/firebase_js_location.txt
 cd -- 
 
-    echo "  http://jsrecon.ragnarokv.site/links/${domain}/html/firebase_js_link.html " | mutt -s "Found potential firebaseio url from  ${domain}"  inthebybyby@gmail.com   
+    echo "  http://jsrecon.ragnarokv.site/links/${domain}/useful/firebase_js_link.html " | mutt -s "Found potential firebaseio url from  ${domain}"  inthebybyby@gmail.com   
 
 }
 
 checkjsfile(){
-  wget2 -i $rootPath/$domain/$foldername/wayback-data/jsurls.txt -P $rootPath/$domain/$foldername/wayback-data/jsfile
   cd $rootPath/$domain/$foldername/wayback-data/jsfile
+  echo "Downloading js files using aria2c.............."
+  aria2c -i $rootPath/$domain/$foldername/wayback-data/jsurls.txt > /dev/null
+  # wget2 -i $rootPath/$domain/$foldername/wayback-data/jsurls.txt -P $rootPath/$domain/$foldername/wayback-data/jsfile
   fdupes . -r -f -1 -S -d -N 
   ls | while read file; do mv $file $(echo $file | sed -e 's/[^A-Za-z0-9._-]/_/g'); done
-  SecretFinder.py -i './*' -o $rootPath/$domain/$foldername/html/${domain}_secretfinder.html
-  DumpsterDiver.py -p . -o  $rootPath/$domain/$foldername/html/entropy.json
-  python3 ~/recon_tools/Scripts/python/entropy_json.py $rootPath/$domain/$foldername/html/entropy.json $rootPath/$domain/$foldername/html/new.json
+  # touch $rootPath/$domain/$foldername/useful/${domain}_secretfinder.html
+  # SecretFinder.py -i './*' -o $rootPath/$domain/$foldername/useful/${domain}_secretfinder.html
+  DumpsterDiver.py -p . -o  $rootPath/$domain/$foldername/useful/entropy.json > /dev/null
+  python3 ~/recon_tools/Scripts/python/entropy_json.py $rootPath/$domain/$foldername/useful/entropy.json $rootPath/$domain/$foldername/useful/new.json
 
-  echo "Fininshed high entropy scanning  in jsfile http://jsrecon.ragnarokv.site/links/${domain}/html/new.json " | mutt -s "Entropy string ${domain} "  inthebybyby@gmail.com
+  echo "Fininshed high entropy scanning  in jsfile http://jsrecon.ragnarokv.site/links/${domain}/useful/new.json " | mutt -s "Entropy string ${domain} "  inthebybyby@gmail.com
 
   find_firebase
 
   rm $rootPath/$domain/$foldername/wayback-data/jsfile/errors.log
-  grep -oE ".{0,75}(application\/xml|encodeuricomponent|wsdl).{0,60}"  * > $rootPath/$domain/$foldername/html/pattern.txt
 
-  printf "\n\n\n\n Things from gf \n\n\n" >> $rootPath/$domain/$foldername/html/pattern.txt
-  gf http-auth  >> $rootPath/$domain/$foldername/html/pattern.txt
-  gf fw  >> $rootPath/$domain/$foldername/html/pattern.txt
-  gf firebase  >> $rootPath/$domain/$foldername/html/pattern.txt
-  gf s3-buckets  >> $rootPath/$domain/$foldername/html/pattern.txt
-  gf servers  >> $rootPath/$domain/$foldername/html/pattern.txt
-  gf sec  >> $rootPath/$domain/$foldername/html/pattern.txt
-  gf aws-keys  >> $rootPath/$domain/$foldername/html/pattern.txt
+echo "Generating tok......................."
+cat * > $rootPath/$domain/$foldername/useless/merged.txt
+cat $rootPath/$domain/$foldername/useless/merged.txt | tok |awk '!seen[$0]++' |  $rootPath/$domain/$foldername/useless/${domain}_word.txt
+ comm -13 ~/Wordlist/other/rfc_words.txt $rootPath/$domain/$foldername/useless/${domain}_word.txt > $rootPath/$domain/$foldername/useful/${domain}_tok.txt
+ rm $rootPath/$domain/$foldername/useless/merged.txt
+
+
+
+  grep -oE ".{0,75}(application\/xml|encodeuricomponent|wsdl).{0,60}"  * > $rootPath/$domain/$foldername/useful/pattern.txt
+
+  printf "\n\n\n\n Things from gf \n\n\n" >> $rootPath/$domain/$foldername/useful/pattern.txt
+  gf http-auth  >> $rootPath/$domain/$foldername/useful/pattern.txt
+  gf fw  >> $rootPath/$domain/$foldername/useful/pattern.txt
+  gf firebase  >> $rootPath/$domain/$foldername/useful/pattern.txt
+  gf s3-buckets  >> $rootPath/$domain/$foldername/useful/pattern.txt
+  gf servers  >> $rootPath/$domain/$foldername/useful/pattern.txt
+  gf sec  >> $rootPath/$domain/$foldername/useful/pattern.txt
+  gf aws-keys  >> $rootPath/$domain/$foldername/useful/pattern.txt
   
   
+echo "Using  linkfinder......................."
 
-  python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'   -o $rootPath/$domain/$foldername/html/${domain}_js.html
+  python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'   -o $rootPath/$domain/$foldername/useful/${domain}_js.html
 
-  python3 /root/recon_tools/Scripts/python/extract_link.py $rootPath/$domain/$foldername/html/${domain}_js.html $rootPath/$domain/$foldername/html/${domain}_other.html $rootPath/$domain/$foldername/html/${domain}_api.html
+  python3 /root/recon_tools/Scripts/python/extract_link.py $rootPath/$domain/$foldername/useful/${domain}_js.html $rootPath/$domain/$foldername/useful/${domain}_other.html $rootPath/$domain/$foldername/useful/${domain}_api.html
 
   cd -
 
@@ -174,21 +190,34 @@ cat $rootPath/$domain/$foldername/wayback-data/temp.txt | awk '!seen[$0]++'>  $r
 
 rm $rootPath/$domain/$foldername/wayback-data/temp.txt $rootPath/$domain/$foldername/wayback-data/commoncrawl.txt $rootPath/$domain/$foldername/wayback-data/wayback.txt
 
+cat $rootPath/$domain/$foldername/wayback-data/gau.txt  | sort -u | grep -P "\w+\.js(\?|$)" | sort -u > $rootPath/$domain/$foldername/wayback-data/jsurls.txt
+[ -s $rootPath/$domain/$foldername/wayback-data/jsurls.txt ] && echo "JS Urls saved to /$domain/$foldername/wayback-data/jsurls.txt"
+
+cat $rootPath/$domain/$foldername/wayback-data/gau.txt  |  unfurl -u paths >  $rootPath/$domain/$foldername/wayback-data/paths.txt
+sed 's#/#\n#g' $rootPath/$domain/$foldername/wayback-data/paths.txt  | awk '!seen[$0]++' > $rootPath/$domain/$foldername/wayback-data/parts.txt
+
+
+
+
+
 rscan.sh -f $rootPath/$domain/$foldername/wayback-data/gau.txt -o $rootPath/$domain/$foldername/wayback-data/
 
+ echo "Fininshed rscaning   http://jsrecon.ragnarokv.site/links/${domain}/wayback-data/output " | mutt -s "rscan ${domain} "  inthebybyby@gmail.com
 
 
 
-cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.js(\?|$)" | sort -u > $rootPath/$domain/$foldername/wayback-data/jsurls.txt
-[ -s $rootPath/$domain/$foldername/wayback-data/jsurls.txt ] && echo "JS Urls saved to /$domain/$foldername/wayback-data/jsurls.txt"
+cat $rootPath/$domain/$foldername/wayback-data/output/params.txt > $rootPath/$domain/$foldername/useful/all_params.txt
+
+
+
+
 
 # cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | unfurl --unique keypairs > $rootPath/$domain/$foldername/wayback-data/paramlist.txt
 # [ -s $rootPath/$domain/$foldername/wayback-data/paramlist.txt ] && echo "Wordlist saved to /$domain/$foldername/wayback-data/paramlist.txt"
 
-# cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  |  unfurl --unique format "%s://%d%p" >  $rootPath/$domain/$foldername/wayback-data/paths.txt
-# cat $rootPath/$domain/$foldername/wayback-data/paths.txt | sed -E -e '/(\.jpg|\.png|\.gif|\.woff|\.css|\.ico|\.js)$/d' | perl -p -e 's/(.*)/<br><a href="\1" target="_blank">\1<\/a><br>/'  >  $rootPath/$domain/$foldername/html/paths.html
+# cat $rootPath/$domain/$foldername/wayback-data/paths.txt | sed -E -e '/(\.jpg|\.png|\.gif|\.woff|\.css|\.ico|\.js)$/d' | perl -p -e 's/(.*)/<br><a href="\1" target="_blank">\1<\/a><br>/'  >  $rootPath/$domain/$foldername/useful/paths.html
   
-# grep 'admin\|proxy' $rootPath/$domain/$foldername/html/paths.html > $rootPath/$domain/$foldername/html/adminpath.html
+# grep 'admin\|proxy' $rootPath/$domain/$foldername/useful/paths.html > $rootPath/$domain/$foldername/useful/adminpath.html
 
 
 # cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.php(\?|$) "| sort -u > $rootPath/$domain/$foldername/wayback-data/phpurls.txt
@@ -209,7 +238,7 @@ import_subdomains(){
 
 hostalive(){
 echo "Probing for live hosts..."
-cat $rootPath/$domain/$foldername/massdns_checked_subdomains.txt  | httprobe -c 50 -t 3000 > $rootPath/$domain/$foldername/responsive_urls.txt
+cat $rootPath/$domain/$foldername/raw_subdomains.txt  | httprobe -c 50 -t 3000 > $rootPath/$domain/$foldername/responsive_urls.txt
 
 cat $rootPath/$domain/$foldername/responsive_urls.txt |unfurl -unique domain > $rootPath/$domain/$foldername/responsiveDomains.txt
 
@@ -227,7 +256,7 @@ echo  "${yellow}Total of ${count} live subdomains were found${reset}"
 
 run_subscraper(){
      touch $rootPath/$domain/$foldername/useless/subscraper.txt
-     cat $rootPath/$domain/$foldername/responsiveDomains.txt| parallel subscraper.py -u youtube.com -o $rootPath/$domain/$foldername/useless/subscraper.txt
+     cat $rootPath/$domain/$foldername/responsiveDomains.txt| parallel subscraper.py -u {} -o $rootPath/$domain/$foldername/useless/subscraper.txt
      cat $rootPath/$domain/$foldername/useless/subscraper.txt |  awk '!seen[$0]++' > $rootPath/$domain/$foldername/useless/unique_subscraper.txt
      cat $rootPath/$domain/$foldername/useless/unique_subscraper.txt |  httprobe -c 50 -t 3000 > $rootPath/$domain/$foldername/responsive_unique_subscraper_urls.txt
      cat $rootPath/$domain/$foldername/responsive_urls.txt >> $rootPath/$domain/$foldername/responsive_unique_subscraper_urls.txt
@@ -236,8 +265,7 @@ run_subscraper(){
 
 run_cloud_enum(){
 brand=$(echo $domain |cut -d '.' -f 1 )
-cloud_enum.py -k $domain -k $brand  -t 20 -l $rootPath/$domain/$foldername/cloud_enum.txt
-cp $rootPath/$domain/$foldername/cloud_enum.txt  $rootPath/$domain/$foldername/html/
+cloud_enum.py -k $domain -k $brand  -t 20 -l $rootPath/$domain/$foldername/useful/cloud_enum.txt
 
 }
 
@@ -265,9 +293,6 @@ recon(){
 
 
 
-  echo "Checking Passive source with massdns"
-  massdns_second_check
-
 
   if [[ "$(dig @1.1.1.1 A,CNAME {test321123,testingforwildcard,plsdontgimmearesult}.$domain +short | wc -l)" -gt "1" ]]; then
     echo "[!] Possible wildcard detected."
@@ -277,18 +302,18 @@ recon(){
 
 
   echo "Starting Massdns Subdomain discovery this may take a while"
-  mass $domain > /dev/null
+  mass 
   echo "Massdns finished..."
 
-  
+  cat $rootPath/$domain/$foldername/raw_subdomains.txt >> $rootPath/$domain/$foldername/allsubdomains_final.txt
 
   hostalive
 
-  if [[ $wildcard_boolean !=  1 ]]; then
-    #statements
-    using_dnsgen
-    hostalive_for_dnsgen
-  fi
+  # if [[ $wildcard_boolean !=  1 ]]; then
+  #   #statements
+  #   using_dnsgen
+  #   hostalive_for_dnsgen
+  # fi
 
   
   rm_dup_file $rootPath/$domain/$foldername/allsubdomains_final.txt
@@ -301,34 +326,34 @@ recon(){
  
   cat $rootPath/$domain/$foldername/responsive_urls.txt  |unfurl -unique domain > $rootPath/$domain/$foldername/responsiveDomains_final.txt
 
-  python3 /root/recon_tools/Scripts/python/urls_processing.py  $rootPath/$domain/$foldername/responsive_urls.txt  $rootPath/$domain/$foldername/ffuf_input.txt
+  python3 /root/recon_tools/Scripts/python/urls_processing.py  $rootPath/$domain/$foldername/responsive_urls.txt  $rootPath/$domain/$foldername/responsive_urls.txt 
 
   nsrecords_subjack $domain
+
 
 
 }
 
 
-eyewitnesser(){
-  echo "Starting Eyewitness scan..."
-  timeout 3h EyeWitness.py --web  --no-prompt  -f $rootPath/$domain/$foldername/responsive_urls.txt --timeout 30  -d $rootPath/$domain/$foldername/eyewitness
-  cd $rootPath/$domain/$foldername/eyewitness/screens
-  # fdupes . -r -f -1 -S -d
+run_aquatone(){
+  echo "Starting aquatone scan..."
+  cd $rootPath/$domain/$foldername/aquatone
+  cat $rootPath/$domain/$foldername/responsive_urls.txt | aquatone -chrome-path ~/other/chrome-linux/chrome
   cd -
-	mv $rootPath/$domain/$foldername/eyewitness /var/www/jsrecon/links/$domain/
+	cp -r  $rootPath/$domain/$foldername/aquatone /var/www/jsrecon/links/$domain/
 
 }
 
 
 using_blc(){
-  touch $rootPath/$domain/$foldername/blc.txt
+  touch $rootPath/$domain/$foldername/useful/blc.txt
+  echo "Using blc "
 
   while read p ; do 
-    blc  $p -rfoi --exclude youtube.com  --flter--level 3 >> $rootPath/$domain/$foldername/blc.txt
+    timeout 5m blc  $p -rfoi --exclude youtube.com  --flter--level 3 >> $rootPath/$domain/$foldername/useful/blc.txt
   done < $rootPath/$domain/$foldername/responsive_urls.txt
 
-  chmod +r $rootPath/$domain/$foldername/blc.txt
-  cp $rootPath/$domain/$foldername/blc.txt /var/www/jsrecon/links/$domain/blc.txt
+  chmod +r $rootPath/$domain/$foldername/useful/blc.txt
 
 
 }
@@ -350,16 +375,11 @@ portscanning(){
   rm $rootPath/$domain/$foldername/domain_ip_tmp.txt
 
 
-  awk '{print $2}' $rootPath/$domain/$foldername/domain_ip.txt | awk '!seen[$0]++' > $rootPath/$domain/$foldername/only_ip.txt
+  awk '{print $NF}' $rootPath/$domain/$foldername/domain_ip.txt | awk '!seen[$0]++' > $rootPath/$domain/$foldername/only_ip.txt
 
  timeout 3h ipport_mass -f  $rootPath/$domain/$foldername/only_ip.txt -o $rootPath/$domain/$foldername/portscanning
 
-cp $rootPath/$domain/$foldername/portscanning/ip_services.txt /var/www/jsrecon/links/$domain/
-}
-
-massdns_second_check(){
-  cat $rootPath/$domain/$foldername/raw_subdomains.txt | massdns -r /root/Wordlist/resolver.txt -t A -q -o S -w  $rootPath/$domain/$foldername/useless/massdns_temp.txt
-
+cp $rootPath/$domain/$foldername/portscanning/ip_services.txt $rootPath/$domain/$foldername/useful/ip_services.txt
 }
 
 
@@ -369,19 +389,17 @@ mass(){
    #statements
        /root/recon_tools/massdns/scripts/subbrute.py $massdnsWordlist $domain | massdns -r /root/Wordlist/resolver.txt -t A -q -o S > $rootPath/$domain/$foldername/useless/mass.txt
 
-cat $rootPath/$domain/$foldername/useless/mass.txt >> $rootPath/$domain/$foldername/useless/massdns_temp.txt
 
-rm $rootPath/$domain/$foldername/useless/mass.txt
 
 fi
 
-deduplicate_massdns_output $rootPath/$domain/$foldername/useless/massdns_temp.txt
+deduplicate_massdns_output $rootPath/$domain/$foldername/useless/mass.txt
 
-awk '{print $1}' $rootPath/$domain/$foldername/useless/massdns_temp.txt | sed 's/\.$//' > $rootPath/$domain/$foldername/massdns_checked_subdomains.txt
+awk '{print $1}' $rootPath/$domain/$foldername/useless/mass.txt | sed 's/\.$//' > $rootPath/$domain/$foldername/massdns_subdomains.txt
 
-rm_dup_file $rootPath/$domain/$foldername/massdns_checked_subdomains.txt
+rm_dup_file $rootPath/$domain/$foldername/massdns_subdomains.txt
 
-cat $rootPath/$domain/$foldername/massdns_checked_subdomains.txt > $rootPath/$domain/$foldername/allsubdomains_final.txt
+cat $rootPath/$domain/$foldername/massdns_subdomains.txt >> $rootPath/$domain/$foldername/raw_subdomains.txt
 
 }
 
@@ -391,37 +409,37 @@ awk '!seen[$3]++' $1 > $tmpfile
 mv $tmpfile $1
 }
 
-using_dnsgen(){
-  echo "Using dnsgen..."
+# using_dnsgen(){
+#   echo "Using dnsgen..."
 
-  head -n 1500 $rootPath/$domain/$foldername/responsiveDomains.txt | dnsgen - > $rootPath/$domain/$foldername/useless/dnsgen_temp.txt
+#   head -n 1500 $rootPath/$domain/$foldername/responsiveDomains.txt | dnsgen - > $rootPath/$domain/$foldername/useless/dnsgen_temp.txt
 
-  rm_dup_file  $rootPath/$domain/$foldername/useless/dnsgen_temp.txt
+#   rm_dup_file  $rootPath/$domain/$foldername/useless/dnsgen_temp.txt
 
-  cat $rootPath/$domain/$foldername/useless/dnsgen_temp.txt | massdns -r /root/Wordlist/resolver.txt -t A -q -o S > $rootPath/$domain/$foldername/useless/dnsgen_mass.txt
+#   cat $rootPath/$domain/$foldername/useless/dnsgen_temp.txt | massdns -r /root/Wordlist/resolver.txt -t A -q -o S > $rootPath/$domain/$foldername/useless/dnsgen_mass.txt
 
-  deduplicate_massdns_output $rootPath/$domain/$foldername/useless/dnsgen_mass.txt
+#   deduplicate_massdns_output $rootPath/$domain/$foldername/useless/dnsgen_mass.txt
 
-  awk '{print $1}' $rootPath/$domain/$foldername/useless/dnsgen_mass.txt | sed 's/\.$//' > $rootPath/$domain/$foldername/useless/dnsgen_resolved_domains.txt
+#   awk '{print $1}' $rootPath/$domain/$foldername/useless/dnsgen_mass.txt | sed 's/\.$//' > $rootPath/$domain/$foldername/useless/dnsgen_resolved_domains.txt
 
-    rm_dup_file  $rootPath/$domain/$foldername/useless/dnsgen_resolved_domains.txt
+#     rm_dup_file  $rootPath/$domain/$foldername/useless/dnsgen_resolved_domains.txt
 
-  cat $rootPath/$domain/$foldername/useless/dnsgen_resolved_domains.txt >>  $rootPath/$domain/$foldername/allsubdomains_final.txt
+#   cat $rootPath/$domain/$foldername/useless/dnsgen_resolved_domains.txt >>  $rootPath/$domain/$foldername/allsubdomains_final.txt
 
-  rm $rootPath/$domain/$foldername/useless/dnsgen_temp.txt
-}
+#   rm $rootPath/$domain/$foldername/useless/dnsgen_temp.txt
+# }
 
-hostalive_for_dnsgen(){
-  cat $rootPath/$domain/$foldername/useless/dnsgen_resolved_domains.txt | httprobe -c 50 -t 3000 > $rootPath/$domain/$foldername/useless/dnsgen_responsive.txt
+# hostalive_for_dnsgen(){
+#   cat $rootPath/$domain/$foldername/useless/dnsgen_resolved_domains.txt | httprobe -c 50 -t 3000 > $rootPath/$domain/$foldername/useless/dnsgen_responsive.txt
 
-  cat $rootPath/$domain/$foldername/useless/dnsgen_responsive.txt >> $rootPath/$domain/$foldername/responsive_urls.txt
+#   cat $rootPath/$domain/$foldername/useless/dnsgen_responsive.txt >> $rootPath/$domain/$foldername/responsive_urls.txt
 
-  rm_dup_file $rootPath/$domain/$foldername/responsive_urls.txt
-
-
+#   rm_dup_file $rootPath/$domain/$foldername/responsive_urls.txt
 
 
-}
+
+
+# }
 
 nsrecords_subjack(){
 
@@ -429,11 +447,11 @@ nsrecords_subjack(){
                 echo "Looking into CNAME Records..."
 
 
+                touch $rootPath/$domain/$foldername/useful/pos.txt
 
 
-
-                cat $rootPath/$domain/$foldername/useless/massdns_temp.txt | egrep 'CNAME|wp' >> $rootPath/$domain/$foldername/cnames.txt
-                cat $rootPath/$domain/$foldername/useless/dnsgen_mass.txt | grep 'CNAME|wp' >> $rootPath/$domain/$foldername/cnames.txt
+                cat $rootPath/$domain/$foldername/useless/mass.txt | egrep 'CNAME|wp' > $rootPath/$domain/$foldername/useful/cnames.txt
+                # cat $rootPath/$domain/$foldername/useless/dnsgen_mass.txt | grep 'CNAME|wp' >> $rootPath/$domain/$foldername/cnames.txt
 
 
                 cat $rootPath/$domain/$foldername/cnames.txt | sort -u | while read line; do
@@ -441,25 +459,30 @@ nsrecords_subjack(){
                 if [[ $(host $hostrec | grep NXDOMAIN) != "" ]]
                 then
                 echo "${red}Check the following domain for NS takeover:  $line ${reset}"
-                echo "$line" >> $rootPath/$domain/$foldername/pos.txt
+                echo "$line" >> $rootPath/$domain/$foldername/useful/pos.txt
                 else
                 echo -ne "working on it...\r"
                 fi
                 done
                 sleep 1
 
-                subjack -c ~/go/src/github.com/haccer/subjack/fingerprints.json  -w $rootPath/$domain/$foldername/allsubdomains_final.txt  -t 10 -timeout 15 -o $rootPath/$domain/$foldername/subjack.txt -ssl -a -m
+                subjack -c ~/go/src/github.com/haccer/subjack/fingerprints.json  -w $rootPath/$domain/$foldername/allsubdomains_final.txt  -t 10 -timeout 15 -o $rootPath/$domain/$foldername/useful/subjack.txt -ssl -a -m
 
-                chmod +r $rootPath/$domain/$foldername/subjack.txt
+                chmod +r $rootPath/$domain/$foldername/useful/subjack.txt
 
-                cp $rootPath/$domain/$foldername/cnames.txt /var/www/jsrecon/links/$domain/
-                cp $rootPath/$domain/$foldername/pos.txt /var/www/jsrecon/links/$domain/
-                cp $rootPath/$domain/$foldername/subjack.txt /var/www/jsrecon/links/$domain/
 
-                echo "Fininshed subjack scanning  http://jsrecon.ragnarokv.site/links/${domain}/subjack.txt " | mutt -s "Subjack ${domain} "  inthebybyby@gmail.com
+                echo "Fininshed subjack scanning  http://jsrecon.ragnarokv.site/links/${domain}/useful/subjack.txt " | mutt -s "Subjack ${domain} "  inthebybyby@gmail.com
         }
 
 
+
+ffuf_403(){
+  cd $rootPath/$domain/$foldername/
+  mkdir $rootPath/$domain/$foldername/ffuf_403
+  ffuf_403_process.py -i "ffuf/processed/*" "ffuf_paths/processed/*" -o $rootPath/$domain/$foldername/ffuf_403
+  cp $rootPath/$domain/$foldername/ffuf_403/ffuf_403.html $rootPath/$domain/$foldername/ffuf_403/originalurl.html $rootPath/$domain/$foldername/ffuf_403/rewriteurls.html $rootPath/$domain/$foldername/useful
+
+}
 
 logo(){
   #can't have a bash script without a cool logo :D
@@ -479,12 +502,12 @@ main(){
 
   mkdir -p $rootPath/$domain
   mkdir -p $rootPath/$domain/$foldername
+  mkdir -p $rootPath/$domain/$foldername/useful
   mkdir -p $rootPath/$domain/$foldername/wayback-data/
-  mkdir -p $rootPath/$domain/$foldername/eyewitness
+  mkdir -p $rootPath/$domain/$foldername/aquatone
   mkdir -p $rootPath/$domain/$foldername/useless
   mkdir -p $rootPath/$domain/$foldername/html
   mkdir -p /var/www/jsrecon/links/$domain
-  mkdir -p /var/www/jsrecon/links/$domain/urls
 
   mkdir -p $rootPath/$domain/$foldername/wayback-data/jsfile
 
@@ -493,26 +516,36 @@ main(){
   touch $rootPath/$domain/$foldername/pos.txt
   touch $rootPath/$domain/$foldername/raw_subdomains.txt
   touch $rootPath/$domain/$foldername/useless/massdns_temp.txt
-  touch $rootPath/$domain/$foldername/domaintemp.txt
   touch $rootPath/$domain/$foldername/useless/cleantemp.txt
   touch $rootPath/$domain/$foldername/allsubdomains_final.txt
 
-  rm_resolver
+  # rm_resolver
   recon
 
   echo "Starting discovery..."
   discovery
 
-  mkdir -p $rootPath/$domain/$foldername/ffuf/
+  run_cloud_enum
+  using_blc
+  
 
-  ffuf_mass -f $rootPath/$domain/$foldername/ffuf_input.txt -o $rootPath/$domain/$foldername/ffuf/
-  cp $rootPath/$domain/$foldername/ffuf/ffuf_output.html /var/www/jsrecon/links/$domain/ffuf_output.html
-  echo "Fininshed ffuf scanning  http://jsrecon.ragnarokv.site/links/${domain}/ffuf_output.html " | mutt -s "FFUF_full ${domain} "  inthebybyby@gmail.com
+  mkdir -p $rootPath/$domain/$foldername/ffuf/
+  mkdir -p $rootPath/$domain/$foldername/ffuf_paths/
+
+  ffuf_mass -f $rootPath/$domain/$foldername/responsive_urls.txt  -q -o $rootPath/$domain/$foldername/ffuf/ -w /root/Wordlist/endpoint/10w_common.txt
+  ffuf_mass -f $rootPath/$domain/$foldername/responsive_urls.txt  -o $rootPath/$domain/$foldername/ffuf_paths/ -w $rootPath/$domain/$foldername/wayback-data/paths.txt
+  cp $rootPath/$domain/$foldername/ffuf/ffuf_output.html $rootPath/$domain/$foldername/useful/ffuf_output.html
+  cp $rootPath/$domain/$foldername/ffuf_paths/ffuf_output.html $rootPath/$domain/$foldername/useful/ffuf_paths_output.html
+  echo "Fininshed ffuf scanning  http://jsrecon.ragnarokv.site/links/${domain}/useful/ffuf_output.html  http://jsrecon.ragnarokv.site/links/${domain}/useful/ffuf_output_paths.html  " | mutt -s "FFUF_full ${domain} "  inthebybyby@gmail.com
 
 
   # -a $rootPath/$domain/$foldername/ffuf/ffuf_output.html
 
+  cat $rootPath/$domain/$foldername/useful/$domain_tok.txt >> $rootPath/$domain/$foldername/useful/all_params.txt
 
+  ffuf_403
+
+  cp -r $rootPath/$domain/$foldername/useful /var/www/jsrecon/links/$domain/useful
 
 
   echo "${green}Scan for $domain finished successfully${reset}"

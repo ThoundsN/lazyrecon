@@ -92,7 +92,7 @@ gf ssti $output_directory/gfonly/final_full_live_urls.txt| awk -F ':' '{$1=$2="\
 
 get_hidden_params(){
   mkdir -p $output_directory/ffuf_hidden_params
-  ffuf -w $output_directory/final_full_live_urls.txt  -u FUZZ -t 100 -od $output_directory/ffuf_hidden_params/ -r
+  ffuf -w $output_directory/final_full_live_urls.txt -s -u FUZZ -t 100 -se -r -sf  -od $output_directory/ffuf_hidden_params/ -r
   cd $output_directory/
   extract_hidden_param.py -i "ffuf_hidden_params/*" -u $output_directory/final_full_live_urls.txt  -p $output_directory/output/hidden_params.txt
   cat $output_directory/output/hidden_params.txt >> $output_directory/output/params.txt
@@ -103,12 +103,19 @@ mkdir -p $output_directory/build_urls
 
 path_plus_param.py -f  $output_directory/output/params.txt ~/Wordlist/parameter/ssrf.txt -p $output_directory/temp_processing/unique_domainpaths.txt > $output_directory/build_urls/ssrf.txt
 
+echo "Building ssrf urls"
+
 path_plus_param.py -f  $output_directory/output/params.txt ~/Wordlist/parameter/LFI.txt -p $output_directory/temp_processing/unique_domainpaths.txt > $output_directory/build_urls/LFI.txt
+
+echo "Building lfi urls"
 
 
 # path_plus_param.py -f  $output_directory/output/params.txt ~/Wordlist/parameter/Open_redirect.txt -p $output_directory/temp_processing/unique_domainpaths.txt > $output_directory/build_urls/Open_redirect.txt
 
 path_plus_param.py -f  $output_directory/output/params.txt ~/Wordlist/parameter/columns.txt -p $output_directory/temp_processing/unique_domainpaths.txt > $output_directory/build_urls/xss.txt
+
+echo "Building xss urls"
+
 
 
 # # for sqli, needing to append ' at the end of query value, so it is different from other test input
@@ -118,27 +125,45 @@ path_plus_param.py -f  $output_directory/output/params.txt ~/Wordlist/parameter/
 mkdir -p $output_directory/
 mkdir -p $output_directory/output
 
+echo "Input file from gau      $file  "
 
 cat $file | sed -E -e '/(\.jpg|\.png|\.gif|\.woff|\.css|\.ico|\.js|\.swf|\.zip|\.JPG|\.mp3|\.mov|\.svg|\.jpeg|\.map|\.pdf|\.txt)/d'| sed '/^[[:space:]]*$/d' > $output_directory/filtered_url.txt
-### Remove urls with boring extensions
+echo "Remove urls with boring extensions"
+
+grep -P "\w+\.js(\?|$)" $file > $output_directory/js_urls.txt
+
+echo "Remove urls with boring extensions     $output_directory/filtered_url.txt "
+
 
 cat $output_directory/filtered_url.txt | wordlistgen > $output_directory/output/wordlist.txt
 
+echo "Using wordlistgen     $output_directory/output/wordlist.txt "
 
 
 
 cat $output_directory/filtered_url.txt | urinteresting >  $output_directory/maybeinteresting_urls.txt
-## find urls which may contain interesting things such as admin,proxy
+
+echo "find urls which may contain interesting things such as admin,proxy  $output_directory/maybeinteresting_urls.txt"
+
 cat $output_directory/filtered_url.txt | unfurl keys | awk '!seen[$0]++'   > $output_directory/output/params.txt
-### Extract parameters of query string 
+echo  "Extract parameters of query string               $output_directory/output/params.txt "
 
 awk '/?/ && /=/' $output_directory/filtered_url.txt > $output_directory/with_querystring_urls.txt
-### Only keeps urls with query string 
+echo  "Only keeps urls with query string   $output_directory/with_querystring_urls.txt" 
 
+count=$(wc -l $output_directory/with_querystring_urls.txt| awk '{print $1}')
 
-halive $output_directory/with_querystring_urls.txt -t 100 --output $output_directory/halive.txt
-egrep '301|200' $output_directory/halive.txt | awk 'BEGIN { FS = "," } ; { print $1 }' > $output_directory/live_urls.txt
-## Obtain currentlly live urls
+count=$(expr $count + 1)
+if [ "$count" -lt 99999 ]
+then 
+    halive $output_directory/with_querystring_urls.txt -t 100 --output $output_directory/halive.txt
+    egrep '302|301|200' $output_directory/halive.txt | awk 'BEGIN { FS = "," } ; { print $1 }' > $output_directory/live_urls.txt
+else 
+    cat $output_directory/with_querystring_urls.txt |  fff -s 301 -s 301 -s 200 > $output_directory/halive.txt  
+    awk '{print $1}' $output_directory/halive.txt > $output_directory/live_urls.txt
+fi
+echo " Obtain currentlly live urls           $output_directory/live_urls.txt  "
+
 
 
 
@@ -149,7 +174,8 @@ cat $output_directory/live_urls.txt | unfurl -u format " %p?%q"   >  $output_dir
 
 deduplicate_urls.py $output_directory/temp_processing/pathandquery.txt   $output_directory/live_urls.txt $output_directory/final_full_live_urls.txt
 
-# Deduplicate live urls, only remain unique path and query sting   final_full_live_urls.txt
+echo "Deduplicate live urls, only remain unique path and query sting   $output_directory/final_full_live_urls.txt"
+#final_full_live_urls.txt
 # https://www.takeaway.com/be-en/melita-beveren?gclid=CPnRucma5d8CFXyIxQIdLpgFgQ&gclsrc=ds
 # https://www.takeaway.com/pizzahutgent?utm_campaign=foodorder&utm_medium=organic&utm_sour
 # ce=google
@@ -170,30 +196,47 @@ build_urls
 
 
 #xss
-cat $output_directory/final_full_live_urls.txt | dalfox pipe -w 70  --ignore-return 302,403,404 --only-discovery   -b https://ragnarokv.xss.ht  --silence  -o $output_directory/output/xss_dalfox.txt
-grep -E -i -C 10  "reflected|triggered"    $output_directory/output/xss_dalfox.txt > $output_directory/output/dalfox_good.txt
+
+# echo "Using dalfox         $output_directory/output/xss_dalfox.txt "
+# cat $output_directory/final_full_live_urls.txt | dalfox pipe -w 70  --ignore-return 302,403,404 --only-discovery   -b https://ragnarokv.xss.ht  --silence  -o $output_directory/output/xss_dalfox.txt
+# grep -E -i -C 10  "reflected|triggered"    $output_directory/output/xss_dalfox.txt > $output_directory/output/dalfox_good.txt
+# echo "Finished dalfox    $output_directory/output/dalfox_good.txt  "
+
+
 # cat $output_directory/build_urls/xss.txt | dalfox pipe -w 70  --ignore-return 302,403,404 -b https://ragnarokv.xss.ht  --silence  -o $output_directory/output/xss2.txt
+
+echo "Using kxss...........       $output_directory/output/xss1.txt      "
 cat $output_directory/final_full_live_urls.txt | kxss >  $output_directory/output/xss1.txt
-timeout 3h cat $output_directory/build_urls/xss.txt | kxss >  $output_directory/output/xss2.txt
-#  xss.py -v 4 -u $output_directory/build_urls/xss.txt   -t 50 -O $output_directory/output/xss2.txt
-#  touch $output_directory/output/xss_vulnerable.txt
-#  grep vulnerable $output_directory/output/xss2.txt >> $output_directory/output/xss_vulnerable.txt
+cat $output_directory/build_urls/xss.txt | kxss >  $output_directory/output/xss2.txt
+
+# touch $output_directory/output/xsspy.txt
+#  timeout 2h xss.py -v 4 -u $output_directory/final_full_live_urls.txt   -t 50 -O $output_directory/output/xsspy.txt
+#  touch $output_directory/output/xsspy_vulnerable.txt
+#  grep vulnerable $output_directory/output/xsspy.txt >> $output_directory/output/xss_vulnerable.txt
 
 
 
 
 #lfi
- lfi.py -v 4 -u $output_directory/final_full_live_urls.txt  -t 50 -n $output_directory/output/lfi1.txt
+ echo "Scanning for lfi ...   $output_directory/output/lfi1.txt "
+ lfi.py -v 4 -u $output_directory/final_full_live_urls.txt  -t 15 -n $output_directory/output/lfi1.txt
  touch $output_directory/output/lfi_vulnerable.txt
  grep vulnerable $output_directory/output/lfi1.txt > $output_directory/output/lfi_vulnerable.txt
-timeout 3h  lfi.py -v 4 -u $output_directory/final_full_live_urls.txt   -t 50  -n  $output_directory/output/lfi2.txt
+timeout 3h  lfi.py -v 4 -u $output_directory/final_full_live_urls.txt   -t 15  -n  $output_directory/output/lfi2.txt
  grep vulnerable $output_directory/output/lfi2.txt >> $output_directory/output/lfi_vulnerable.txt
+
+ echo "Finished scanning of  lfi ...   $output_directory/output/lfi_vulnerable.txt "
+
 
 
 
 #open_redirect
 cat $output_directory/final_full_live_urls.txt | grep --color -iE "(callback=|checkout=|checkout_url=|continue=|data=|dest=|destination=|dir=|domain=|feed=|file=|file_name=|file_url=|folder=|folder_url=|forward=|from_url=|go=|goto=|host=|html=|image_url=|img_url=|load_file=|load_url=|login_url=|logout=|navigation=|next=|next_page=|Open=|out=|page=|page_url=|path=|port=|redir=|redirect=|redirect_to=|redirect_uri=|redirect_url=|reference=|return=|return_path=|return_to=|returnTo=|return_url=|rt=|rurl=|show=|site=|target=|to=|uri=|url=|val=|validate=|view=|RedirectUrl=|Return=|ReturnUrl=|ClientSideUrl=|failureUrl=|ru=|relayState=|fallbackurl=|clickurl=|dest_url=|urlReturn=|referer=|appUrlScheme=|cgi-bin/redirect.cgi=|window=)" > $output_directory/build_urls/Open_redirect_input.txt
-cat $output_directory/build_urls/Open_redirect_input.txt | qsfuzz -c ~/Wordlist/qsfuzz/open_redirect.yaml -w 100 | tee $output_directory/output/openredirect1.txt
+ redirect_replaceparam.py -f $output_directory/build_urls/Open_redirect_input.txt > $output_directory/build_urls/Open_redirect_ffuf.txt
+
+ffuf -w  $output_directory/build_urls/Open_redirect_ffuf.txt -H X-Real-IP: 127.0.0.1 -u FUZZ -t 100 -se -r  -s
+
+# cat $output_directory/build_urls/Open_redirect_input.txt | qsfuzz -c ~/Wordlist/qsfuzz/open_redirect.yaml -w 100 | tee $output_directory/output/openredirect1.txt
 
 # openredirex.py -l $output_directory/build_urls/Open_redirect_input.txt -p /root/Wordlist/payload/openredirect_better.txt --keyword FUZZ | tee $output_directory/output/openredirect1.txt
 # openredirex.py -l $output_directory/build_urls/Open_redirect.txt -p /root/Wordlist/payload/openredirect_better.txt --keyword FUZZ | tee $output_directory/output/openredirect2.txt
@@ -201,19 +244,22 @@ cat $output_directory/build_urls/Open_redirect_input.txt | qsfuzz -c ~/Wordlist/
 
 
 #sqlid
-
+echo "Scanning sqli  $output_directory/output/sqli1.txt  "
 cat $output_directory/final_full_live_urls.txt | qsfuzz -c ~/Wordlist/qsfuzz/sqli.yaml -w 100 | tee $output_directory/output/sqli1.txt
 
 #crlf 
+echo "Scanning crlf  $output_directory/output/crlf.txt  "
 
 cat $output_directory/final_full_live_urls.txt | qsfuzz -c ~/Wordlist/qsfuzz/crlf.yaml -w 100 | tee $output_directory/output/crlf.txt
 
 #ssrf 
-
+echo "Building urls for ssrf   $output_directory/build_urls/ssrf_ffuf1.txt  "
 ssrf_replaceparam.py -f $output_directory/final_full_live_urls.txt > $output_directory/build_urls/ssrf_ffuf1.txt
 ssrf_replaceparam.py -f $output_directory/build_urls/ssrf.txt > $output_directory/build_urls/ssrf_ffuf2.txt
 
-ffuf -w $output_directory/build_urls/ssrf_ffuf1.txt -u FUZZ -t 100
-timeout 3h ffuf -w $output_directory/build_urls/ssrf_ffuf2.txt -u FUZZ -t 100
+echo "Ffufing generaterd ssrf urls   "
+
+ffuf -w $output_directory/build_urls/ssrf_ffuf1.txt -u FUZZ -t 100 -r  -s -H X-Real-IP: 127.0.0.1
+timeout 3h ffuf -w $output_directory/build_urls/ssrf_ffuf2.txt -u FUZZ -t 100 -r -s -H X-Real-IP: 127.0.0.1
 psql -d ssrf  -c "SELECT * FROM ssrf_records where  created_on > current_date - interval '7 days'" --csv > $output_directory/output/ssrf.csv
 
