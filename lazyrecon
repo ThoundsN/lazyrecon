@@ -82,7 +82,8 @@ fi
 
 discovery(){
 
-  cat $rootPath/$domain/$foldername/responsive_urls.txt | smuggler.py -l $rootPath/$domain/$foldername/useless/smuggler.txt
+  # #smuggler
+  # cat $rootPath/$domain/$foldername/responsive_urls.txt | smuggler.py -l $rootPath/$domain/$foldername/useful/smuggler.txt
   
   wayback
 
@@ -139,6 +140,7 @@ checkjsfile(){
   ls | while read file; do mv $file $(echo $file | sed -e 's/[^A-Za-z0-9._-]/_/g'); done
   # touch $rootPath/$domain/$foldername/useful/${domain}_secretfinder.html
   # SecretFinder.py -i './*' -o $rootPath/$domain/$foldername/useful/${domain}_secretfinder.html
+  gf urls > $rootPath/$domain/useful/endpoints_injs.txt
   DumpsterDiver.py -p . -o  $rootPath/$domain/$foldername/useful/entropy.json > /dev/null
   python3 ~/recon_tools/Scripts/python/entropy_json.py $rootPath/$domain/$foldername/useful/entropy.json $rootPath/$domain/$foldername/useful/new.json
 
@@ -190,8 +192,12 @@ cat $rootPath/$domain/$foldername/wayback-data/temp.txt | awk '!seen[$0]++'>  $r
 
 rm $rootPath/$domain/$foldername/wayback-data/temp.txt $rootPath/$domain/$foldername/wayback-data/commoncrawl.txt $rootPath/$domain/$foldername/wayback-data/wayback.txt
 
-cat $rootPath/$domain/$foldername/wayback-data/gau.txt  | sort -u | grep -P "\w+\.js(\?|$)" | sort -u > $rootPath/$domain/$foldername/wayback-data/jsurls.txt
-[ -s $rootPath/$domain/$foldername/wayback-data/jsurls.txt ] && echo "JS Urls saved to /$domain/$foldername/wayback-data/jsurls.txt"
+cat $rootPath/$domain/$foldername/wayback-data/gau.txt  | sort -u | grep -P "\w+\.js(\?|$)" | sort -u > $rootPath/$domain/$foldername/wayback-data/jsurls_temp.txt
+
+cat $rootPath/$domain/$foldername/wayback-data/jsurls_temp.txt  | urldedeupe >  $rootPath/$domain/$foldername/wayback-data/jsurls.txt
+
+[ -s $rootPath/$domain/$foldername/wayback-data/jsurls.txt ] && echo "JS Urls saved to $rootPath/$domain/$foldername/wayback-data/jsurls.txt"
+rm $rootPath/$domain/$foldername/wayback-data/jsurls_temp.txt 
 
 cat $rootPath/$domain/$foldername/wayback-data/gau.txt  |  unfurl -u paths >  $rootPath/$domain/$foldername/wayback-data/paths.txt
 sed 's#/#\n#g' $rootPath/$domain/$foldername/wayback-data/paths.txt  | awk '!seen[$0]++' > $rootPath/$domain/$foldername/wayback-data/parts.txt
@@ -202,32 +208,10 @@ sed 's#/#\n#g' $rootPath/$domain/$foldername/wayback-data/paths.txt  | awk '!see
 
 rscan.sh -f $rootPath/$domain/$foldername/wayback-data/gau.txt -o $rootPath/$domain/$foldername/wayback-data/
 
- echo "Fininshed rscaning   http://jsrecon.ragnarokv.site/links/${domain}/wayback-data/output " | mutt -s "rscan ${domain} "  inthebybyby@gmail.com
 
 
-
-cat $rootPath/$domain/$foldername/wayback-data/output/params.txt > $rootPath/$domain/$foldername/useful/all_params.txt
-
-
-
-
-
-# cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | unfurl --unique keypairs > $rootPath/$domain/$foldername/wayback-data/paramlist.txt
-# [ -s $rootPath/$domain/$foldername/wayback-data/paramlist.txt ] && echo "Wordlist saved to /$domain/$foldername/wayback-data/paramlist.txt"
-
-# cat $rootPath/$domain/$foldername/wayback-data/paths.txt | sed -E -e '/(\.jpg|\.png|\.gif|\.woff|\.css|\.ico|\.js)$/d' | perl -p -e 's/(.*)/<br><a href="\1" target="_blank">\1<\/a><br>/'  >  $rootPath/$domain/$foldername/useful/paths.html
-  
-# grep 'admin\|proxy' $rootPath/$domain/$foldername/useful/paths.html > $rootPath/$domain/$foldername/useful/adminpath.html
-
-
-# cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.php(\?|$) "| sort -u > $rootPath/$domain/$foldername/wayback-data/phpurls.txt
-# [ -s $rootPath/$domain/$foldername/wayback-data/phpurls.txt ] && echo "PHP Urls saved to /$domain/$foldername/wayback-data/phpurls.txt"
-
-# cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.aspx(\?|$) "| sort -u  > $rootPath/$domain/$foldername/wayback-data/aspxurls.txt
-# [ -s $rootPath/$domain/$foldername/wayback-data/aspxurls.txt ] && echo "ASP Urls saved to /$domain/$foldername/wayback-data/aspxurls.txt"
-
-# cat $rootPath/$domain/$foldername/wayback-data/waybackurls.txt  | sort -u | grep -P "\w+\.jsp(\?|$) "| sort -u  > $rootPath/$domain/$foldername/wayback-data/jspurls.txt
-# [ -s $rootPath/$domain/$foldername/wayback-data/jspurls.txt ] && echo "JSP Urls saved to /$domain/$foldername/wayback-data/jspurls.txt"
+cat $rootPath/$domain/$foldername/wayback-data/output/params.txt >> $rootPath/$domain/$foldername/useful/finalwordlist.txt
+cat $rootPath/$domain/$foldername/wayback-data/output/wordlistgen.txt >> $rootPath/$domain/$foldername/useful/finalwordlist.txt
 
 
 }
@@ -238,7 +222,7 @@ import_subdomains(){
 
 hostalive(){
 echo "Probing for live hosts..."
-cat $rootPath/$domain/$foldername/raw_subdomains.txt  | httprobe -c 50 -t 3000 > $rootPath/$domain/$foldername/responsive_urls.txt
+cat $rootPath/$domain/$foldername/allsubdomains_final.txt  | httprobe -c 50 -t 3000 > $rootPath/$domain/$foldername/responsive_urls.txt
 
 cat $rootPath/$domain/$foldername/responsive_urls.txt |unfurl -unique domain > $rootPath/$domain/$foldername/responsiveDomains.txt
 
@@ -256,7 +240,7 @@ echo  "${yellow}Total of ${count} live subdomains were found${reset}"
 
 run_subscraper(){
      touch $rootPath/$domain/$foldername/useless/subscraper.txt
-     cat $rootPath/$domain/$foldername/responsiveDomains.txt| parallel subscraper.py -u {} -o $rootPath/$domain/$foldername/useless/subscraper.txt
+      timeout 2h  sh -c "cat $rootPath/$domain/$foldername/responsiveDomains.txt| parallel subscraper.py -u {} -o $rootPath/$domain/$foldername/useless/subscraper.txt > /dev/null"  
      cat $rootPath/$domain/$foldername/useless/subscraper.txt |  awk '!seen[$0]++' > $rootPath/$domain/$foldername/useless/unique_subscraper.txt
      cat $rootPath/$domain/$foldername/useless/unique_subscraper.txt |  httprobe -c 50 -t 3000 > $rootPath/$domain/$foldername/responsive_unique_subscraper_urls.txt
      cat $rootPath/$domain/$foldername/responsive_urls.txt >> $rootPath/$domain/$foldername/responsive_unique_subscraper_urls.txt
@@ -305,8 +289,17 @@ recon(){
   mass 
   echo "Massdns finished..."
 
-  cat $rootPath/$domain/$foldername/raw_subdomains.txt >> $rootPath/$domain/$foldername/allsubdomains_final.txt
+  echo "Using github-subdomains.py "
+  github-subdomains.py -d $domain -t $github_token | tee  $rootPath/$domain/$foldername/useless/github_subdomain.txt
 
+  cat $rootPath/$domain/$foldername/useless/github_subdomain.txt >> $rootPath/$foldername/$domain/raw_subdomains.txt
+
+rm_dup_file $rootPath/$foldername/$domain/raw_subdomains.txt
+
+
+  grep $domain  $rootPath/$foldername/$domain/raw_subdomains.txt | sed 's/*\.//'  >> $rootPath/$domain/$foldername/allsubdomains_final.txt
+
+ 
   hostalive
 
   # if [[ $wildcard_boolean !=  1 ]]; then
@@ -328,7 +321,6 @@ recon(){
 
   python3 /root/recon_tools/Scripts/python/urls_processing.py  $rootPath/$domain/$foldername/responsive_urls.txt  $rootPath/$domain/$foldername/responsive_urls.txt 
 
-  nsrecords_subjack $domain
 
 
 
@@ -504,12 +496,13 @@ main(){
   mkdir -p $rootPath/$domain/$foldername
   mkdir -p $rootPath/$domain/$foldername/useful
   mkdir -p $rootPath/$domain/$foldername/wayback-data/
+  mkdir -p $rootPath/$domain/$foldername/wayback-data/jsfile
+
   mkdir -p $rootPath/$domain/$foldername/aquatone
   mkdir -p $rootPath/$domain/$foldername/useless
   mkdir -p $rootPath/$domain/$foldername/html
   mkdir -p /var/www/jsrecon/links/$domain
 
-  mkdir -p $rootPath/$domain/$foldername/wayback-data/jsfile
 
   touch $rootPath/$domain/$foldername/useless/mass.txt
   touch $rootPath/$domain/$foldername/cnames.txt
@@ -518,15 +511,23 @@ main(){
   touch $rootPath/$domain/$foldername/useless/massdns_temp.txt
   touch $rootPath/$domain/$foldername/useless/cleantemp.txt
   touch $rootPath/$domain/$foldername/allsubdomains_final.txt
+  touch $rootPath/$domain/$foldername/useful/finalwordlist.txt
 
   # rm_resolver
   recon
+  nsrecords_subjack $domain
+   run_cloud_enum
+  using_blc
+  echo "Using github-endpoints.py "
+
+  github-endpoints.py -d $domain -s -r -t $github_token | tee $rootPath/$domain/$foldername/useful/github_endpoints.txt
+
 
   echo "Starting discovery..."
   discovery
 
-  run_cloud_enum
-  using_blc
+ 
+  
   
 
   mkdir -p $rootPath/$domain/$foldername/ffuf/
@@ -541,9 +542,12 @@ main(){
 
   # -a $rootPath/$domain/$foldername/ffuf/ffuf_output.html
 
-  cat $rootPath/$domain/$foldername/useful/$domain_tok.txt >> $rootPath/$domain/$foldername/useful/all_params.txt
+  cat $rootPath/$domain/$foldername/useful/$domain_tok.txt >> $rootPath/$domain/$foldername/useful/finalwordlist.txt
 
   ffuf_403
+
+gitround-runer.py -i $rootPath/$foldername/allsubdomains_final.txt  -n 5 -o $rootPath/$domain/$foldername/useful/gitrounds.txt
+
 
   cp -r $rootPath/$domain/$foldername/useful /var/www/jsrecon/links/$domain/useful
 

