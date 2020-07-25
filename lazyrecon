@@ -17,7 +17,8 @@ ffuf_Wordlist=/root/Wordlist/endpoint/10w_common.txt
 
 
 chromiumPath=/snap/bin/chromium
-rootPath=/root/OneDrive/output/lazyrecon
+rootPath=/var/www/jsrecon/links
+# rootPath=/root/OneDrive/output/lazyrecon
 
 ########################################
 # Happy Hunting
@@ -62,12 +63,15 @@ shift $((OPTIND - 1))
 wayback(){
 
   waybackrecon
-
-  if [ ! -d "/var/www/jsrecon/links/$domain/wayback-data/jsfile/" ]; then
-  # Control will enter here if $DIRECTORY doesn't exist.
     waybackdowloader_oldjsfile
   checkjsfile
-fi
+
+
+#   if [ ! -d "/var/www/jsrecon/links/$domain/wayback-data/jsfile/" ]; then
+#   # Control will enter here if $DIRECTORY doesn't exist.
+#     waybackdowloader_oldjsfile
+#   checkjsfile
+# fi
 
 
 
@@ -75,7 +79,7 @@ fi
 
   memento_mass -f $rootPath/$domain/$foldername/allsubdomains_final.txt  -o $rootPath/$domain/$foldername/useful/robots_archieve.txt
 
-  cp -r  $rootPath/$domain/$foldername/wayback-data/ /var/www/jsrecon/links/$domain/wayback-data/
+  # cp -r  $rootPath/$domain/$foldername/wayback-data/ /var/www/jsrecon/links/$domain/wayback-data/
   rm -rf $rootPath/$domain/$foldername/wayback-data/jsfile/
   cd $rootPath/$domain/$foldername/
 }
@@ -144,7 +148,7 @@ checkjsfile(){
   DumpsterDiver.py -p . -o  $rootPath/$domain/$foldername/useful/entropy.json > /dev/null
   python3 ~/recon_tools/Scripts/python/entropy_json.py $rootPath/$domain/$foldername/useful/entropy.json $rootPath/$domain/$foldername/useful/new.json
 
-  echo "Fininshed high entropy scanning  in jsfile http://jsrecon.ragnarokv.site/links/${domain}/useful/new.json " | mutt -s "Entropy string ${domain} "  inthebybyby@gmail.com
+  # echo "Fininshed high entropy scanning  in jsfile http://jsrecon.ragnarokv.site/links/${domain}/useful/new.json " | mutt -s "Entropy string ${domain} "  inthebybyby@gmail.com
 
   find_firebase
 
@@ -152,7 +156,7 @@ checkjsfile(){
 
 echo "Generating tok......................."
 cat * > $rootPath/$domain/$foldername/useless/merged.txt
-cat $rootPath/$domain/$foldername/useless/merged.txt | tok |awk '!seen[$0]++' |  $rootPath/$domain/$foldername/useless/${domain}_word.txt
+cat $rootPath/$domain/$foldername/useless/merged.txt | tok |awk '!seen[$0]++' >  $rootPath/$domain/$foldername/useless/${domain}_word.txt
  comm -13 ~/Wordlist/other/rfc_words.txt $rootPath/$domain/$foldername/useless/${domain}_word.txt > $rootPath/$domain/$foldername/useful/${domain}_tok.txt
  rm $rootPath/$domain/$foldername/useless/merged.txt
 
@@ -211,7 +215,7 @@ rscan.sh -f $rootPath/$domain/$foldername/wayback-data/gau.txt -o $rootPath/$dom
 
 
 cat $rootPath/$domain/$foldername/wayback-data/output/params.txt >> $rootPath/$domain/$foldername/useful/finalwordlist.txt
-cat $rootPath/$domain/$foldername/wayback-data/output/wordlistgen.txt >> $rootPath/$domain/$foldername/useful/finalwordlist.txt
+# cat $rootPath/$domain/$foldername/wayback-data/output/wordlistgen.txt >> $rootPath/$domain/$foldername/useful/finalwordlist.txt
 
 
 }
@@ -292,12 +296,12 @@ recon(){
   echo "Using github-subdomains.py "
   github-subdomains.py -d $domain -t $github_token | tee  $rootPath/$domain/$foldername/useless/github_subdomain.txt
 
-  cat $rootPath/$domain/$foldername/useless/github_subdomain.txt >> $rootPath/$foldername/$domain/raw_subdomains.txt
+  cat $rootPath/$domain/$foldername/useless/github_subdomain.txt >> $rootPath/$domain/$foldername/raw_subdomains.txt
 
-rm_dup_file $rootPath/$foldername/$domain/raw_subdomains.txt
+rm_dup_file $rootPath/$domain/$foldername/raw_subdomains.txt
 
 
-  grep $domain  $rootPath/$foldername/$domain/raw_subdomains.txt | sed 's/*\.//'  >> $rootPath/$domain/$foldername/allsubdomains_final.txt
+  grep $domain  $rootPath/$domain/$foldername/raw_subdomains.txt | sed 's/*\.//'  >> $rootPath/$domain/$foldername/allsubdomains_final.txt
 
  
   hostalive
@@ -332,7 +336,7 @@ run_aquatone(){
   cd $rootPath/$domain/$foldername/aquatone
   cat $rootPath/$domain/$foldername/responsive_urls.txt | aquatone -chrome-path ~/other/chrome-linux/chrome
   cd -
-	cp -r  $rootPath/$domain/$foldername/aquatone /var/www/jsrecon/links/$domain/
+	# cp -r  $rootPath/$domain/$foldername/aquatone /var/www/jsrecon/links/$domain/
 
 }
 
@@ -517,7 +521,9 @@ main(){
   recon
   nsrecords_subjack $domain
    run_cloud_enum
-  using_blc
+  # using_blc
+  cat $rootPath/$domain/$foldername/responsive_urls.txt |  favfreak.py -o $rootPath/$domain/$foldername/useful/favfreak.txt --shodan
+
   echo "Using github-endpoints.py "
 
   github-endpoints.py -d $domain -s -r -t $github_token | tee $rootPath/$domain/$foldername/useful/github_endpoints.txt
@@ -546,10 +552,10 @@ main(){
 
   ffuf_403
 
-gitround-runer.py -i $rootPath/$foldername/allsubdomains_final.txt  -n 5 -o $rootPath/$domain/$foldername/useful/gitrounds.txt
+gitround-runer.py -i $rootPath/$domain/$foldername/allsubdomains_final.txt  -n 5 -o $rootPath/$domain/$foldername/useful/gitrounds.txt
 
 
-  cp -r $rootPath/$domain/$foldername/useful /var/www/jsrecon/links/$domain/useful
+  # cp -r $rootPath/$domain/$foldername/useful /var/www/jsrecon/links/$domain/useful
 
 
   echo "${green}Scan for $domain finished successfully${reset}"

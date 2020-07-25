@@ -101,6 +101,11 @@ checkjsfile(){
 
   rm $rootPath/$domain/wayback-data/jsfile/errors.log
 
+  echo "Generating tok......................."
+cat * > $rootPath/$domain/useless/merged.txt
+cat $rootPath/$domain/useless/merged.txt | tok |awk '!seen[$0]++' >  $rootPath/$domain/useless/${domain}_word.txt
+ comm -13 ~/Wordlist/other/rfc_words.txt $rootPath/$domain/useless/${domain}_word.txt > $rootPath/$domain/useful/${domain}_tok.txt
+ rm $rootPath/$domain/useless/merged.txt
 
 
 
@@ -273,10 +278,11 @@ touch $rootPath/$domain/allsubdomains_final.txt
   hostalive
   run_subscraper
   run_cloud_enum
+  cat $rootPath/$domain/responsive_urls.txt |  favfreak.py -o $rootPath/$domain/useful/favfreak.txt --shodan
   # using_blc
 
    nsrecords_subjack $domain
-  # cat $rootPath/$domain/$foldername/responsive_urls.txt | smuggler.py -l $rootPath/$domain/useful/smuggler.txt
+  # cat $rootPath/$domain/responsive_urls.txt | smuggler.py -l $rootPath/$domain/useful/smuggler.txt
 
 
 waybackrecon
@@ -286,7 +292,7 @@ find_firebase
 run_ffuf
 ffuf_403
 
-gitround-runer.py -i $rootPath/$domain/allsubdomains_final.txt -n 10 -o $rootPath/$domain/useful/gitrounds.txt
+gitround-runer.py -i $rootPath/$domain/allsubdomains_final.txt -n 5 -o $rootPath/$domain/useful/gitrounds.txt
 
 
 for filename in $rootPath/$domain/wayback-data/ouput/*; do

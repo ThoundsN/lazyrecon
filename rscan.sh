@@ -82,9 +82,19 @@ gf sqli $output_directory/gfonly/final_full_live_urls.txt| awk -F ':' '{$1=$2="\
    printf "ssrf \n\n " >> $output_directory/output/gf_results.txt 
 gf ssrf $output_directory/gfonly/final_full_live_urls.txt| awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
  printf "\n\n\n" >> $output_directory/output/gf_results.txt 
+
    printf "ssti \n\n " >> $output_directory/output/gf_results.txt 
 gf ssti $output_directory/gfonly/final_full_live_urls.txt| awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
  printf "\n\n\n" >> $output_directory/output/gf_results.txt 
+
+    printf "interestingparams \n\n " >> $output_directory/output/gf_results.txt 
+gf interestingparams $output_directory/gfonly/final_full_live_urls.txt| awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
+ printf "\n\n\n" >> $output_directory/output/gf_results.txt
+
+    printf "debug_logic \n\n " >> $output_directory/output/gf_results.txt 
+gf debug_logic $output_directory/gfonly/final_full_live_urls.txt| awk -F ':' '{$1=$2="\b"; print $0}' >> $output_directory/output/gf_results.txt 
+ printf "\n\n\n" >> $output_directory/output/gf_results.txt
+ 
 
 
  cd -
@@ -326,7 +336,8 @@ psql -d ssrf  -c "SELECT * FROM ssrf_records where  created_on > current_date - 
 
  #request smuggling  
  echo "Scanning request smuggling  using smuggler_gwen001.py  $output_directory/output/smuggler.txt  "
-timeout 10h smuggler_gwen001.py -u $output_directory/dedupe_similar_urls.txt -v 4 -t 150  -O $output_directory/output/smuggler.txt
+# timeout 10h smuggler_gwen001.py -u $output_directory/dedupe_similar_urls.txt -v 4 -t 150  -O $output_directory/output/smuggler.txt
+timeout 10h smuggler_modified.py -u $output_directory/dedupe_similar_urls.txt -v 4 -t 150  -O $output_directory/output/smuggler.txt
 echo "smuggler_gwen001.py finished at $(date +'%Y-%m-%d-%H-%M')"
 
  grep -i vulnerable $output_directory/output/smuggler.txt > $output_directory/output/smuggler_vulnerable.txt
