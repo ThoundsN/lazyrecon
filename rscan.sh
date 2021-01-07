@@ -250,21 +250,21 @@ cat $output_directory/build_urls/xss.txt | timeout 3h  kxss >  $output_directory
 echo "kxss finished at $(date +'%Y-%m-%d-%H-%M') for $output_directory/build_urls/xss.txt"
 
 
-# echo "Using xss.py ...........       $output_directory/output/xsspy.txt      "
-#  timeout 6h xss.py -v 4 -u $output_directory/200.txt -O $output_directory/output/xsspy.txt
-# echo "xss.py finished at $(date +'%Y-%m-%d-%H-%M') for $output_directory/output/xsspy.txt"
+echo "Using xss.py ...........       $output_directory/output/xsspy.txt      "
+ timeout 6h xss.py -v 4 -u $output_directory/200.txt -O $output_directory/output/xsspy.txt
+echo "xss.py finished at $(date +'%Y-%m-%d-%H-%M') for $output_directory/output/xsspy.txt"
 
-# echo "Using xss.py ...........       $output_directory/output/xsspy2.txt      "
-#  timeout 6h xss.py -v 4 -u $output_directory/build_urls/xss.txt -O $output_directory/output/xsspy2.txt
-# echo "xss.py finished at $(date +'%Y-%m-%d-%H-%M') for $output_directory/output/xsspy2.txt"
+echo "Using xss.py ...........       $output_directory/output/xsspy2.txt      "
+ timeout 6h xss.py -v 4 -u $output_directory/build_urls/xss.txt -O $output_directory/output/xsspy2.txt
+echo "xss.py finished at $(date +'%Y-%m-%d-%H-%M') for $output_directory/output/xsspy2.txt"
 
-echo "Using puppeteer-xss.py  ...........       $output_directory/output/xsspy.txt      "
- timeout 6h puppeteer-xss.py  -t 5 -v 4 -u $output_directory/200.txt -O $output_directory/output/xsspy.txt
-echo "puppeteer-xss.py  finished at $(date +'%Y-%m-%d-%H-%M') for $output_directory/200.txt"
+# echo "Using puppeteer-xss.py  ...........       $output_directory/output/xsspy.txt      "
+#  timeout 6h puppeteer-xss.py  -t 5 -v 4 -u $output_directory/200.txt -O $output_directory/output/xsspy.txt
+# echo "puppeteer-xss.py  finished at $(date +'%Y-%m-%d-%H-%M') for $output_directory/200.txt"
 
-echo "Using puppeteer-xss.py  ...........       $output_directory/output/xsspy2.txt      "
- timeout 8h puppeteer-xss.py -t 5 -v 4 -u $output_directory/build_urls/xss.txt -O $output_directory/output/xsspy2.txt
-echo "puppeteer-xss.py  finished at $(date +'%Y-%m-%d-%H-%M') for $output_directory/build_urls/xss.txt"
+# echo "Using puppeteer-xss.py  ...........       $output_directory/output/xsspy2.txt      "
+#  timeout 8h puppeteer-xss.py -t 5 -v 4 -u $output_directory/build_urls/xss.txt -O $output_directory/output/xsspy2.txt
+# echo "puppeteer-xss.py  finished at $(date +'%Y-%m-%d-%H-%M') for $output_directory/build_urls/xss.txt"
 
  grep -i vulnerable $output_directory/output/xsspy.txt > $output_directory/output/xss_vulnerable.txt
  grep -i vulnerable $output_directory/output/xsspy2.txt >> $output_directory/output/xss_vulnerable.txt
@@ -274,7 +274,7 @@ echo "puppeteer-xss.py  finished at $(date +'%Y-%m-%d-%H-%M') for $output_direct
 
 #lfi
  echo "Scanning for lfi ...   $output_directory/output/lfi1.txt "
-  timeout 8h lfi.py -v 4 -u $output_directory/200.txt   -O $output_directory/output/lfi1.txt
+  timeout 8h lfi.py -v 4 -u $output_directory/200.txt   -O $output_directory/output/lfi1.txt > /dev/null
  grep -i vulnerable $output_directory/output/lfi1.txt > $output_directory/output/lfi_vulnerable.txt
 
 echo "lfi.py finished at $(date +'%Y-%m-%d-%H-%M')"
@@ -308,14 +308,14 @@ echo "Scanning crlf  $output_directory/output/crlf.txt  "
 cat $output_directory/200.txt |  timeout 3h qsfuzz -c ~/Wordlist/qsfuzz/crlf.yaml -w 100 | tee $output_directory/output/crlf.txt
 
 echo "Scanning crlf  using crlf.py  $output_directory/output/crlfpy.txt  "
-timeout 4h crlf.py -u $output_directory/200.txt -v 4 -t 80 -O $output_directory/output/crlfpy.txt
+timeout 4h crlf.py -u $output_directory/200.txt -v 4 -t 80 -O $output_directory/output/crlfpy.txt > /dev/null
  grep -i vulnerable $output_directory/output/crlfpy.txt > $output_directory/output/crlf_vulnerable.txt
 
 echo "crlf.py finished at $(date +'%Y-%m-%d-%H-%M')"
 
  #cors 
  echo "Scanning cors  using cors.py  $output_directory/output/corspy.txt  "
-timeout 4h cors.py -u $output_directory/200.txt -v 4 -t 80  -O $output_directory/output/corspy.txt
+timeout 4h cors.py -u $output_directory/200.txt -v 4 -t 80  -O $output_directory/output/corspy.txt > /dev/null
  grep -i vulnerable $output_directory/output/corspy.txt > $output_directory/output/cors_vulnerable.txt
 
 echo "cors.py finished at $(date +'%Y-%m-%d-%H-%M')"
@@ -337,7 +337,7 @@ psql -d ssrf  -c "SELECT * FROM ssrf_records where  created_on > current_date - 
  #request smuggling  
  echo "Scanning request smuggling  using smuggler_gwen001.py  $output_directory/output/smuggler.txt  "
 # timeout 10h smuggler_gwen001.py -u $output_directory/dedupe_similar_urls.txt -v 4 -t 150  -O $output_directory/output/smuggler.txt
-timeout 10h smuggler_modified.py -u $output_directory/dedupe_similar_urls.txt -v 4 -t 150  -O $output_directory/output/smuggler.txt
+timeout 10h smuggler_modified.py -u $output_directory/dedupe_similar_urls.txt -v 4 -t 150  -O $output_directory/output/smuggler.txt > /dev/null
 echo "smuggler_gwen001.py finished at $(date +'%Y-%m-%d-%H-%M')"
 
  grep -i vulnerable $output_directory/output/smuggler.txt > $output_directory/output/smuggler_vulnerable.txt

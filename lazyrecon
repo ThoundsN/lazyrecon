@@ -131,7 +131,7 @@ if [ -s "$rootPath/$domain/$foldername/useful/firebase_js_location.txt" ]
 rm $rootPath/$domain/$foldername/useful/firebase_js_location.txt
 cd -- 
 
-    echo "  http://jsrecon.ragnarokv.site/links/${domain}/useful/firebase_js_link.html " | mutt -s "Found potential firebaseio url from  ${domain}"  inthebybyby@gmail.com   
+    # echo "  http://jsrecon.ragnarokv.site/links/${domain}/useful/firebase_js_link.html " | mutt -s "Found potential firebaseio url from  ${domain}"  inthebybyby@gmail.com   
 
 }
 
@@ -140,11 +140,11 @@ checkjsfile(){
   echo "Downloading js files using aria2c.............."
   aria2c -i $rootPath/$domain/$foldername/wayback-data/jsurls.txt > /dev/null
   # wget2 -i $rootPath/$domain/$foldername/wayback-data/jsurls.txt -P $rootPath/$domain/$foldername/wayback-data/jsfile
-  fdupes . -r -f -1 -S -d -N 
+  fdupes . -r -f -1 -S -d -N  > /dev/null
   ls | while read file; do mv $file $(echo $file | sed -e 's/[^A-Za-z0-9._-]/_/g'); done
   # touch $rootPath/$domain/$foldername/useful/${domain}_secretfinder.html
   # SecretFinder.py -i './*' -o $rootPath/$domain/$foldername/useful/${domain}_secretfinder.html
-  gf urls > $rootPath/$domain/useful/endpoints_injs.txt
+  gf urls > $rootPath/$domain/$foldername/useful/endpoints_injs.txt
   DumpsterDiver.py -p . -o  $rootPath/$domain/$foldername/useful/entropy.json > /dev/null
   python3 ~/recon_tools/Scripts/python/entropy_json.py $rootPath/$domain/$foldername/useful/entropy.json $rootPath/$domain/$foldername/useful/new.json
 
@@ -174,11 +174,9 @@ cat $rootPath/$domain/$foldername/useless/merged.txt | tok |awk '!seen[$0]++' > 
   gf aws-keys  >> $rootPath/$domain/$foldername/useful/pattern.txt
   
   
-echo "Using  linkfinder......................."
-
-  python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'   -o $rootPath/$domain/$foldername/useful/${domain}_js.html
-
-  python3 /root/recon_tools/Scripts/python/extract_link.py $rootPath/$domain/$foldername/useful/${domain}_js.html $rootPath/$domain/$foldername/useful/${domain}_other.html $rootPath/$domain/$foldername/useful/${domain}_api.html
+# echo "Using  linkfinder......................."
+#   python3  ~/recon_tools/LinkFinder/linkfinder.py -i './*'   -o $rootPath/$domain/$foldername/useful/${domain}_js.html
+#   python3 /root/recon_tools/Scripts/python/extract_link.py $rootPath/$domain/$foldername/useful/${domain}_js.html $rootPath/$domain/$foldername/useful/${domain}_other.html $rootPath/$domain/$foldername/useful/${domain}_api.html
 
   cd -
 
@@ -198,7 +196,7 @@ rm $rootPath/$domain/$foldername/wayback-data/temp.txt $rootPath/$domain/$folder
 
 cat $rootPath/$domain/$foldername/wayback-data/gau.txt  | sort -u | grep -P "\w+\.js(\?|$)" | sort -u > $rootPath/$domain/$foldername/wayback-data/jsurls_temp.txt
 
-cat $rootPath/$domain/$foldername/wayback-data/jsurls_temp.txt  | urldedeupe >  $rootPath/$domain/$foldername/wayback-data/jsurls.txt
+cat $rootPath/$domain/$foldername/wayback-data/jsurls_temp.txt  | urldedupe >  $rootPath/$domain/$foldername/wayback-data/jsurls.txt
 
 [ -s $rootPath/$domain/$foldername/wayback-data/jsurls.txt ] && echo "JS Urls saved to $rootPath/$domain/$foldername/wayback-data/jsurls.txt"
 rm $rootPath/$domain/$foldername/wayback-data/jsurls_temp.txt 
@@ -253,7 +251,7 @@ run_subscraper(){
 
 run_cloud_enum(){
 brand=$(echo $domain |cut -d '.' -f 1 )
-cloud_enum.py -k $domain -k $brand  -t 20 -l $rootPath/$domain/$foldername/useful/cloud_enum.txt
+cloud_enum.py -k $domain -k $brand  -t 20 -l $rootPath/$domain/$foldername/useful/cloud_enum.txt > /dev/null
 
 }
 
@@ -334,7 +332,7 @@ rm_dup_file $rootPath/$domain/$foldername/raw_subdomains.txt
 run_aquatone(){
   echo "Starting aquatone scan..."
   cd $rootPath/$domain/$foldername/aquatone
-  cat $rootPath/$domain/$foldername/responsive_urls.txt | aquatone -chrome-path ~/other/chrome-linux/chrome
+  cat $rootPath/$domain/$foldername/responsive_urls.txt | aquatone -chrome-path /root/other/chrome-linux/chrome
   cd -
 	# cp -r  $rootPath/$domain/$foldername/aquatone /var/www/jsrecon/links/$domain/
 
@@ -462,12 +460,11 @@ nsrecords_subjack(){
                 done
                 sleep 1
 
-                subjack -c ~/go/src/github.com/haccer/subjack/fingerprints.json  -w $rootPath/$domain/$foldername/allsubdomains_final.txt  -t 10 -timeout 15 -o $rootPath/$domain/$foldername/useful/subjack.txt -ssl -a -m
 
-                chmod +r $rootPath/$domain/$foldername/useful/subjack.txt
-
-
-                echo "Fininshed subjack scanning  http://jsrecon.ragnarokv.site/links/${domain}/useful/subjack.txt " | mutt -s "Subjack ${domain} "  inthebybyby@gmail.com
+                takeover.py -l $rootPath/$domain/$foldername/allsubdomains_final.txt -o $rootPath/$domain/$foldername/useful/takeover.txt
+                # subjack -c ~/go/src/github.com/haccer/subjack/fingerprints.json  -w $rootPath/$domain/$foldername/allsubdomains_final.txt  -t 10 -timeout 15 -o $rootPath/$domain/$foldername/useful/subjack.txt -ssl -a -m
+                # chmod +r $rootPath/$domain/$foldername/useful/subjack.txt
+                # echo "Fininshed subjack scanning  http://jsrecon.ragnarokv.site/links/${domain}/useful/subjack.txt " | mutt -s "Subjack ${domain} "  inthebybyby@gmail.com
         }
 
 
